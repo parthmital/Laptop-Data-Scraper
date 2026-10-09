@@ -1,0 +1,29 @@
+# Local tooling and agent workspace
+.venv/
+.agent-local/
+.cache/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Kaggle run outputs downloaded locally
+outputs/
+outputs.zip
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+kaggle.json
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
