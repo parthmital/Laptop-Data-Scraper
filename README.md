@@ -34,7 +34,10 @@ snapshots in `fixtures/`; the LLM, live scraping and GPU code paths are untested
 2. **Import the notebook.** _Create > New Notebook > File > Import Notebook_ and select `laptop-price-pipeline.ipynb`.
 3. **Settings.** Accelerator _GPU T4 x2_; _Internet on_ (needed for `pip install`, the model download and live
    scraping; Kaggle requires a phone-verified account for Internet). Attach the fixtures dataset with _Add Input_.
-4. **Run all.** Expected flow: pinned install, hardware check (asserts 2 GPUs), unit tests (`all deterministic unit
+   Set _Environment_ to _Always use latest environment_. An older pinned image (for example Python 3.10 with torch
+   2.0) still works: the install cell then upgrades PyTorch to 2.6.0 (CUDA 12.4 wheels, about 2.5 GB), because
+   Transformers 5.x disables PyTorch below 2.5.
+4. **Run all.** Expected flow: pinned install (and a PyTorch upgrade on old images), hardware check (asserts 2 GPUs), unit tests (`all deterministic unit
 tests passed`), fixture ingestion (22 snapshots), live scraping (several minutes at about one request every 6 to 8
    seconds per site), model download (about 10.1 GB), LLM normalisation, matching, prices, evaluation, report, and a final
    `outputs.zip` with a download link.
@@ -42,12 +45,14 @@ tests passed`), fixture ingestion (22 snapshots), live scraping (several minutes
 
 Common first-run errors:
 
-| Error                                                       | Fix                                                                                                                                               |
-| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `AssertionError: Two GPUs are required`                     | Set the accelerator to _GPU T4 x2_.                                                                                                               |
-| `pip` or `snapshot_download` network errors                 | Turn _Internet_ on in the notebook settings.                                                                                                      |
-| `Fixtures dataset not found ... evaluation will be skipped` | Attach the fixtures dataset; the pipeline still runs without it.                                                                                  |
-| `unexpected generation prompt` assertion                    | The installed Transformers did not pass `reasoning_effort` to the chat template; check the version printed by the install cell (5.15.0 expected). |
+| Error                                                       | Fix                                                                                                                                                                                                   |
+| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `AssertionError: Two GPUs are required`                     | Set the accelerator to _GPU T4 x2_.                                                                                                                                                                   |
+| `Transformers cannot use torch ...` assertion               | The install cell did not upgrade PyTorch (Internet off, or torch was imported before it ran). Turn _Internet_ on, restart the session and run all again, or switch _Environment_ to the latest image. |
+| `AutoModelForCausalLM requires the PyTorch library`         | Same cause as above (Transformers 5.x with torch below 2.5, as in a run on 2026-10-09); the current notebook stops earlier with the assertion above.                                                  |
+| `pip` or `snapshot_download` network errors                 | Turn _Internet_ on in the notebook settings.                                                                                                                                                          |
+| `Fixtures dataset not found ... evaluation will be skipped` | Attach the fixtures dataset; the pipeline still runs without it.                                                                                                                                      |
+| `unexpected generation prompt` assertion                    | The installed Transformers did not pass `reasoning_effort` to the chat template; check the version printed by the install cell (5.15.0 expected).                                                     |
 
 ## How it works
 
@@ -215,7 +220,7 @@ Results: Not measured in the current repository (the notebook has not been run o
 
 | Section                  | What it does                                                                                            | Main outputs                                                                                                    |
 | ------------------------ | ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| 1 Setup                  | installs Transformers 5.15.0 if needed, imports, checks GPUs, CPU, RAM, disk                            | printed versions and hardware                                                                                   |
+| 1 Setup                  | installs Transformers 5.15.0 (and torch 2.6.0 if older than 2.5) if needed, imports, checks GPUs, RAM   | printed versions and hardware                                                                                   |
 | 2 Configuration          | constants, output folders, seeds, logger, timers                                                        | `logs/pipeline.log`                                                                                             |
 | 3 Schema                 | canonical fields, validator, JSON Schema export                                                         | `schema/laptop_schema.json`                                                                                     |
 | 4 Database               | tables, view, site notes, run record                                                                    | `db/laptops.sqlite`                                                                                             |
@@ -260,13 +265,14 @@ positives and 0 false negatives. This tests the deterministic rules, not the LLM
 
 ## Troubleshooting
 
-| Problem                                               | Likely cause                                      | Diagnostic                                                            | Resolution                                                                 |
-| ----------------------------------------------------- | ------------------------------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Live fetch outcomes are all `error` or `host_blocked` | the site blocks Kaggle's cloud IPs or rate-limits | `SELECT site, outcome, error, COUNT(*) FROM fetch_log GROUP BY 1,2,3` | run from fixtures (`ENABLE_LIVE_SCRAPE=False`); do not raise request rates |
-| Extraction failures after a site update               | page layout changed                               | `SELECT stage, item, error FROM failures WHERE stage='extract'`       | update the adapter and bump `ADAPTER_VERSION`                              |
-| Many `truncated` thinking results                     | 512-token budget too small                        | `SELECT reasoning_mode, COUNT(*) FROM llm_normalisations GROUP BY 1`  | raise `REASONING_BUDGET_TOKENS` and bump `PROMPT_VERSION`                  |
-| `FP16 produced non-finite logits` warning             | FP16 overflow                                     | printed by section 13                                                 | nothing to do: the notebook falls back to FP32 on both GPUs (slower)       |
-| `lowest_prices` mostly `NULL`                         | no fresh in-stock new offers with trusted matches | `SELECT match_status, COUNT(*) FROM seller_listings GROUP BY 1`       | refresh scraping; review `match_candidates`                                |
+| Problem                                               | Likely cause                                      | Diagnostic                                                                     | Resolution                                                                 |
+| ----------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| `discovered 0 laptop URLs` or `discovery failed`      | sitemap requests blocked or failing from Kaggle   | printed `Sitemap ...` warning; `SELECT * FROM failures WHERE stage='discover'` | fixtures and known URLs still run; retry later, do not raise request rates |
+| Live fetch outcomes are all `error` or `host_blocked` | the site blocks Kaggle's cloud IPs or rate-limits | `SELECT site, outcome, error, COUNT(*) FROM fetch_log GROUP BY 1,2,3`          | run from fixtures (`ENABLE_LIVE_SCRAPE=False`); do not raise request rates |
+| Extraction failures after a site update               | page layout changed                               | `SELECT stage, item, error FROM failures WHERE stage='extract'`                | update the adapter and bump `ADAPTER_VERSION`                              |
+| Many `truncated` thinking results                     | 512-token budget too small                        | `SELECT reasoning_mode, COUNT(*) FROM llm_normalisations GROUP BY 1`           | raise `REASONING_BUDGET_TOKENS` and bump `PROMPT_VERSION`                  |
+| `FP16 produced non-finite logits` warning             | FP16 overflow                                     | printed by section 13                                                          | nothing to do: the notebook falls back to FP32 on both GPUs (slower)       |
+| `lowest_prices` mostly `NULL`                         | no fresh in-stock new offers with trusted matches | `SELECT match_status, COUNT(*) FROM seller_listings GROUP BY 1`                | refresh scraping; review `match_candidates`                                |
 
 ## Known limitations
 
