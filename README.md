@@ -29,7 +29,9 @@ snapshots in `fixtures/`; the LLM, live scraping and GPU code paths are untested
 1. **Create the fixtures dataset.** On Kaggle, choose _Datasets > New Dataset_, upload the contents of the `fixtures/`
    folder (`ground_truth.json` and the `snapshots/` folder), and keep it **private**. The notebook finds
    `ground_truth.json` and `index.jsonl` anywhere under `/kaggle/input`, so a nested or flattened upload both work.
-2. **Import the notebook.** _Create > New Notebook > File > Import Notebook_ and select `laptop_price_pipeline.ipynb`.
+   Kaggle decompresses uploaded `.gz` files; the notebook reads each snapshot as `<hash>.html.gz` or as the
+   decompressed `<hash>.html`, and the SHA-256 check in `index.jsonl` still applies.
+2. **Import the notebook.** _Create > New Notebook > File > Import Notebook_ and select `laptop-price-pipeline.ipynb`.
 3. **Settings.** Accelerator _GPU T4 x2_; _Internet on_ (needed for `pip install`, the model download and live
    scraping; Kaggle requires a phone-verified account for Internet). Attach the fixtures dataset with _Add Input_.
 4. **Run all.** Expected flow: pinned install, hardware check (asserts 2 GPUs), unit tests (`all deterministic unit
@@ -97,7 +99,7 @@ Key design points:
 
 ```text
 .
-|-- laptop_price_pipeline.ipynb   The deliverable: the whole pipeline in one Kaggle notebook (58 cells)
+|-- laptop-price-pipeline.ipynb   The deliverable: the whole pipeline in one Kaggle notebook (58 cells)
 |-- fixtures/                     Upload as a private Kaggle dataset
 |   |-- ground_truth.json         Hand-verified labels for 22 listings and 7 same-product pairs
 |   `-- snapshots/
@@ -211,31 +213,31 @@ Results: Not measured in the current repository (the notebook has not been run o
 
 ## Notebook walkthrough
 
-| Section                  | What it does                                                                                         | Main outputs                                                                                                    |
-| ------------------------ | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| 1 Setup                  | installs Transformers 5.15.0 if needed, imports, checks GPUs, CPU, RAM, disk                         | printed versions and hardware                                                                                   |
-| 2 Configuration          | constants, output folders, seeds, logger, timers                                                     | `logs/pipeline.log`                                                                                             |
-| 3 Schema                 | canonical fields, validator, JSON Schema export                                                      | `schema/laptop_schema.json`                                                                                     |
-| 4 Database               | tables, view, site notes, run record                                                                 | `db/laptops.sqlite`                                                                                             |
-| 5 Fetching               | `RobotsPolicy` and `PoliteFetcher`                                                                   |                                                                                                                 |
-| 6-7 Parsing and adapters | price, availability, condition helpers; Reliance Digital and Vijay Sales adapters; LLM input builder |                                                                                                                 |
-| 8 Checks                 | normalisers, grounding, conflict detection, compatibility; offline unit tests                        | `all deterministic unit tests passed`                                                                           |
-| 9 Fixtures               | finds the dataset, verifies checksums, stores snapshots as pages                                     | 22 fixture pages                                                                                                |
-| 10 Live scraping         | sitemap discovery and incremental fetching                                                           | `fetch_log`, outcome table per site                                                                             |
-| 11 Extraction            | payloads, listings, price history                                                                    | listing counts per site                                                                                         |
-| 12 Model interface       | downloads the model, verifies template, thinking tags and EOS ids                                    | `metrics/model_interface.json`                                                                                  |
-| 13 Model load            | FP16 replica per GPU with logits check, FP32 fallback                                                | memory per GPU                                                                                                  |
-| 14 Decoder               | constrained JSON decoder and grammar self-checks                                                     | `decoder grammar checks passed`                                                                                 |
-| 15 Prompt                | system prompt, field list, worker with retries, post-processing                                      |                                                                                                                 |
-| 16 Normalisation         | both GPUs in parallel, results written as they arrive                                                | status and latency table                                                                                        |
-| 17 Matching              | products, consolidated specs, review candidates                                                      | match status table                                                                                              |
-| 18 Prices                | lowest comparable price per product                                                                  | `reports/lowest_prices.csv`                                                                                     |
-| 19 Evaluation            | extraction, conflicts, matching, prices vs ground truth                                              | `metrics/evaluation.json`, `metrics/*.csv`, `plots/extraction_accuracy.png`, `plots/matching_price_latency.png` |
-| 20 Data quality          | coverage, conflicts, fetch outcomes, failures, fill rates                                            | `reports/data_quality.md`, `reports/review_queue.csv`, `plots/field_fill_rate.png`                              |
-| 21 Queries               | offers per product, price history, spec provenance                                                   |                                                                                                                 |
-| 22 Summary               | key results of the run                                                                               | `metrics/run_summary.json`                                                                                      |
-| 23 Limitations           | limitations and next steps                                                                           |                                                                                                                 |
-| 24 Package               | zips `/kaggle/working` except caches                                                                 | `outputs.zip`                                                                                                   |
+| Section                  | What it does                                                                                            | Main outputs                                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| 1 Setup                  | installs Transformers 5.15.0 if needed, imports, checks GPUs, CPU, RAM, disk                            | printed versions and hardware                                                                                   |
+| 2 Configuration          | constants, output folders, seeds, logger, timers                                                        | `logs/pipeline.log`                                                                                             |
+| 3 Schema                 | canonical fields, validator, JSON Schema export                                                         | `schema/laptop_schema.json`                                                                                     |
+| 4 Database               | tables, view, site notes, run record                                                                    | `db/laptops.sqlite`                                                                                             |
+| 5 Fetching               | `RobotsPolicy` and `PoliteFetcher`                                                                      |                                                                                                                 |
+| 6-7 Parsing and adapters | price, availability, condition helpers; Reliance Digital and Vijay Sales adapters; LLM input builder    |                                                                                                                 |
+| 8 Checks                 | normalisers, grounding, conflict detection, compatibility; offline unit tests                           | `all deterministic unit tests passed`                                                                           |
+| 9 Fixtures               | finds the dataset, reads `.html.gz` or decompressed snapshots, verifies checksums, stores them as pages | 22 fixture pages                                                                                                |
+| 10 Live scraping         | sitemap discovery and incremental fetching                                                              | `fetch_log`, outcome table per site                                                                             |
+| 11 Extraction            | payloads, listings, price history                                                                       | listing counts per site                                                                                         |
+| 12 Model interface       | downloads the model, verifies template, thinking tags and EOS ids                                       | `metrics/model_interface.json`                                                                                  |
+| 13 Model load            | FP16 replica per GPU with logits check, FP32 fallback                                                   | memory per GPU                                                                                                  |
+| 14 Decoder               | constrained JSON decoder and grammar self-checks                                                        | `decoder grammar checks passed`                                                                                 |
+| 15 Prompt                | system prompt, field list, worker with retries, post-processing                                         |                                                                                                                 |
+| 16 Normalisation         | both GPUs in parallel, results written as they arrive                                                   | status and latency table                                                                                        |
+| 17 Matching              | products, consolidated specs, review candidates                                                         | match status table                                                                                              |
+| 18 Prices                | lowest comparable price per product                                                                     | `reports/lowest_prices.csv`                                                                                     |
+| 19 Evaluation            | extraction, conflicts, matching, prices vs ground truth                                                 | `metrics/evaluation.json`, `metrics/*.csv`, `plots/extraction_accuracy.png`, `plots/matching_price_latency.png` |
+| 20 Data quality          | coverage, conflicts, fetch outcomes, failures, fill rates                                               | `reports/data_quality.md`, `reports/review_queue.csv`, `plots/field_fill_rate.png`                              |
+| 21 Queries               | offers per product, price history, spec provenance                                                      |                                                                                                                 |
+| 22 Summary               | key results of the run                                                                                  | `metrics/run_summary.json`                                                                                      |
+| 23 Limitations           | limitations and next steps                                                                              |                                                                                                                 |
+| 24 Package               | zips `/kaggle/working` except caches                                                                    | `outputs.zip`                                                                                                   |
 
 ## Local checks
 
@@ -244,7 +246,7 @@ The notebook is never executed locally. These checks were run while building it 
 
 ```bash
 # Rebuild the notebook from its percent-format source
-.venv/Scripts/python .agent-local/scripts/build_notebook.py .agent-local/scripts/notebook_source.py laptop_price_pipeline.ipynb
+.venv/Scripts/python .agent-local/scripts/build_notebook.py .agent-local/scripts/notebook_source.py laptop-price-pipeline.ipynb
 # Static checks
 .venv/Scripts/python -m pyflakes .agent-local/scripts/notebook_source.py
 # Deterministic stages against the 22 fixtures (stubs out torch, pandas and plotting; no network or GPU)
