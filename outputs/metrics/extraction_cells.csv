@@ -1,0 +1,925 @@
+file,site,field,stage,pred,gold,correct,gold_null_only,gold_has_null,pred_null
+75154e1bd4a0fbe3.html.gz,reliancedigital,brand,raw_llm,Asus,ASUS,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,brand,final,Asus,ASUS,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,series,raw_llm,ROG Strix G16,['ROG Strix G16'],True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,series,final,ROG Strix G16,['ROG Strix G16'],True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,model_number,raw_llm,G615JHR-S5005WS,G615JHR-S5005WS,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,model_number,final,G615JHR-S5005WS,G615JHR-S5005WS,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,cpu_brand,final,Intel,Intel,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,cpu_family,raw_llm,Core i7,Core i7,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,cpu_family,final,Core i7,Core i7,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,cpu_model,raw_llm,14650HX,"['Core i7-14650HX', '14650HX']",True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,cpu_model,final,14650HX,"['Core i7-14650HX', '14650HX']",True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,ram_gb,raw_llm,None,16,False,False,False,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,ram_gb,final,None,16,False,False,False,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,ram_type,raw_llm,DDR5,DDR5,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,ram_type,final,DDR5,DDR5,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,storage_gb,raw_llm,None,1024,False,False,False,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,storage_gb,final,None,1024,False,False,False,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,storage_type,raw_llm,SSD,SSD,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,storage_type,final,SSD,SSD,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,gpu_type,final,dedicated,dedicated,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,gpu_model,raw_llm,NVIDIA GeForce RTX 5050 Laptop GPU,GeForce RTX 5050,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,gpu_model,final,NVIDIA GeForce RTX 5050 Laptop GPU,GeForce RTX 5050,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,gpu_vram_gb,raw_llm,None,8,False,False,False,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,gpu_vram_gb,final,None,8,False,False,False,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,display_size_in,raw_llm,None,16.0,False,False,False,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,display_size_in,final,None,16.0,False,False,False,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,display_resolution,raw_llm,2560x1600,2560x1600,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,display_resolution,final,2560x1600,2560x1600,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,display_refresh_hz,raw_llm,None,None,True,True,True,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,display_refresh_hz,final,None,None,True,True,True,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,display_panel,raw_llm,None,None,True,True,True,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,display_panel,final,None,None,True,True,True,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,touchscreen,raw_llm,None,None,True,True,True,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,touchscreen,final,None,None,True,True,True,True
+75154e1bd4a0fbe3.html.gz,reliancedigital,os,raw_llm,Windows 11 Home,Windows 11 Home,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,os,final,Windows 11 Home,Windows 11 Home,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,ms_office,raw_llm,True,True,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,ms_office,final,True,True,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,colour,raw_llm,Eclipse Gray,Eclipse Gray,True,False,False,False
+75154e1bd4a0fbe3.html.gz,reliancedigital,colour,final,Eclipse Gray,Eclipse Gray,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,brand,raw_llm,Asus,ASUS,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,brand,final,Asus,ASUS,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,series,raw_llm,ROG Strix G16,['ROG Strix G16'],True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,series,final,ROG Strix G16,['ROG Strix G16'],True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,model_number,raw_llm,G614PH-RV073WS,G614PH-RV073WS,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,model_number,final,G614PH-RV073WS,G614PH-RV073WS,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,cpu_brand,raw_llm,AMD,AMD,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,cpu_brand,final,AMD,AMD,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,cpu_family,raw_llm,AMD Ryzen 9,Ryzen 9,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,cpu_family,final,AMD Ryzen 9,Ryzen 9,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,cpu_model,raw_llm,Ryzen 9 8940HX,"['Ryzen 9 8940HX', '8940HX']",True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,cpu_model,final,Ryzen 9 8940HX,"['Ryzen 9 8940HX', '8940HX']",True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,ram_gb,raw_llm,None,16,False,False,False,True
+f1d5829f6b9d1864.html.gz,reliancedigital,ram_gb,final,None,16,False,False,False,True
+f1d5829f6b9d1864.html.gz,reliancedigital,ram_type,raw_llm,DDR5,DDR5,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,ram_type,final,DDR5,DDR5,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,storage_gb,raw_llm,None,1024,False,False,False,True
+f1d5829f6b9d1864.html.gz,reliancedigital,storage_gb,final,None,1024,False,False,False,True
+f1d5829f6b9d1864.html.gz,reliancedigital,storage_type,raw_llm,SSD,SSD,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,storage_type,final,SSD,SSD,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,gpu_type,final,dedicated,dedicated,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,gpu_model,raw_llm,GeForce RTX 50 Series,None,False,True,True,False
+f1d5829f6b9d1864.html.gz,reliancedigital,gpu_model,final,GeForce RTX 50 Series,None,False,True,True,False
+f1d5829f6b9d1864.html.gz,reliancedigital,gpu_vram_gb,raw_llm,None,8,False,False,False,True
+f1d5829f6b9d1864.html.gz,reliancedigital,gpu_vram_gb,final,None,8,False,False,False,True
+f1d5829f6b9d1864.html.gz,reliancedigital,display_size_in,raw_llm,None,16.0,False,False,False,True
+f1d5829f6b9d1864.html.gz,reliancedigital,display_size_in,final,None,16.0,False,False,False,True
+f1d5829f6b9d1864.html.gz,reliancedigital,display_resolution,raw_llm,1920x1200,1920x1200,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,display_resolution,final,1920x1200,1920x1200,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,display_refresh_hz,raw_llm,None,None,True,True,True,True
+f1d5829f6b9d1864.html.gz,reliancedigital,display_refresh_hz,final,None,None,True,True,True,True
+f1d5829f6b9d1864.html.gz,reliancedigital,display_panel,raw_llm,None,None,True,True,True,True
+f1d5829f6b9d1864.html.gz,reliancedigital,display_panel,final,None,None,True,True,True,True
+f1d5829f6b9d1864.html.gz,reliancedigital,touchscreen,raw_llm,None,None,True,True,True,True
+f1d5829f6b9d1864.html.gz,reliancedigital,touchscreen,final,None,None,True,True,True,True
+f1d5829f6b9d1864.html.gz,reliancedigital,os,raw_llm,Windows 11 Home,Windows 11 Home,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,os,final,Windows 11 Home,Windows 11 Home,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,ms_office,raw_llm,True,True,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,ms_office,final,True,True,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,colour,raw_llm,Eclipse Gray,Eclipse Gray,True,False,False,False
+f1d5829f6b9d1864.html.gz,reliancedigital,colour,final,Eclipse Gray,Eclipse Gray,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,brand,raw_llm,Asus,ASUS,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,brand,final,Asus,ASUS,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,series,raw_llm,ROG Strix G16,['ROG Strix G16'],True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,series,final,ROG Strix G16,['ROG Strix G16'],True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,model_number,raw_llm,G615LM-S5128WS,G615LM-S5128WS,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,model_number,final,G615LM-S5128WS,G615LM-S5128WS,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,cpu_brand,final,Intel,Intel,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,cpu_family,raw_llm,Core Ultra 9,Core Ultra 9,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,cpu_family,final,Core Ultra 9,Core Ultra 9,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,cpu_model,raw_llm,Intel Core Ultra 9 Processor 275HX,"['Core Ultra 9 275HX', '275HX']",True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,cpu_model,final,Intel Core Ultra 9 Processor 275HX,"['Core Ultra 9 275HX', '275HX']",True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,ram_gb,raw_llm,None,16,False,False,False,True
+855f888a149d6998.html.gz,reliancedigital,ram_gb,final,None,16,False,False,False,True
+855f888a149d6998.html.gz,reliancedigital,ram_type,raw_llm,DDR5,DDR5,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,ram_type,final,DDR5,DDR5,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,storage_gb,raw_llm,None,1024,False,False,False,True
+855f888a149d6998.html.gz,reliancedigital,storage_gb,final,None,1024,False,False,False,True
+855f888a149d6998.html.gz,reliancedigital,storage_type,raw_llm,SSD,SSD,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,storage_type,final,SSD,SSD,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,gpu_type,final,dedicated,dedicated,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,gpu_model,raw_llm,NVIDIA GeForce RTX 5060 Laptop GPU,GeForce RTX 5060,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,gpu_model,final,NVIDIA GeForce RTX 5060 Laptop GPU,GeForce RTX 5060,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,gpu_vram_gb,raw_llm,None,8,False,False,False,True
+855f888a149d6998.html.gz,reliancedigital,gpu_vram_gb,final,None,8,False,False,False,True
+855f888a149d6998.html.gz,reliancedigital,display_size_in,raw_llm,None,16.0,False,False,False,True
+855f888a149d6998.html.gz,reliancedigital,display_size_in,final,None,16.0,False,False,False,True
+855f888a149d6998.html.gz,reliancedigital,display_resolution,raw_llm,2560x1600,2560x1600,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,display_resolution,final,2560x1600,2560x1600,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,display_refresh_hz,raw_llm,None,None,True,True,True,True
+855f888a149d6998.html.gz,reliancedigital,display_refresh_hz,final,None,None,True,True,True,True
+855f888a149d6998.html.gz,reliancedigital,display_panel,raw_llm,None,None,True,True,True,True
+855f888a149d6998.html.gz,reliancedigital,display_panel,final,None,None,True,True,True,True
+855f888a149d6998.html.gz,reliancedigital,touchscreen,raw_llm,None,None,True,True,True,True
+855f888a149d6998.html.gz,reliancedigital,touchscreen,final,None,None,True,True,True,True
+855f888a149d6998.html.gz,reliancedigital,os,raw_llm,Windows 11 Home,Windows 11 Home,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,os,final,Windows 11 Home,Windows 11 Home,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,ms_office,raw_llm,True,True,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,ms_office,final,True,True,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,colour,raw_llm,Eclipse Gray,Eclipse Gray,True,False,False,False
+855f888a149d6998.html.gz,reliancedigital,colour,final,Eclipse Gray,Eclipse Gray,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,brand,raw_llm,Samsung,Samsung,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,brand,final,Samsung,Samsung,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,series,raw_llm,Galaxy Book5 Pro,['Galaxy Book5 Pro'],True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,series,final,Galaxy Book5 Pro,['Galaxy Book5 Pro'],True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,model_number,raw_llm,NP940XHA-LG1IN,NP940XHA-LG1IN,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,model_number,final,NP940XHA-LG1IN,NP940XHA-LG1IN,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,cpu_brand,final,Intel,Intel,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,cpu_family,raw_llm,Core Ultra 5,Core Ultra 5,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,cpu_family,final,Core Ultra 5,Core Ultra 5,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,cpu_model,raw_llm,None,None,True,True,True,True
+3c59151df5d9e6ea.html.gz,reliancedigital,cpu_model,final,None,None,True,True,True,True
+3c59151df5d9e6ea.html.gz,reliancedigital,ram_gb,raw_llm,None,16,False,False,False,True
+3c59151df5d9e6ea.html.gz,reliancedigital,ram_gb,final,None,16,False,False,False,True
+3c59151df5d9e6ea.html.gz,reliancedigital,ram_type,raw_llm,None,None,True,True,True,True
+3c59151df5d9e6ea.html.gz,reliancedigital,ram_type,final,None,None,True,True,True,True
+3c59151df5d9e6ea.html.gz,reliancedigital,storage_gb,raw_llm,None,512,False,False,False,True
+3c59151df5d9e6ea.html.gz,reliancedigital,storage_gb,final,None,512,False,False,False,True
+3c59151df5d9e6ea.html.gz,reliancedigital,storage_type,raw_llm,SSD,SSD,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,storage_type,final,SSD,SSD,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,gpu_type,raw_llm,integrated,integrated,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,gpu_type,final,integrated,integrated,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,gpu_model,raw_llm,Intel Arc Graphics,Intel Arc Graphics,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,gpu_model,final,Intel Arc Graphics,Intel Arc Graphics,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,gpu_vram_gb,raw_llm,None,None,True,True,True,True
+3c59151df5d9e6ea.html.gz,reliancedigital,gpu_vram_gb,final,None,None,True,True,True,True
+3c59151df5d9e6ea.html.gz,reliancedigital,display_size_in,raw_llm,None,14.0,False,False,False,True
+3c59151df5d9e6ea.html.gz,reliancedigital,display_size_in,final,None,14.0,False,False,False,True
+3c59151df5d9e6ea.html.gz,reliancedigital,display_resolution,raw_llm,None,None,True,True,True,True
+3c59151df5d9e6ea.html.gz,reliancedigital,display_resolution,final,None,None,True,True,True,True
+3c59151df5d9e6ea.html.gz,reliancedigital,display_refresh_hz,raw_llm,None,None,True,True,True,True
+3c59151df5d9e6ea.html.gz,reliancedigital,display_refresh_hz,final,None,None,True,True,True,True
+3c59151df5d9e6ea.html.gz,reliancedigital,display_panel,raw_llm,OLED,OLED,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,display_panel,final,OLED,OLED,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,touchscreen,raw_llm,True,True,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,touchscreen,final,True,True,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,os,raw_llm,Windows 11 Home,Windows 11 Home,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,os,final,Windows 11 Home,Windows 11 Home,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,ms_office,raw_llm,True,True,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,ms_office,final,True,True,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,colour,raw_llm,Grey,Grey,True,False,False,False
+3c59151df5d9e6ea.html.gz,reliancedigital,colour,final,Grey,Grey,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,brand,raw_llm,Samsung,Samsung,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,brand,final,Samsung,Samsung,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,series,raw_llm,Galaxy Book5 Pro,['Galaxy Book5 Pro'],True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,series,final,Galaxy Book5 Pro,['Galaxy Book5 Pro'],True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,model_number,raw_llm,NP940XHA-LG2IN,NP940XHA-LG2IN,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,model_number,final,NP940XHA-LG2IN,NP940XHA-LG2IN,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,cpu_brand,final,Intel,Intel,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,cpu_family,raw_llm,Core Ultra 7,Core Ultra 7,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,cpu_family,final,Core Ultra 7,Core Ultra 7,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,cpu_model,raw_llm,None,None,True,True,True,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,cpu_model,final,None,None,True,True,True,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,ram_gb,raw_llm,None,16,False,False,False,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,ram_gb,final,None,16,False,False,False,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,ram_type,raw_llm,None,None,True,True,True,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,ram_type,final,None,None,True,True,True,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,storage_gb,raw_llm,None,512,False,False,False,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,storage_gb,final,None,512,False,False,False,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,storage_type,raw_llm,SSD,SSD,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,storage_type,final,SSD,SSD,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,gpu_type,raw_llm,integrated,integrated,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,gpu_type,final,integrated,integrated,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,gpu_model,raw_llm,Intel Arc Graphics,Intel Arc Graphics,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,gpu_model,final,Intel Arc Graphics,Intel Arc Graphics,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,gpu_vram_gb,raw_llm,None,None,True,True,True,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,gpu_vram_gb,final,None,None,True,True,True,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,display_size_in,raw_llm,None,14.0,False,False,False,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,display_size_in,final,None,14.0,False,False,False,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,display_resolution,raw_llm,None,None,True,True,True,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,display_resolution,final,None,None,True,True,True,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,display_refresh_hz,raw_llm,None,None,True,True,True,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,display_refresh_hz,final,None,None,True,True,True,True
+a1be7dc8fc4052e1.html.gz,reliancedigital,display_panel,raw_llm,OLED,OLED,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,display_panel,final,OLED,OLED,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,touchscreen,raw_llm,True,True,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,touchscreen,final,True,True,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,os,raw_llm,Windows 11 Home,Windows 11 Home,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,os,final,Windows 11 Home,Windows 11 Home,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,ms_office,raw_llm,True,True,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,ms_office,final,True,True,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,colour,raw_llm,Grey,Grey,True,False,False,False
+a1be7dc8fc4052e1.html.gz,reliancedigital,colour,final,Grey,Grey,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,brand,raw_llm,Lenovo,Lenovo,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,brand,final,Lenovo,Lenovo,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,series,raw_llm,LOQ 15IRX10,"['LOQ', 'LOQ 15IRX10']",True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,series,final,LOQ 15IRX10,"['LOQ', 'LOQ 15IRX10']",True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,model_number,raw_llm,83JE01N9IN,83JE01N9IN,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,model_number,final,83JE01N9IN,83JE01N9IN,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,cpu_brand,final,Intel,Intel,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,cpu_family,raw_llm,Core i7,Core i7,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,cpu_family,final,Core i7,Core i7,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,cpu_model,raw_llm,Core i7-14650HX,"['Core i7-14650HX', '14650HX']",True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,cpu_model,final,Core i7-14650HX,"['Core i7-14650HX', '14650HX']",True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,ram_gb,raw_llm,None,16,False,False,False,True
+3a0fcaae002df854.html.gz,reliancedigital,ram_gb,final,None,16,False,False,False,True
+3a0fcaae002df854.html.gz,reliancedigital,ram_type,raw_llm,None,"[None, 'DDR5']",True,False,True,True
+3a0fcaae002df854.html.gz,reliancedigital,ram_type,final,None,"[None, 'DDR5']",True,False,True,True
+3a0fcaae002df854.html.gz,reliancedigital,storage_gb,raw_llm,None,512,False,False,False,True
+3a0fcaae002df854.html.gz,reliancedigital,storage_gb,final,None,512,False,False,False,True
+3a0fcaae002df854.html.gz,reliancedigital,storage_type,raw_llm,SSD,SSD,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,storage_type,final,SSD,SSD,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,gpu_type,final,dedicated,dedicated,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,gpu_model,raw_llm,NVIDIA GeForce RTX 5050,GeForce RTX 5050,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,gpu_model,final,NVIDIA GeForce RTX 5050,GeForce RTX 5050,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,gpu_vram_gb,raw_llm,None,8,False,False,False,True
+3a0fcaae002df854.html.gz,reliancedigital,gpu_vram_gb,final,None,8,False,False,False,True
+3a0fcaae002df854.html.gz,reliancedigital,display_size_in,raw_llm,None,15.6,False,False,False,True
+3a0fcaae002df854.html.gz,reliancedigital,display_size_in,final,None,15.6,False,False,False,True
+3a0fcaae002df854.html.gz,reliancedigital,display_resolution,raw_llm,1920x1080,1920x1080,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,display_resolution,final,1920x1080,1920x1080,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,display_refresh_hz,raw_llm,None,None,True,True,True,True
+3a0fcaae002df854.html.gz,reliancedigital,display_refresh_hz,final,None,None,True,True,True,True
+3a0fcaae002df854.html.gz,reliancedigital,display_panel,raw_llm,None,None,True,True,True,True
+3a0fcaae002df854.html.gz,reliancedigital,display_panel,final,None,None,True,True,True,True
+3a0fcaae002df854.html.gz,reliancedigital,touchscreen,raw_llm,False,False,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,touchscreen,final,False,False,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,os,raw_llm,Windows 11 Home,Windows 11 Home,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,os,final,Windows 11 Home,Windows 11 Home,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,ms_office,raw_llm,True,True,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,ms_office,final,True,True,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,colour,raw_llm,Luna Grey,Luna Grey,True,False,False,False
+3a0fcaae002df854.html.gz,reliancedigital,colour,final,Luna Grey,Luna Grey,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,brand,raw_llm,Lenovo,Lenovo,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,brand,final,Lenovo,Lenovo,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,series,raw_llm,LOQ 15IRX9,"['LOQ', 'LOQ 15IRX9']",True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,series,final,LOQ 15IRX9,"['LOQ', 'LOQ 15IRX9']",True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,model_number,raw_llm,83DV01JXIN,83DV01JXIN,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,model_number,final,83DV01JXIN,83DV01JXIN,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,cpu_brand,final,Intel,Intel,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,cpu_family,raw_llm,Core i5,Core i5,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,cpu_family,final,Core i5,Core i5,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,cpu_model,raw_llm,Core i5-13450HX,"['Core i5-13450HX', '13450HX']",True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,cpu_model,final,Core i5-13450HX,"['Core i5-13450HX', '13450HX']",True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,ram_gb,raw_llm,None,16,False,False,False,True
+61e887ea4bff54a1.html.gz,reliancedigital,ram_gb,final,None,16,False,False,False,True
+61e887ea4bff54a1.html.gz,reliancedigital,ram_type,raw_llm,DDR5,"[None, 'DDR5']",True,False,True,False
+61e887ea4bff54a1.html.gz,reliancedigital,ram_type,final,DDR5,"[None, 'DDR5']",True,False,True,False
+61e887ea4bff54a1.html.gz,reliancedigital,storage_gb,raw_llm,None,512,False,False,False,True
+61e887ea4bff54a1.html.gz,reliancedigital,storage_gb,final,None,512,False,False,False,True
+61e887ea4bff54a1.html.gz,reliancedigital,storage_type,raw_llm,SSD,SSD,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,storage_type,final,SSD,SSD,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,gpu_type,final,dedicated,dedicated,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,gpu_model,raw_llm,NVIDIA GeForce RTX 3050 6GB GDDR6,GeForce RTX 3050,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,gpu_model,final,NVIDIA GeForce RTX 3050 6GB GDDR6,GeForce RTX 3050,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,gpu_vram_gb,raw_llm,None,6,False,False,False,True
+61e887ea4bff54a1.html.gz,reliancedigital,gpu_vram_gb,final,None,6,False,False,False,True
+61e887ea4bff54a1.html.gz,reliancedigital,display_size_in,raw_llm,None,15.6,False,False,False,True
+61e887ea4bff54a1.html.gz,reliancedigital,display_size_in,final,None,15.6,False,False,False,True
+61e887ea4bff54a1.html.gz,reliancedigital,display_resolution,raw_llm,1920x1080,1920x1080,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,display_resolution,final,1920x1080,1920x1080,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,display_refresh_hz,raw_llm,None,None,True,True,True,True
+61e887ea4bff54a1.html.gz,reliancedigital,display_refresh_hz,final,None,None,True,True,True,True
+61e887ea4bff54a1.html.gz,reliancedigital,display_panel,raw_llm,None,None,True,True,True,True
+61e887ea4bff54a1.html.gz,reliancedigital,display_panel,final,None,None,True,True,True,True
+61e887ea4bff54a1.html.gz,reliancedigital,touchscreen,raw_llm,None,None,True,True,True,True
+61e887ea4bff54a1.html.gz,reliancedigital,touchscreen,final,None,None,True,True,True,True
+61e887ea4bff54a1.html.gz,reliancedigital,os,raw_llm,Windows 11 Home,Windows 11 Home,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,os,final,Windows 11 Home,Windows 11 Home,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,ms_office,raw_llm,True,True,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,ms_office,final,True,True,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,colour,raw_llm,Luna Grey,Luna Grey,True,False,False,False
+61e887ea4bff54a1.html.gz,reliancedigital,colour,final,Luna Grey,Luna Grey,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,brand,raw_llm,HP,HP,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,brand,final,HP,HP,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,series,raw_llm,Victus 15,"['Victus 15', 'Victus']",True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,series,final,Victus 15,"['Victus 15', 'Victus']",True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,model_number,raw_llm,15-FB3364AX,"['15-FB3364AX', '15-fa2654TX']",True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,model_number,final,15-FB3364AX,"['15-FB3364AX', '15-fa2654TX']",True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,cpu_brand,raw_llm,AMD,AMD,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,cpu_brand,final,AMD,AMD,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,cpu_family,raw_llm,AMD Ryzen 7,Ryzen 7,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,cpu_family,final,AMD Ryzen 7,Ryzen 7,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,cpu_model,raw_llm,Ryzen 7 7445HS,"['Ryzen 7 7445HS', '7445HS']",True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,cpu_model,final,Ryzen 7 7445HS,"['Ryzen 7 7445HS', '7445HS']",True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,ram_gb,raw_llm,None,12,False,False,False,True
+83e07f594e46577a.html.gz,reliancedigital,ram_gb,final,None,12,False,False,False,True
+83e07f594e46577a.html.gz,reliancedigital,ram_type,raw_llm,None,None,True,True,True,True
+83e07f594e46577a.html.gz,reliancedigital,ram_type,final,None,None,True,True,True,True
+83e07f594e46577a.html.gz,reliancedigital,storage_gb,raw_llm,None,512,False,False,False,True
+83e07f594e46577a.html.gz,reliancedigital,storage_gb,final,None,512,False,False,False,True
+83e07f594e46577a.html.gz,reliancedigital,storage_type,raw_llm,SSD,SSD,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,storage_type,final,SSD,SSD,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,gpu_type,final,dedicated,dedicated,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,gpu_model,raw_llm,NVIDIA GeForce RTX 3050,GeForce RTX 3050,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,gpu_model,final,NVIDIA GeForce RTX 3050,GeForce RTX 3050,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,gpu_vram_gb,raw_llm,None,6,False,False,False,True
+83e07f594e46577a.html.gz,reliancedigital,gpu_vram_gb,final,None,6,False,False,False,True
+83e07f594e46577a.html.gz,reliancedigital,display_size_in,raw_llm,None,15.6,False,False,False,True
+83e07f594e46577a.html.gz,reliancedigital,display_size_in,final,None,15.6,False,False,False,True
+83e07f594e46577a.html.gz,reliancedigital,display_resolution,raw_llm,1920x1080,1920x1080,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,display_resolution,final,1920x1080,1920x1080,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,display_refresh_hz,raw_llm,None,None,True,True,True,True
+83e07f594e46577a.html.gz,reliancedigital,display_refresh_hz,final,None,None,True,True,True,True
+83e07f594e46577a.html.gz,reliancedigital,display_panel,raw_llm,None,None,True,True,True,True
+83e07f594e46577a.html.gz,reliancedigital,display_panel,final,None,None,True,True,True,True
+83e07f594e46577a.html.gz,reliancedigital,touchscreen,raw_llm,False,False,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,touchscreen,final,False,False,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,os,raw_llm,Windows 11 Home,Windows 11 Home,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,os,final,Windows 11 Home,Windows 11 Home,True,False,False,False
+83e07f594e46577a.html.gz,reliancedigital,ms_office,raw_llm,None,"[None, False]",True,False,True,True
+83e07f594e46577a.html.gz,reliancedigital,ms_office,final,None,"[None, False]",True,False,True,True
+83e07f594e46577a.html.gz,reliancedigital,colour,raw_llm,None,None,True,True,True,True
+83e07f594e46577a.html.gz,reliancedigital,colour,final,None,None,True,True,True,True
+b2e91c8e025805e9.html.gz,reliancedigital,brand,raw_llm,HP,HP,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,brand,final,HP,HP,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,series,raw_llm,Victus 15,"['Victus 15', 'Victus']",True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,series,final,Victus 15,"['Victus 15', 'Victus']",True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,model_number,raw_llm,15-fa2654TX,15-fa2654TX,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,model_number,final,15-fa2654TX,15-fa2654TX,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,cpu_brand,final,Intel,Intel,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,cpu_family,raw_llm,Core i5,Core i5,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,cpu_family,final,Core i5,Core i5,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,cpu_model,raw_llm,Core i5-13450HX,"['Core i5-13450HX', '13450HX']",True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,cpu_model,final,Core i5-13450HX,"['Core i5-13450HX', '13450HX']",True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,ram_gb,raw_llm,None,16,False,False,False,True
+b2e91c8e025805e9.html.gz,reliancedigital,ram_gb,final,None,16,False,False,False,True
+b2e91c8e025805e9.html.gz,reliancedigital,ram_type,raw_llm,None,None,True,True,True,True
+b2e91c8e025805e9.html.gz,reliancedigital,ram_type,final,None,None,True,True,True,True
+b2e91c8e025805e9.html.gz,reliancedigital,storage_gb,raw_llm,None,512,False,False,False,True
+b2e91c8e025805e9.html.gz,reliancedigital,storage_gb,final,None,512,False,False,False,True
+b2e91c8e025805e9.html.gz,reliancedigital,storage_type,raw_llm,SSD,SSD,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,storage_type,final,SSD,SSD,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,gpu_type,final,dedicated,dedicated,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,gpu_model,raw_llm,NVIDIA GeForce RTX 3050,GeForce RTX 3050,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,gpu_model,final,NVIDIA GeForce RTX 3050,GeForce RTX 3050,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,gpu_vram_gb,raw_llm,None,6,False,False,False,True
+b2e91c8e025805e9.html.gz,reliancedigital,gpu_vram_gb,final,None,6,False,False,False,True
+b2e91c8e025805e9.html.gz,reliancedigital,display_size_in,raw_llm,None,15.6,False,False,False,True
+b2e91c8e025805e9.html.gz,reliancedigital,display_size_in,final,None,15.6,False,False,False,True
+b2e91c8e025805e9.html.gz,reliancedigital,display_resolution,raw_llm,1920x1080,1920x1080,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,display_resolution,final,1920x1080,1920x1080,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,display_refresh_hz,raw_llm,None,None,True,True,True,True
+b2e91c8e025805e9.html.gz,reliancedigital,display_refresh_hz,final,None,None,True,True,True,True
+b2e91c8e025805e9.html.gz,reliancedigital,display_panel,raw_llm,None,None,True,True,True,True
+b2e91c8e025805e9.html.gz,reliancedigital,display_panel,final,None,None,True,True,True,True
+b2e91c8e025805e9.html.gz,reliancedigital,touchscreen,raw_llm,False,False,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,touchscreen,final,False,False,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,os,raw_llm,Windows 11 Home,Windows 11 Home,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,os,final,Windows 11 Home,Windows 11 Home,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,ms_office,raw_llm,True,True,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,ms_office,final,True,True,True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,colour,raw_llm,"Performance blue, chrome logo","['Performance Blue', 'Performance Blue, Chrome Logo']",True,False,False,False
+b2e91c8e025805e9.html.gz,reliancedigital,colour,final,"Performance blue, chrome logo","['Performance Blue', 'Performance Blue, Chrome Logo']",True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,brand,raw_llm,Lenovo,Lenovo,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,brand,final,Lenovo,Lenovo,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,series,raw_llm,IdeaPad Slim 3 15IRH10,"['IdeaPad Slim 3', 'IdeaPad Slim 3 15IRH10']",True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,series,final,IdeaPad Slim 3 15IRH10,"['IdeaPad Slim 3', 'IdeaPad Slim 3 15IRH10']",True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,model_number,raw_llm,83K100CPIN,83K100CPIN,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,model_number,final,83K100CPIN,83K100CPIN,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,cpu_brand,final,Intel,Intel,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,cpu_family,raw_llm,Core i7,Core i7,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,cpu_family,final,Core i7,Core i7,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,cpu_model,raw_llm,Core i7-13620H,"['Core i7-13620H', '13620H']",True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,cpu_model,final,Core i7-13620H,"['Core i7-13620H', '13620H']",True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,ram_gb,raw_llm,None,16,False,False,False,True
+3242ca4af547c9a5.html.gz,reliancedigital,ram_gb,final,None,16,False,False,False,True
+3242ca4af547c9a5.html.gz,reliancedigital,ram_type,raw_llm,None,DDR5,False,False,False,True
+3242ca4af547c9a5.html.gz,reliancedigital,ram_type,final,None,DDR5,False,False,False,True
+3242ca4af547c9a5.html.gz,reliancedigital,storage_gb,raw_llm,None,512,False,False,False,True
+3242ca4af547c9a5.html.gz,reliancedigital,storage_gb,final,None,512,False,False,False,True
+3242ca4af547c9a5.html.gz,reliancedigital,storage_type,raw_llm,None,SSD,False,False,False,True
+3242ca4af547c9a5.html.gz,reliancedigital,storage_type,final,None,SSD,False,False,False,True
+3242ca4af547c9a5.html.gz,reliancedigital,gpu_type,raw_llm,integrated,integrated,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,gpu_type,final,integrated,integrated,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,gpu_model,raw_llm,Intel UHD Graphics,Intel UHD Graphics,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,gpu_model,final,Intel UHD Graphics,Intel UHD Graphics,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,gpu_vram_gb,raw_llm,None,None,True,True,True,True
+3242ca4af547c9a5.html.gz,reliancedigital,gpu_vram_gb,final,None,None,True,True,True,True
+3242ca4af547c9a5.html.gz,reliancedigital,display_size_in,raw_llm,None,15.3,False,False,False,True
+3242ca4af547c9a5.html.gz,reliancedigital,display_size_in,final,None,15.3,False,False,False,True
+3242ca4af547c9a5.html.gz,reliancedigital,display_resolution,raw_llm,None,"[None, '1920x1200']",True,False,True,True
+3242ca4af547c9a5.html.gz,reliancedigital,display_resolution,final,None,"[None, '1920x1200']",True,False,True,True
+3242ca4af547c9a5.html.gz,reliancedigital,display_refresh_hz,raw_llm,None,None,True,True,True,True
+3242ca4af547c9a5.html.gz,reliancedigital,display_refresh_hz,final,None,None,True,True,True,True
+3242ca4af547c9a5.html.gz,reliancedigital,display_panel,raw_llm,None,None,True,True,True,True
+3242ca4af547c9a5.html.gz,reliancedigital,display_panel,final,None,None,True,True,True,True
+3242ca4af547c9a5.html.gz,reliancedigital,touchscreen,raw_llm,None,None,True,True,True,True
+3242ca4af547c9a5.html.gz,reliancedigital,touchscreen,final,None,None,True,True,True,True
+3242ca4af547c9a5.html.gz,reliancedigital,os,raw_llm,Windows 11 Home,Windows 11 Home,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,os,final,Windows 11 Home,Windows 11 Home,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,ms_office,raw_llm,True,True,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,ms_office,final,True,True,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,colour,raw_llm,Luna Grey,Luna Grey,True,False,False,False
+3242ca4af547c9a5.html.gz,reliancedigital,colour,final,Luna Grey,Luna Grey,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,brand,raw_llm,Apple,Apple,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,brand,final,Apple,Apple,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,series,raw_llm,MacBook Air 13,"['MacBook Air 13', 'MacBook Air']",True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,series,final,MacBook Air 13,"['MacBook Air 13', 'MacBook Air']",True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,model_number,raw_llm,MDHG4HN/A,MDHG4HN/A,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,model_number,final,MDHG4HN/A,MDHG4HN/A,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,cpu_brand,raw_llm,Apple,Apple,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,cpu_brand,final,Apple,Apple,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,cpu_family,raw_llm,Apple M5,"['M5', 'Apple M5']",True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,cpu_family,final,Apple M5,"['M5', 'Apple M5']",True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,cpu_model,raw_llm,None,"['M5', 'Apple M5']",False,False,False,True
+9fe25ac9e8293463.html.gz,reliancedigital,cpu_model,final,None,"['M5', 'Apple M5']",False,False,False,True
+9fe25ac9e8293463.html.gz,reliancedigital,ram_gb,raw_llm,None,24,False,False,False,True
+9fe25ac9e8293463.html.gz,reliancedigital,ram_gb,final,None,24,False,False,False,True
+9fe25ac9e8293463.html.gz,reliancedigital,ram_type,raw_llm,None,None,True,True,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,ram_type,final,None,None,True,True,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,storage_gb,raw_llm,None,1024,False,False,False,True
+9fe25ac9e8293463.html.gz,reliancedigital,storage_gb,final,None,1024,False,False,False,True
+9fe25ac9e8293463.html.gz,reliancedigital,storage_type,raw_llm,SSD,SSD,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,storage_type,final,SSD,SSD,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,gpu_type,raw_llm,integrated,integrated,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,gpu_type,final,integrated,integrated,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,gpu_model,raw_llm,None,"[None, '10-core GPU', 'Apple M5 10-core GPU', 'M5 10-core GPU']",True,False,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,gpu_model,final,None,"[None, '10-core GPU', 'Apple M5 10-core GPU', 'M5 10-core GPU']",True,False,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,gpu_vram_gb,raw_llm,None,None,True,True,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,gpu_vram_gb,final,None,None,True,True,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,display_size_in,raw_llm,None,13.6,False,False,False,True
+9fe25ac9e8293463.html.gz,reliancedigital,display_size_in,final,None,13.6,False,False,False,True
+9fe25ac9e8293463.html.gz,reliancedigital,display_resolution,raw_llm,2560x1664,2560x1664,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,display_resolution,final,2560x1664,2560x1664,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,display_refresh_hz,raw_llm,None,None,True,True,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,display_refresh_hz,final,None,None,True,True,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,display_panel,raw_llm,None,"[None, 'IPS', 'LCD']",True,False,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,display_panel,final,None,"[None, 'IPS', 'LCD']",True,False,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,touchscreen,raw_llm,None,None,True,True,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,touchscreen,final,None,None,True,True,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,os,raw_llm,macOS,macOS,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,os,final,macOS,macOS,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,ms_office,raw_llm,None,"[None, False]",True,False,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,ms_office,final,None,"[None, False]",True,False,True,True
+9fe25ac9e8293463.html.gz,reliancedigital,colour,raw_llm,Midnight,Midnight,True,False,False,False
+9fe25ac9e8293463.html.gz,reliancedigital,colour,final,Midnight,Midnight,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,brand,raw_llm,Asus,ASUS,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,brand,final,Asus,ASUS,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,series,raw_llm,ChromeBook 15,"['Chromebook 15', 'ChromeBook 15']",True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,series,final,ChromeBook 15,"['Chromebook 15', 'ChromeBook 15']",True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,model_number,raw_llm,CX1505CTA-S70293,CX1505CTA-S70293,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,model_number,final,CX1505CTA-S70293,CX1505CTA-S70293,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,cpu_brand,final,Intel,Intel,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,cpu_family,raw_llm,Core i5,"['Processor N', 'Intel Processor N', 'N-series', 'Intel Processor', 'N50', 'Intel Processor N50']",False,False,False,False
+bb080920112feb55.html.gz,reliancedigital,cpu_family,final,None,"['Processor N', 'Intel Processor N', 'N-series', 'Intel Processor', 'N50', 'Intel Processor N50']",False,False,False,True
+bb080920112feb55.html.gz,reliancedigital,cpu_model,raw_llm,None,"['Processor N50', 'N50', 'Intel Processor N50']",False,False,False,True
+bb080920112feb55.html.gz,reliancedigital,cpu_model,final,None,"['Processor N50', 'N50', 'Intel Processor N50']",False,False,False,True
+bb080920112feb55.html.gz,reliancedigital,ram_gb,raw_llm,None,8,False,False,False,True
+bb080920112feb55.html.gz,reliancedigital,ram_gb,final,None,8,False,False,False,True
+bb080920112feb55.html.gz,reliancedigital,ram_type,raw_llm,None,None,True,True,True,True
+bb080920112feb55.html.gz,reliancedigital,ram_type,final,None,None,True,True,True,True
+bb080920112feb55.html.gz,reliancedigital,storage_gb,raw_llm,None,128,False,False,False,True
+bb080920112feb55.html.gz,reliancedigital,storage_gb,final,None,128,False,False,False,True
+bb080920112feb55.html.gz,reliancedigital,storage_type,raw_llm,SSD,SSD,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,storage_type,final,SSD,SSD,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,gpu_type,raw_llm,integrated,"[None, 'integrated']",True,False,True,False
+bb080920112feb55.html.gz,reliancedigital,gpu_type,final,None,"[None, 'integrated']",True,False,True,True
+bb080920112feb55.html.gz,reliancedigital,gpu_model,raw_llm,None,None,True,True,True,True
+bb080920112feb55.html.gz,reliancedigital,gpu_model,final,None,None,True,True,True,True
+bb080920112feb55.html.gz,reliancedigital,gpu_vram_gb,raw_llm,None,None,True,True,True,True
+bb080920112feb55.html.gz,reliancedigital,gpu_vram_gb,final,None,None,True,True,True,True
+bb080920112feb55.html.gz,reliancedigital,display_size_in,raw_llm,None,15.6,False,False,False,True
+bb080920112feb55.html.gz,reliancedigital,display_size_in,final,None,15.6,False,False,False,True
+bb080920112feb55.html.gz,reliancedigital,display_resolution,raw_llm,1920x1080,1920x1080,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,display_resolution,final,1920x1080,1920x1080,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,display_refresh_hz,raw_llm,None,None,True,True,True,True
+bb080920112feb55.html.gz,reliancedigital,display_refresh_hz,final,None,None,True,True,True,True
+bb080920112feb55.html.gz,reliancedigital,display_panel,raw_llm,None,None,True,True,True,True
+bb080920112feb55.html.gz,reliancedigital,display_panel,final,None,None,True,True,True,True
+bb080920112feb55.html.gz,reliancedigital,touchscreen,raw_llm,False,False,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,touchscreen,final,False,False,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,os,raw_llm,ChromeOS,ChromeOS,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,os,final,ChromeOS,ChromeOS,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,ms_office,raw_llm,False,"[None, False]",True,False,True,False
+bb080920112feb55.html.gz,reliancedigital,ms_office,final,None,"[None, False]",True,False,True,True
+bb080920112feb55.html.gz,reliancedigital,colour,raw_llm,Pure Grey,Pure Grey,True,False,False,False
+bb080920112feb55.html.gz,reliancedigital,colour,final,Pure Grey,Pure Grey,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,brand,raw_llm,HP,HP,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,brand,final,HP,HP,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,series,raw_llm,Victus 15,"['Victus 15', 'Victus']",True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,series,final,Victus 15,"['Victus 15', 'Victus']",True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,model_number,raw_llm,15-FA2309TX,15-FA2309TX,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,model_number,final,15-FA2309TX,15-FA2309TX,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,cpu_brand,final,Intel,Intel,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,cpu_family,raw_llm,Core i7,Core i7,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,cpu_family,final,Core i7,Core i7,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,cpu_model,raw_llm,Core i7-13620H,"['Core i7-13620H', '13620H']",True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,cpu_model,final,Core i7-13620H,"['Core i7-13620H', '13620H']",True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,ram_gb,raw_llm,None,24,False,False,False,True
+d3221a3263a5e1da.html.gz,reliancedigital,ram_gb,final,None,24,False,False,False,True
+d3221a3263a5e1da.html.gz,reliancedigital,ram_type,raw_llm,None,None,True,True,True,True
+d3221a3263a5e1da.html.gz,reliancedigital,ram_type,final,None,None,True,True,True,True
+d3221a3263a5e1da.html.gz,reliancedigital,storage_gb,raw_llm,None,1024,False,False,False,True
+d3221a3263a5e1da.html.gz,reliancedigital,storage_gb,final,None,1024,False,False,False,True
+d3221a3263a5e1da.html.gz,reliancedigital,storage_type,raw_llm,SSD,SSD,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,storage_type,final,SSD,SSD,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,gpu_type,final,dedicated,dedicated,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,gpu_model,raw_llm,NVIDIA GeForce RTX-5050,GeForce RTX 5050,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,gpu_model,final,NVIDIA GeForce RTX-5050,GeForce RTX 5050,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,gpu_vram_gb,raw_llm,None,8,False,False,False,True
+d3221a3263a5e1da.html.gz,reliancedigital,gpu_vram_gb,final,None,8,False,False,False,True
+d3221a3263a5e1da.html.gz,reliancedigital,display_size_in,raw_llm,None,15.6,False,False,False,True
+d3221a3263a5e1da.html.gz,reliancedigital,display_size_in,final,None,15.6,False,False,False,True
+d3221a3263a5e1da.html.gz,reliancedigital,display_resolution,raw_llm,1920x1080,1920x1080,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,display_resolution,final,1920x1080,1920x1080,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,display_refresh_hz,raw_llm,None,None,True,True,True,True
+d3221a3263a5e1da.html.gz,reliancedigital,display_refresh_hz,final,None,None,True,True,True,True
+d3221a3263a5e1da.html.gz,reliancedigital,display_panel,raw_llm,None,None,True,True,True,True
+d3221a3263a5e1da.html.gz,reliancedigital,display_panel,final,None,None,True,True,True,True
+d3221a3263a5e1da.html.gz,reliancedigital,touchscreen,raw_llm,False,False,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,touchscreen,final,False,False,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,os,raw_llm,Windows 11 Home,Windows 11 Home,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,os,final,Windows 11 Home,Windows 11 Home,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,ms_office,raw_llm,True,True,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,ms_office,final,True,True,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,colour,raw_llm,Mica Silver,Mica Silver,True,False,False,False
+d3221a3263a5e1da.html.gz,reliancedigital,colour,final,Mica Silver,Mica Silver,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,brand,raw_llm,ASUS,ASUS,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,brand,final,ASUS,ASUS,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,series,raw_llm,ROG Strix G16,['ROG Strix G16'],True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,series,final,ROG Strix G16,['ROG Strix G16'],True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,model_number,raw_llm,G615JHR-S5005WS,G615JHR-S5005WS,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,model_number,final,G615JHR-S5005WS,G615JHR-S5005WS,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,cpu_brand,final,Intel,Intel,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,cpu_family,raw_llm,Core i7,Core i7,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,cpu_family,final,Core i7,Core i7,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,cpu_model,raw_llm,None,None,True,True,True,True
+36bf0da094b2f6a9.html.gz,vijaysales,cpu_model,final,None,None,True,True,True,True
+36bf0da094b2f6a9.html.gz,vijaysales,ram_gb,raw_llm,None,16,False,False,False,True
+36bf0da094b2f6a9.html.gz,vijaysales,ram_gb,final,None,16,False,False,False,True
+36bf0da094b2f6a9.html.gz,vijaysales,ram_type,raw_llm,DDR5,DDR5,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,ram_type,final,DDR5,DDR5,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,storage_gb,raw_llm,None,1024,False,False,False,True
+36bf0da094b2f6a9.html.gz,vijaysales,storage_gb,final,None,1024,False,False,False,True
+36bf0da094b2f6a9.html.gz,vijaysales,storage_type,raw_llm,SSD,SSD,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,storage_type,final,SSD,SSD,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,gpu_type,final,dedicated,dedicated,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,gpu_model,raw_llm,NVIDIA GeForce RTX 5050,GeForce RTX 5050,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,gpu_model,final,NVIDIA GeForce RTX 5050,GeForce RTX 5050,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,gpu_vram_gb,raw_llm,None,8,False,False,False,True
+36bf0da094b2f6a9.html.gz,vijaysales,gpu_vram_gb,final,None,8,False,False,False,True
+36bf0da094b2f6a9.html.gz,vijaysales,display_size_in,raw_llm,None,16.0,False,False,False,True
+36bf0da094b2f6a9.html.gz,vijaysales,display_size_in,final,None,16.0,False,False,False,True
+36bf0da094b2f6a9.html.gz,vijaysales,display_resolution,raw_llm,None,None,True,True,True,True
+36bf0da094b2f6a9.html.gz,vijaysales,display_resolution,final,None,None,True,True,True,True
+36bf0da094b2f6a9.html.gz,vijaysales,display_refresh_hz,raw_llm,None,None,True,True,True,True
+36bf0da094b2f6a9.html.gz,vijaysales,display_refresh_hz,final,None,None,True,True,True,True
+36bf0da094b2f6a9.html.gz,vijaysales,display_panel,raw_llm,None,None,True,True,True,True
+36bf0da094b2f6a9.html.gz,vijaysales,display_panel,final,None,None,True,True,True,True
+36bf0da094b2f6a9.html.gz,vijaysales,touchscreen,raw_llm,None,None,True,True,True,True
+36bf0da094b2f6a9.html.gz,vijaysales,touchscreen,final,None,None,True,True,True,True
+36bf0da094b2f6a9.html.gz,vijaysales,os,raw_llm,Windows 11,Windows 11,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,os,final,Windows 11,Windows 11,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,ms_office,raw_llm,True,True,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,ms_office,final,True,True,True,False,False,False
+36bf0da094b2f6a9.html.gz,vijaysales,colour,raw_llm,None,None,True,True,True,True
+36bf0da094b2f6a9.html.gz,vijaysales,colour,final,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,brand,raw_llm,ASUS,ASUS,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,brand,final,ASUS,ASUS,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,series,raw_llm,ROG Strix G16,['ROG Strix G16'],True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,series,final,ROG Strix G16,['ROG Strix G16'],True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,model_number,raw_llm,G614PH-RV073WS,G614PH-RV073WS,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,model_number,final,G614PH-RV073WS,G614PH-RV073WS,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,cpu_brand,raw_llm,AMD,AMD,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,cpu_brand,final,AMD,AMD,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,cpu_family,raw_llm,Ryzen 9,Ryzen 9,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,cpu_family,final,Ryzen 9,Ryzen 9,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,cpu_model,raw_llm,Ryzen 9 8940HX,"['Ryzen 9 8940HX', '8940HX']",True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,cpu_model,final,Ryzen 9 8940HX,"['Ryzen 9 8940HX', '8940HX']",True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,ram_gb,raw_llm,None,16,False,False,False,True
+1d6b4ee510c79642.html.gz,vijaysales,ram_gb,final,None,16,False,False,False,True
+1d6b4ee510c79642.html.gz,vijaysales,ram_type,raw_llm,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,ram_type,final,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,storage_gb,raw_llm,None,1024,False,False,False,True
+1d6b4ee510c79642.html.gz,vijaysales,storage_gb,final,None,1024,False,False,False,True
+1d6b4ee510c79642.html.gz,vijaysales,storage_type,raw_llm,None,SSD,False,False,False,True
+1d6b4ee510c79642.html.gz,vijaysales,storage_type,final,None,SSD,False,False,False,True
+1d6b4ee510c79642.html.gz,vijaysales,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,gpu_type,final,dedicated,dedicated,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,gpu_model,raw_llm,NVIDIA GeForce RTX 5050,GeForce RTX 5050,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,gpu_model,final,NVIDIA GeForce RTX 5050,GeForce RTX 5050,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,gpu_vram_gb,raw_llm,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,gpu_vram_gb,final,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,display_size_in,raw_llm,None,16.0,False,False,False,True
+1d6b4ee510c79642.html.gz,vijaysales,display_size_in,final,None,16.0,False,False,False,True
+1d6b4ee510c79642.html.gz,vijaysales,display_resolution,raw_llm,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,display_resolution,final,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,display_refresh_hz,raw_llm,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,display_refresh_hz,final,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,display_panel,raw_llm,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,display_panel,final,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,touchscreen,raw_llm,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,touchscreen,final,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,os,raw_llm,Windows 11,Windows 11,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,os,final,Windows 11,Windows 11,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,ms_office,raw_llm,True,True,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,ms_office,final,True,True,True,False,False,False
+1d6b4ee510c79642.html.gz,vijaysales,colour,raw_llm,None,None,True,True,True,True
+1d6b4ee510c79642.html.gz,vijaysales,colour,final,None,None,True,True,True,True
+f7ff779cdedbd541.html.gz,vijaysales,brand,raw_llm,ASUS,ASUS,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,brand,final,ASUS,ASUS,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,series,raw_llm,ROG Strix G16,['ROG Strix G16'],True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,series,final,ROG Strix G16,['ROG Strix G16'],True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,model_number,raw_llm,G615LM-S5128WS,G615LM-S5128WS,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,model_number,final,G615LM-S5128WS,G615LM-S5128WS,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,cpu_brand,final,Intel,Intel,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,cpu_family,raw_llm,Core Ultra 9,Core Ultra 9,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,cpu_family,final,Core Ultra 9,Core Ultra 9,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,cpu_model,raw_llm,None,None,True,True,True,True
+f7ff779cdedbd541.html.gz,vijaysales,cpu_model,final,None,None,True,True,True,True
+f7ff779cdedbd541.html.gz,vijaysales,ram_gb,raw_llm,None,16,False,False,False,True
+f7ff779cdedbd541.html.gz,vijaysales,ram_gb,final,None,16,False,False,False,True
+f7ff779cdedbd541.html.gz,vijaysales,ram_type,raw_llm,None,DDR5,False,False,False,True
+f7ff779cdedbd541.html.gz,vijaysales,ram_type,final,None,DDR5,False,False,False,True
+f7ff779cdedbd541.html.gz,vijaysales,storage_gb,raw_llm,None,1024,False,False,False,True
+f7ff779cdedbd541.html.gz,vijaysales,storage_gb,final,None,1024,False,False,False,True
+f7ff779cdedbd541.html.gz,vijaysales,storage_type,raw_llm,None,SSD,False,False,False,True
+f7ff779cdedbd541.html.gz,vijaysales,storage_type,final,None,SSD,False,False,False,True
+f7ff779cdedbd541.html.gz,vijaysales,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,gpu_type,final,dedicated,dedicated,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,gpu_model,raw_llm,NVIDIA RTX 5060,GeForce RTX 5060,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,gpu_model,final,NVIDIA RTX 5060,GeForce RTX 5060,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,gpu_vram_gb,raw_llm,None,8,False,False,False,True
+f7ff779cdedbd541.html.gz,vijaysales,gpu_vram_gb,final,None,8,False,False,False,True
+f7ff779cdedbd541.html.gz,vijaysales,display_size_in,raw_llm,None,16.0,False,False,False,True
+f7ff779cdedbd541.html.gz,vijaysales,display_size_in,final,None,16.0,False,False,False,True
+f7ff779cdedbd541.html.gz,vijaysales,display_resolution,raw_llm,None,None,True,True,True,True
+f7ff779cdedbd541.html.gz,vijaysales,display_resolution,final,None,None,True,True,True,True
+f7ff779cdedbd541.html.gz,vijaysales,display_refresh_hz,raw_llm,None,None,True,True,True,True
+f7ff779cdedbd541.html.gz,vijaysales,display_refresh_hz,final,None,None,True,True,True,True
+f7ff779cdedbd541.html.gz,vijaysales,display_panel,raw_llm,None,None,True,True,True,True
+f7ff779cdedbd541.html.gz,vijaysales,display_panel,final,None,None,True,True,True,True
+f7ff779cdedbd541.html.gz,vijaysales,touchscreen,raw_llm,None,None,True,True,True,True
+f7ff779cdedbd541.html.gz,vijaysales,touchscreen,final,None,None,True,True,True,True
+f7ff779cdedbd541.html.gz,vijaysales,os,raw_llm,Windows 11,Windows 11,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,os,final,Windows 11,Windows 11,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,ms_office,raw_llm,True,True,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,ms_office,final,True,True,True,False,False,False
+f7ff779cdedbd541.html.gz,vijaysales,colour,raw_llm,None,None,True,True,True,True
+f7ff779cdedbd541.html.gz,vijaysales,colour,final,None,None,True,True,True,True
+d62d8799d56d2726.html.gz,vijaysales,brand,raw_llm,Samsung,Samsung,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,brand,final,Samsung,Samsung,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,series,raw_llm,Galaxy Book 5 Pro,['Galaxy Book5 Pro'],True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,series,final,Galaxy Book 5 Pro,['Galaxy Book5 Pro'],True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,model_number,raw_llm,NP940XHA-LG1IN,NP940XHA-LG1IN,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,model_number,final,NP940XHA-LG1IN,NP940XHA-LG1IN,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,cpu_brand,final,Intel,Intel,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,cpu_family,raw_llm,Core Ultra 5,Core Ultra 5,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,cpu_family,final,Core Ultra 5,Core Ultra 5,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,cpu_model,raw_llm,None,None,True,True,True,True
+d62d8799d56d2726.html.gz,vijaysales,cpu_model,final,None,None,True,True,True,True
+d62d8799d56d2726.html.gz,vijaysales,ram_gb,raw_llm,None,16,False,False,False,True
+d62d8799d56d2726.html.gz,vijaysales,ram_gb,final,None,16,False,False,False,True
+d62d8799d56d2726.html.gz,vijaysales,ram_type,raw_llm,None,LPDDR5X,False,False,False,True
+d62d8799d56d2726.html.gz,vijaysales,ram_type,final,None,LPDDR5X,False,False,False,True
+d62d8799d56d2726.html.gz,vijaysales,storage_gb,raw_llm,None,512,False,False,False,True
+d62d8799d56d2726.html.gz,vijaysales,storage_gb,final,None,512,False,False,False,True
+d62d8799d56d2726.html.gz,vijaysales,storage_type,raw_llm,None,SSD,False,False,False,True
+d62d8799d56d2726.html.gz,vijaysales,storage_type,final,None,SSD,False,False,False,True
+d62d8799d56d2726.html.gz,vijaysales,gpu_type,raw_llm,dedicated,integrated,False,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,gpu_type,final,None,integrated,False,False,False,True
+d62d8799d56d2726.html.gz,vijaysales,gpu_model,raw_llm,Intel ARC Graphics,Intel Arc Graphics,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,gpu_model,final,Intel ARC Graphics,Intel Arc Graphics,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,gpu_vram_gb,raw_llm,None,None,True,True,True,True
+d62d8799d56d2726.html.gz,vijaysales,gpu_vram_gb,final,None,None,True,True,True,True
+d62d8799d56d2726.html.gz,vijaysales,display_size_in,raw_llm,None,14.0,False,False,False,True
+d62d8799d56d2726.html.gz,vijaysales,display_size_in,final,None,14.0,False,False,False,True
+d62d8799d56d2726.html.gz,vijaysales,display_resolution,raw_llm,None,"[None, '2880x1800']",True,False,True,True
+d62d8799d56d2726.html.gz,vijaysales,display_resolution,final,None,"[None, '2880x1800']",True,False,True,True
+d62d8799d56d2726.html.gz,vijaysales,display_refresh_hz,raw_llm,None,None,True,True,True,True
+d62d8799d56d2726.html.gz,vijaysales,display_refresh_hz,final,None,None,True,True,True,True
+d62d8799d56d2726.html.gz,vijaysales,display_panel,raw_llm,None,OLED,False,False,False,True
+d62d8799d56d2726.html.gz,vijaysales,display_panel,final,None,OLED,False,False,False,True
+d62d8799d56d2726.html.gz,vijaysales,touchscreen,raw_llm,None,None,True,True,True,True
+d62d8799d56d2726.html.gz,vijaysales,touchscreen,final,None,None,True,True,True,True
+d62d8799d56d2726.html.gz,vijaysales,os,raw_llm,Windows 11,Windows 11,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,os,final,Windows 11,Windows 11,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,ms_office,raw_llm,True,True,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,ms_office,final,True,True,True,False,False,False
+d62d8799d56d2726.html.gz,vijaysales,colour,raw_llm,None,None,True,True,True,True
+d62d8799d56d2726.html.gz,vijaysales,colour,final,None,None,True,True,True,True
+5caecd8609b4d39c.html.gz,vijaysales,brand,raw_llm,Samsung,Samsung,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,brand,final,Samsung,Samsung,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,series,raw_llm,Galaxy Book5 Pro,['Galaxy Book5 Pro'],True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,series,final,Galaxy Book5 Pro,['Galaxy Book5 Pro'],True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,model_number,raw_llm,NP940XHA-LG2IN,NP940XHA-LG2IN,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,model_number,final,NP940XHA-LG2IN,NP940XHA-LG2IN,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,cpu_brand,final,Intel,Intel,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,cpu_family,raw_llm,Core Ultra 7,Core Ultra 7,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,cpu_family,final,Core Ultra 7,Core Ultra 7,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,cpu_model,raw_llm,None,None,True,True,True,True
+5caecd8609b4d39c.html.gz,vijaysales,cpu_model,final,None,None,True,True,True,True
+5caecd8609b4d39c.html.gz,vijaysales,ram_gb,raw_llm,None,16,False,False,False,True
+5caecd8609b4d39c.html.gz,vijaysales,ram_gb,final,None,16,False,False,False,True
+5caecd8609b4d39c.html.gz,vijaysales,ram_type,raw_llm,None,LPDDR5X,False,False,False,True
+5caecd8609b4d39c.html.gz,vijaysales,ram_type,final,None,LPDDR5X,False,False,False,True
+5caecd8609b4d39c.html.gz,vijaysales,storage_gb,raw_llm,None,512,False,False,False,True
+5caecd8609b4d39c.html.gz,vijaysales,storage_gb,final,None,512,False,False,False,True
+5caecd8609b4d39c.html.gz,vijaysales,storage_type,raw_llm,None,SSD,False,False,False,True
+5caecd8609b4d39c.html.gz,vijaysales,storage_type,final,None,SSD,False,False,False,True
+5caecd8609b4d39c.html.gz,vijaysales,gpu_type,raw_llm,dedicated,integrated,False,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,gpu_type,final,None,integrated,False,False,False,True
+5caecd8609b4d39c.html.gz,vijaysales,gpu_model,raw_llm,Intel ARC Graphics,Intel Arc Graphics,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,gpu_model,final,Intel ARC Graphics,Intel Arc Graphics,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,gpu_vram_gb,raw_llm,None,None,True,True,True,True
+5caecd8609b4d39c.html.gz,vijaysales,gpu_vram_gb,final,None,None,True,True,True,True
+5caecd8609b4d39c.html.gz,vijaysales,display_size_in,raw_llm,None,14.0,False,False,False,True
+5caecd8609b4d39c.html.gz,vijaysales,display_size_in,final,None,14.0,False,False,False,True
+5caecd8609b4d39c.html.gz,vijaysales,display_resolution,raw_llm,None,"[None, '2880x1800']",True,False,True,True
+5caecd8609b4d39c.html.gz,vijaysales,display_resolution,final,None,"[None, '2880x1800']",True,False,True,True
+5caecd8609b4d39c.html.gz,vijaysales,display_refresh_hz,raw_llm,None,None,True,True,True,True
+5caecd8609b4d39c.html.gz,vijaysales,display_refresh_hz,final,None,None,True,True,True,True
+5caecd8609b4d39c.html.gz,vijaysales,display_panel,raw_llm,None,OLED,False,False,False,True
+5caecd8609b4d39c.html.gz,vijaysales,display_panel,final,None,OLED,False,False,False,True
+5caecd8609b4d39c.html.gz,vijaysales,touchscreen,raw_llm,None,None,True,True,True,True
+5caecd8609b4d39c.html.gz,vijaysales,touchscreen,final,None,None,True,True,True,True
+5caecd8609b4d39c.html.gz,vijaysales,os,raw_llm,Windows 11,Windows 11,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,os,final,Windows 11,Windows 11,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,ms_office,raw_llm,True,True,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,ms_office,final,True,True,True,False,False,False
+5caecd8609b4d39c.html.gz,vijaysales,colour,raw_llm,None,None,True,True,True,True
+5caecd8609b4d39c.html.gz,vijaysales,colour,final,None,None,True,True,True,True
+8ad7bbe487e97c78.html.gz,vijaysales,brand,raw_llm,Lenovo,Lenovo,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,brand,final,Lenovo,Lenovo,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,series,raw_llm,LOQ 15IRX10,"['LOQ', 'LOQ 15IRX10']",True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,series,final,LOQ 15IRX10,"['LOQ', 'LOQ 15IRX10']",True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,model_number,raw_llm,83JE00W0IN,83JE00W0IN,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,model_number,final,83JE00W0IN,83JE00W0IN,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,cpu_brand,final,Intel,Intel,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,cpu_family,raw_llm,Core i7,Core i7,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,cpu_family,final,Core i7,Core i7,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,cpu_model,raw_llm,None,None,True,True,True,True
+8ad7bbe487e97c78.html.gz,vijaysales,cpu_model,final,None,None,True,True,True,True
+8ad7bbe487e97c78.html.gz,vijaysales,ram_gb,raw_llm,None,16,False,False,False,True
+8ad7bbe487e97c78.html.gz,vijaysales,ram_gb,final,None,16,False,False,False,True
+8ad7bbe487e97c78.html.gz,vijaysales,ram_type,raw_llm,None,None,True,True,True,True
+8ad7bbe487e97c78.html.gz,vijaysales,ram_type,final,None,None,True,True,True,True
+8ad7bbe487e97c78.html.gz,vijaysales,storage_gb,raw_llm,None,1024,False,False,False,True
+8ad7bbe487e97c78.html.gz,vijaysales,storage_gb,final,None,1024,False,False,False,True
+8ad7bbe487e97c78.html.gz,vijaysales,storage_type,raw_llm,None,SSD,False,False,False,True
+8ad7bbe487e97c78.html.gz,vijaysales,storage_type,final,None,SSD,False,False,False,True
+8ad7bbe487e97c78.html.gz,vijaysales,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,gpu_type,final,dedicated,dedicated,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,gpu_model,raw_llm,NVIDIA GeForce RTX 5060,GeForce RTX 5060,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,gpu_model,final,NVIDIA GeForce RTX 5060,GeForce RTX 5060,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,gpu_vram_gb,raw_llm,None,8,False,False,False,True
+8ad7bbe487e97c78.html.gz,vijaysales,gpu_vram_gb,final,None,8,False,False,False,True
+8ad7bbe487e97c78.html.gz,vijaysales,display_size_in,raw_llm,None,15.6,False,False,False,True
+8ad7bbe487e97c78.html.gz,vijaysales,display_size_in,final,None,15.6,False,False,False,True
+8ad7bbe487e97c78.html.gz,vijaysales,display_resolution,raw_llm,None,"[None, '1920x1080']",True,False,True,True
+8ad7bbe487e97c78.html.gz,vijaysales,display_resolution,final,None,"[None, '1920x1080']",True,False,True,True
+8ad7bbe487e97c78.html.gz,vijaysales,display_refresh_hz,raw_llm,None,None,True,True,True,True
+8ad7bbe487e97c78.html.gz,vijaysales,display_refresh_hz,final,None,None,True,True,True,True
+8ad7bbe487e97c78.html.gz,vijaysales,display_panel,raw_llm,None,IPS,False,False,False,True
+8ad7bbe487e97c78.html.gz,vijaysales,display_panel,final,None,IPS,False,False,False,True
+8ad7bbe487e97c78.html.gz,vijaysales,touchscreen,raw_llm,None,None,True,True,True,True
+8ad7bbe487e97c78.html.gz,vijaysales,touchscreen,final,None,None,True,True,True,True
+8ad7bbe487e97c78.html.gz,vijaysales,os,raw_llm,Windows 11,Windows 11,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,os,final,Windows 11,Windows 11,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,ms_office,raw_llm,True,True,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,ms_office,final,True,True,True,False,False,False
+8ad7bbe487e97c78.html.gz,vijaysales,colour,raw_llm,None,None,True,True,True,True
+8ad7bbe487e97c78.html.gz,vijaysales,colour,final,None,None,True,True,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,brand,raw_llm,Lenovo,Lenovo,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,brand,final,Lenovo,Lenovo,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,series,raw_llm,LOQ 15IRX9,"['LOQ', 'LOQ 15IRX9']",True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,series,final,LOQ 15IRX9,"['LOQ', 'LOQ 15IRX9']",True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,model_number,raw_llm,83DV01JXIN,83DV01JXIN,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,model_number,final,83DV01JXIN,83DV01JXIN,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,cpu_brand,final,Intel,Intel,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,cpu_family,raw_llm,Core i5,Core i5,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,cpu_family,final,Core i5,Core i5,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,cpu_model,raw_llm,None,None,True,True,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,cpu_model,final,None,None,True,True,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,ram_gb,raw_llm,None,16,False,False,False,True
+96d0be6f2bf043c7.html.gz,vijaysales,ram_gb,final,None,16,False,False,False,True
+96d0be6f2bf043c7.html.gz,vijaysales,ram_type,raw_llm,None,None,True,True,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,ram_type,final,None,None,True,True,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,storage_gb,raw_llm,None,512,False,False,False,True
+96d0be6f2bf043c7.html.gz,vijaysales,storage_gb,final,None,512,False,False,False,True
+96d0be6f2bf043c7.html.gz,vijaysales,storage_type,raw_llm,None,SSD,False,False,False,True
+96d0be6f2bf043c7.html.gz,vijaysales,storage_type,final,None,SSD,False,False,False,True
+96d0be6f2bf043c7.html.gz,vijaysales,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,gpu_type,final,dedicated,dedicated,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,gpu_model,raw_llm,NVIDIA GeForce RTX 3050,GeForce RTX 3050,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,gpu_model,final,NVIDIA GeForce RTX 3050,GeForce RTX 3050,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,gpu_vram_gb,raw_llm,None,6,False,False,False,True
+96d0be6f2bf043c7.html.gz,vijaysales,gpu_vram_gb,final,None,6,False,False,False,True
+96d0be6f2bf043c7.html.gz,vijaysales,display_size_in,raw_llm,None,15.6,False,False,False,True
+96d0be6f2bf043c7.html.gz,vijaysales,display_size_in,final,None,15.6,False,False,False,True
+96d0be6f2bf043c7.html.gz,vijaysales,display_resolution,raw_llm,None,"[None, '1920x1080']",True,False,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,display_resolution,final,None,"[None, '1920x1080']",True,False,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,display_refresh_hz,raw_llm,None,None,True,True,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,display_refresh_hz,final,None,None,True,True,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,display_panel,raw_llm,None,None,True,True,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,display_panel,final,None,None,True,True,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,touchscreen,raw_llm,None,None,True,True,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,touchscreen,final,None,None,True,True,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,os,raw_llm,Windows 11,Windows 11,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,os,final,Windows 11,Windows 11,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,ms_office,raw_llm,True,True,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,ms_office,final,True,True,True,False,False,False
+96d0be6f2bf043c7.html.gz,vijaysales,colour,raw_llm,None,None,True,True,True,True
+96d0be6f2bf043c7.html.gz,vijaysales,colour,final,None,None,True,True,True,True
+c3f1d165068e29db.html.gz,vijaysales,brand,raw_llm,HP,HP,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,brand,final,HP,HP,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,series,raw_llm,Victus Gaming,"['Victus', 'Victus 15']",False,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,series,final,Victus Gaming,"['Victus', 'Victus 15']",False,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,model_number,raw_llm,15-fa2309TX,15-fa2309TX,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,model_number,final,15-fa2309TX,15-fa2309TX,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,cpu_brand,final,Intel,Intel,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,cpu_family,raw_llm,Core i7,Core i7,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,cpu_family,final,Core i7,Core i7,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,cpu_model,raw_llm,None,None,True,True,True,True
+c3f1d165068e29db.html.gz,vijaysales,cpu_model,final,None,None,True,True,True,True
+c3f1d165068e29db.html.gz,vijaysales,ram_gb,raw_llm,None,24,False,False,False,True
+c3f1d165068e29db.html.gz,vijaysales,ram_gb,final,None,24,False,False,False,True
+c3f1d165068e29db.html.gz,vijaysales,ram_type,raw_llm,None,None,True,True,True,True
+c3f1d165068e29db.html.gz,vijaysales,ram_type,final,None,None,True,True,True,True
+c3f1d165068e29db.html.gz,vijaysales,storage_gb,raw_llm,None,1024,False,False,False,True
+c3f1d165068e29db.html.gz,vijaysales,storage_gb,final,None,1024,False,False,False,True
+c3f1d165068e29db.html.gz,vijaysales,storage_type,raw_llm,None,SSD,False,False,False,True
+c3f1d165068e29db.html.gz,vijaysales,storage_type,final,None,SSD,False,False,False,True
+c3f1d165068e29db.html.gz,vijaysales,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,gpu_type,final,dedicated,dedicated,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,gpu_model,raw_llm,NVIDIA GeForce RTX 5050,GeForce RTX 5050,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,gpu_model,final,NVIDIA GeForce RTX 5050,GeForce RTX 5050,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,gpu_vram_gb,raw_llm,None,8,False,False,False,True
+c3f1d165068e29db.html.gz,vijaysales,gpu_vram_gb,final,None,8,False,False,False,True
+c3f1d165068e29db.html.gz,vijaysales,display_size_in,raw_llm,None,15.6,False,False,False,True
+c3f1d165068e29db.html.gz,vijaysales,display_size_in,final,None,15.6,False,False,False,True
+c3f1d165068e29db.html.gz,vijaysales,display_resolution,raw_llm,None,"[None, '1920x1080']",True,False,True,True
+c3f1d165068e29db.html.gz,vijaysales,display_resolution,final,None,"[None, '1920x1080']",True,False,True,True
+c3f1d165068e29db.html.gz,vijaysales,display_refresh_hz,raw_llm,None,None,True,True,True,True
+c3f1d165068e29db.html.gz,vijaysales,display_refresh_hz,final,None,None,True,True,True,True
+c3f1d165068e29db.html.gz,vijaysales,display_panel,raw_llm,None,None,True,True,True,True
+c3f1d165068e29db.html.gz,vijaysales,display_panel,final,None,None,True,True,True,True
+c3f1d165068e29db.html.gz,vijaysales,touchscreen,raw_llm,None,None,True,True,True,True
+c3f1d165068e29db.html.gz,vijaysales,touchscreen,final,None,None,True,True,True,True
+c3f1d165068e29db.html.gz,vijaysales,os,raw_llm,Windows 11,Windows 11,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,os,final,Windows 11,Windows 11,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,ms_office,raw_llm,True,True,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,ms_office,final,True,True,True,False,False,False
+c3f1d165068e29db.html.gz,vijaysales,colour,raw_llm,None,None,True,True,True,True
+c3f1d165068e29db.html.gz,vijaysales,colour,final,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,brand,raw_llm,Acer,Acer,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,brand,final,Acer,Acer,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,series,raw_llm,Nitro V,['Nitro V'],True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,series,final,Nitro V,['Nitro V'],True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,model_number,raw_llm,UNQN9SI003,UNQN9SI003,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,model_number,final,UNQN9SI003,UNQN9SI003,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,cpu_brand,raw_llm,Intel,Intel,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,cpu_brand,final,Intel,Intel,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,cpu_family,raw_llm,Core i5,Core i5,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,cpu_family,final,Core i5,Core i5,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,cpu_model,raw_llm,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,cpu_model,final,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,ram_gb,raw_llm,None,16,False,False,False,True
+e8f3c7301d629d85.html.gz,vijaysales,ram_gb,final,None,16,False,False,False,True
+e8f3c7301d629d85.html.gz,vijaysales,ram_type,raw_llm,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,ram_type,final,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,storage_gb,raw_llm,None,512,False,False,False,True
+e8f3c7301d629d85.html.gz,vijaysales,storage_gb,final,None,512,False,False,False,True
+e8f3c7301d629d85.html.gz,vijaysales,storage_type,raw_llm,None,SSD,False,False,False,True
+e8f3c7301d629d85.html.gz,vijaysales,storage_type,final,None,SSD,False,False,False,True
+e8f3c7301d629d85.html.gz,vijaysales,gpu_type,raw_llm,dedicated,dedicated,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,gpu_type,final,dedicated,dedicated,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,gpu_model,raw_llm,NVIDIA GeForce RTX 3050,GeForce RTX 3050,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,gpu_model,final,NVIDIA GeForce RTX 3050,GeForce RTX 3050,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,gpu_vram_gb,raw_llm,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,gpu_vram_gb,final,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,display_size_in,raw_llm,None,15.6,False,False,False,True
+e8f3c7301d629d85.html.gz,vijaysales,display_size_in,final,None,15.6,False,False,False,True
+e8f3c7301d629d85.html.gz,vijaysales,display_resolution,raw_llm,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,display_resolution,final,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,display_refresh_hz,raw_llm,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,display_refresh_hz,final,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,display_panel,raw_llm,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,display_panel,final,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,touchscreen,raw_llm,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,touchscreen,final,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,os,raw_llm,Windows 11,Windows 11,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,os,final,Windows 11,Windows 11,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,ms_office,raw_llm,True,True,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,ms_office,final,True,True,True,False,False,False
+e8f3c7301d629d85.html.gz,vijaysales,colour,raw_llm,None,None,True,True,True,True
+e8f3c7301d629d85.html.gz,vijaysales,colour,final,None,None,True,True,True,True

@@ -8,12 +8,10 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 
-# Kaggle run outputs downloaded locally
-outputs/
-outputs.zip
-*.sqlite
+# SQLite journals (the committed run database in outputs/ is kept)
 *.sqlite-wal
 *.sqlite-shm
+*.sqlite-journal
 
 # Secrets and local configuration
 .env

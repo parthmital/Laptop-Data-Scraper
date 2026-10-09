@@ -1,0 +1,300 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "laptop-canonical-1.0",
+	"title": "Canonical laptop specification",
+	"type": "object",
+	"properties": {
+		"brand": {
+			"anyOf": [
+				{
+					"description": "Manufacturer brand, e.g. ASUS, HP, Lenovo, Apple.",
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 80
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"series": {
+			"anyOf": [
+				{
+					"description": "Product line without the model code, e.g. 'ROG Strix G16', 'IdeaPad Slim 3'.",
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 80
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"model_number": {
+			"anyOf": [
+				{
+					"description": "Manufacturer model or part number exactly as printed, e.g. 'G615JHR-S5005WS', '83K100CPIN', '15-fa2309TX'. Never the retailer item code or SKU.",
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 80
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"cpu_brand": {
+			"anyOf": [
+				{
+					"description": "Processor maker.",
+					"enum": ["Intel", "AMD", "Apple", "Qualcomm", "MediaTek"]
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"cpu_family": {
+			"anyOf": [
+				{
+					"description": "Processor family, e.g. 'Core i7', 'Core Ultra 5', 'Ryzen 9', 'Apple M5'.",
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 80
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"cpu_model": {
+			"anyOf": [
+				{
+					"description": "Full processor model number only when stated, e.g. 'Core i7-14650HX', 'Ryzen 7 7445HS', 'Core Ultra 9 275HX'; null when only the family or generation is given.",
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 80
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"ram_gb": {
+			"anyOf": [
+				{
+					"description": "Installed RAM in GB.",
+					"type": "integer",
+					"minimum": 1,
+					"maximum": 256
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"ram_type": {
+			"anyOf": [
+				{
+					"description": "Installed RAM type.",
+					"enum": ["DDR4", "DDR5", "LPDDR4X", "LPDDR5", "LPDDR5X"]
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"storage_gb": {
+			"anyOf": [
+				{
+					"description": "Total primary storage in GB (1 TB = 1024).",
+					"type": "integer",
+					"minimum": 16,
+					"maximum": 16384
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"storage_type": {
+			"anyOf": [
+				{
+					"description": "Primary storage type.",
+					"enum": ["SSD", "HDD", "eMMC", "UFS"]
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"gpu_type": {
+			"anyOf": [
+				{
+					"description": "Integrated or dedicated graphics.",
+					"enum": ["integrated", "dedicated"]
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"gpu_model": {
+			"anyOf": [
+				{
+					"description": "Graphics model, e.g. 'GeForce RTX 4050', 'Intel Arc Graphics'.",
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 80
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"gpu_vram_gb": {
+			"anyOf": [
+				{
+					"description": "Dedicated graphics memory in GB.",
+					"type": "integer",
+					"minimum": 1,
+					"maximum": 48
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"display_size_in": {
+			"anyOf": [
+				{
+					"description": "Screen diagonal in inches.",
+					"type": "number",
+					"minimum": 7,
+					"maximum": 20
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"display_resolution": {
+			"anyOf": [
+				{
+					"description": "Resolution as WIDTHxHEIGHT pixels, e.g. '1920x1080'.",
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 80,
+					"pattern": "^\\d{3,4}x\\d{3,4}$"
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"display_refresh_hz": {
+			"anyOf": [
+				{
+					"description": "Refresh rate in Hz.",
+					"type": "integer",
+					"minimum": 30,
+					"maximum": 600
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"display_panel": {
+			"anyOf": [
+				{
+					"description": "Panel technology.",
+					"enum": ["IPS", "OLED", "Mini-LED", "TN", "VA", "LCD"]
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"touchscreen": {
+			"anyOf": [
+				{
+					"description": "Whether the display is a touchscreen.",
+					"type": "boolean"
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"os": {
+			"anyOf": [
+				{
+					"description": "Pre-installed operating system.",
+					"enum": [
+						"Windows 11 Home",
+						"Windows 11 Pro",
+						"Windows 11",
+						"Windows 10",
+						"macOS",
+						"ChromeOS",
+						"Linux",
+						"DOS",
+						"None"
+					]
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"ms_office": {
+			"anyOf": [
+				{
+					"description": "Whether Microsoft Office is bundled.",
+					"type": "boolean"
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"colour": {
+			"anyOf": [
+				{
+					"description": "Colour name as stated.",
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 80
+				},
+				{
+					"type": "null"
+				}
+			]
+		}
+	},
+	"required": [
+		"brand",
+		"series",
+		"model_number",
+		"cpu_brand",
+		"cpu_family",
+		"cpu_model",
+		"ram_gb",
+		"ram_type",
+		"storage_gb",
+		"storage_type",
+		"gpu_type",
+		"gpu_model",
+		"gpu_vram_gb",
+		"display_size_in",
+		"display_resolution",
+		"display_refresh_hz",
+		"display_panel",
+		"touchscreen",
+		"os",
+		"ms_office",
+		"colour"
+	],
+	"additionalProperties": false
+}
