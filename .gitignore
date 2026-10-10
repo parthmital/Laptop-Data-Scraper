@@ -45,3 +45,6 @@ kaggle.json
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Kaggle output copy of the notebook (laptop-price-pipeline.ipynb is the kept copy)
+outputs/__notebook__.ipynb

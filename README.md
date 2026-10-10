@@ -10,16 +10,15 @@ labels, run metrics, alerts and the lowest current comparable price per exact co
 
 Status:
 
-- The previous notebook version (21-field schema, two retailers) ran end to end on Kaggle on 2026-10-09 (run
-  `20261009T175113Z`). Its outputs are in [`outputs/`](outputs/) and are reported in
-  [Results of the last Kaggle run](#results-of-the-last-kaggle-run-previous-version). They exposed a decoder bug that
-  made every numeric field `null`, plus false source conflicts. Both are fixed in the current version.
-- The current version (42 fields, three sources, rules, freshness, monitoring) has **not been run on Kaggle yet**.
-- The deterministic stages of the current version were tested locally:
-  - against 29 real page snapshots: parsing, rule extraction, prices, conflicts, grounding, matching, views, migration
-    and resume;
-  - by replaying the 30 live pages from the Kaggle run;
-  - with a small polite live crawl of all three sites ([Local checks](#local-checks)).
+- The current version (42 fields, three sources, rules, freshness, monitoring) ran end to end on Kaggle GPU T4 x2 on
+  2026-10-09 (run `20261009T192530Z`, 26 minutes 55 seconds). Its outputs are in [`outputs/`](outputs/), the
+  committed [`laptop-price-pipeline.ipynb`](laptop-price-pipeline.ipynb) keeps that run's cell outputs, and the
+  results are in [Results of the last Kaggle run](#results-of-the-last-kaggle-run).
+- Headline results on 29 hand-labelled listings (756 scored field cells): final field accuracy 0.9881, precision
+  0.9949, recall 0.9752, hallucination rate 0.020; matching precision 1.0 and recall 0.857 over 406 pairs; price,
+  MRP, availability and condition all correct. No health-check alert fired.
+- The deterministic stages are also tested locally ([Local checks](#local-checks)): against the 29 snapshots, by
+  replaying the run's 84 live pages, and with a small polite live crawl of all three sites.
 
 ## Table of contents
 
@@ -33,7 +32,7 @@ Status:
 - [Configuration](#configuration)
 - [Deployment and incremental runs](#deployment-and-incremental-runs)
 - [Evaluation](#evaluation)
-- [Results of the last Kaggle run (previous version)](#results-of-the-last-kaggle-run-previous-version)
+- [Results of the last Kaggle run](#results-of-the-last-kaggle-run)
 - [Notebook walkthrough](#notebook-walkthrough)
 - [Local checks](#local-checks)
 - [Troubleshooting](#troubleshooting)
@@ -58,14 +57,18 @@ Status:
      still works, but the install cell then upgrades PyTorch to 2.6.0 (CUDA 12.4 wheels, about 2.5 GB), because
      Transformers 5.x disables PyTorch below 2.5.
    - Attach the fixtures dataset with _Add Input_.
-4. **Run all.** Expected flow:
+4. **Run all.** Expected flow, with the times from the last run:
+
    - pinned install, hardware check (asserts 2 GPUs) and unit tests (`all deterministic unit tests passed`);
-   - fixture ingestion (29 snapshots);
-   - live scraping of three sites in parallel. At most 80 requests per site at 6 to 8 seconds each, so roughly 10
-     minutes;
-   - model download (about 10.1 GB), then LLM normalisation, matching and prices;
-   - evaluation, data-quality report and health checks;
-   - a final `outputs.zip` with a download link.
+   - fixture ingestion (29 snapshots, 1.9 s);
+   - live scraping of three sites in parallel. At most 80 requests per site at 6 to 8 seconds each (656.5 s);
+   - model download (about 10.1 GB, 36.6 s) and load (25.8 s), then LLM normalisation (818.7 s for 113 listings),
+     matching and prices;
+   - evaluation, data-quality report and health checks (`All health checks passed`);
+   - a final `outputs.zip` with a download link (130 files, 0.018 GB).
+
+   The whole run took 26 minutes 55 seconds.
+
 5. **Next runs.** _Add Input > Your Work_, then select this notebook's previous output. The run resumes from that
    database ([Deployment and incremental runs](#deployment-and-incremental-runs)).
 6. **Keep it private.** Vijay Sales' terms allow personal, non-commercial use only and forbid republishing content.
@@ -161,19 +164,26 @@ No retailer or affiliate API credentials are configured; the code has no API ada
 
 ```text
 .
-|-- laptop-price-pipeline.ipynb   The deliverable: the whole pipeline in one Kaggle notebook (64 cells)
+|-- laptop-price-pipeline.ipynb   The deliverable: the whole pipeline in one Kaggle notebook (64 cells), saved with
+|                                 the cell outputs of run 20261009T192530Z
 |-- fixtures/                     Upload as a private Kaggle dataset
 |   |-- ground_truth.json         Hand-verified labels: 29 listings, 7 same-product pairs, label conventions
 |   `-- snapshots/
 |       |-- index.jsonl           URL, fetch time (UTC), HTTP status, SHA-256 and file name per snapshot
 |       `-- <hash>.html.gz        29 real product pages (13 Reliance Digital, 9 Vijay Sales, 7 HP Store India)
-|-- outputs/                      Download of Kaggle run outputs
-|   |-- db/laptops.sqlite         The run's database (attach the run's output on Kaggle to resume from it)
-|   |-- metrics/, plots/, reports/, logs/, schema/, raw_html/
-|   `-- __notebook__.ipynb        The executed notebook with its outputs
+|-- outputs/                      Download of Kaggle run 20261009T192530Z
+|   |-- db/laptops.sqlite         The run's database, 2.9 MB (attach the run's output on Kaggle to resume from it)
+|   |-- metrics/                  evaluation.json, run_summary.json, health.json, model_interface.json, three CSVs
+|   |-- plots/                    extraction_accuracy.png, matching_price_latency.png, field_fill_rate.png
+|   |-- reports/                  data_quality.md, lowest_prices.csv, review_queue.csv
+|   |-- logs/pipeline.log         Stage timings, discovery counts and fetch warnings
+|   |-- schema/laptop_schema.json Canonical JSON Schema (version 2.0)
+|   `-- raw_html/<site>/          113 gzipped pages (29 fixture, 84 live): 31 HP Store, 43 Reliance
+|                                 Digital, 39 Vijay Sales
 |-- RESEARCH.md                   Dated research: model interface, source access, robots.txt and terms
 |-- README.md                     This file
-`-- .gitignore                    Ignores .venv/, .cache/, .agent-local/, *.zip, secrets and editor files
+`-- .gitignore                    Ignores .venv/, .cache/, .agent-local/, *.zip, secrets, editor files and
+                                  the duplicate outputs/__notebook__.ipynb
 ```
 
 `.agent-local/` (ignored by Git) holds the helper scripts used to build and test the notebook; see
@@ -312,7 +322,8 @@ Metrics computed by the notebook (section 19):
 
 Results:
 
-- LLM and end-to-end metrics: Not measured in the current repository (the notebook has not been run on Kaggle).
+- LLM and end-to-end metrics from the last Kaggle run: see
+  [Results of the last Kaggle run](#results-of-the-last-kaggle-run).
 - Deterministic results, measured locally on 2026-10-10 by `test_pure_cells.py`:
 
 | Metric                                                                                                                                              | Value                                                  | Source               |
@@ -324,124 +335,261 @@ Results:
 | Source conflicts vs expected                                                                                                                        | 2 expected, 2 found, 0 false                           | `test_pure_cells.py` |
 | Matching driven by labelled specs                                                                                                                   | 7 true positives, 0 false positives, 0 false negatives | `test_pure_cells.py` |
 
-## Results of the last Kaggle run (previous version)
+## Results of the last Kaggle run
 
-[`outputs/`](outputs/) (and `outputs.zip`) holds the download of run `20261009T175113Z`.
+[`outputs/`](outputs/) holds the download of run `20261009T192530Z`, made with the current notebook (every code cell's
+source is identical to [`laptop-price-pipeline.ipynb`](laptop-price-pipeline.ipynb)). The run started a new database
+(nothing was attached to resume from).
 
-**Version.** That run used the previous notebook version: the 21-field schema, Reliance Digital and Vijay Sales only,
-and no rules. The torch 2.6 upgrade was already in place.
+**Environment.** Kaggle _Always use latest environment_ image: Python 3.13.15, torch 2.11.0+cu128 (new enough, so no
+PyTorch upgrade), Transformers 5.15.0 (installed by the first cell), Accelerate 1.14.0, tokenizers 0.22.2, safetensors
+0.8.0, huggingface-hub 1.29.0, pandas 2.3.3, matplotlib 3.10.0. Hardware: 2 x Tesla T4 (14.6 GiB each, compute
+capability 7.5), 4 CPU cores, 31.3 GiB RAM, 19.5 GiB free disk. Model commit
+`d6e5432c59637093c0e125e791d89ea4a0b53559`, FP16, one replica per GPU.
 
-**Environment.** Kaggle image with Python 3.10; torch upgraded to 2.6.0+cu124, Transformers 5.15.0, model commit
-`d6e5432c59637093c0e125e791d89ea4a0b53559`, FP16 on both T4s.
+### Run facts
 
-Run facts (`outputs/metrics/run_summary.json`):
+From `outputs/metrics/run_summary.json` and `outputs/logs/pipeline.log`:
 
-| Metric                                          | Value                                                                                        |
-| ----------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| Pages / live pages / listings / products        | 52 / 30 / 52 / 46                                                                            |
-| Auto-matched products / listings needing review | 6 / 12                                                                                       |
-| Products with a lowest price                    | 26                                                                                           |
-| LLM outputs ok / failed                         | 52 / 0                                                                                       |
-| Mean LLM latency per listing                    | 9.62 s                                                                                       |
-| Stage seconds                                   | live scrape 333.1, model download 56.3, model load 15.3, normalisation 253.4, others under 2 |
-| Peak GPU memory                                 | cuda:0 10.9 GiB, cuda:1 10.74 GiB                                                            |
-| Failures                                        | 1 (Vijay Sales discovery: robots.txt not readable from Kaggle, so nothing was crawled there) |
+| Metric                                          | Value                                                                            |
+| ----------------------------------------------- | -------------------------------------------------------------------------------- |
+| Pages / live pages / listings / products        | 113 / 84 / 113 / 107                                                             |
+| Laptop URLs discovered                          | Reliance Digital 358, Vijay Sales 426, HP Store 81                               |
+| Live fetch outcomes                             | new content: Reliance Digital 30, Vijay Sales 30, HP Store 24; HP Store errors 6 |
+| Skipped as fresh (fixture URLs fetched < 20 h)  | Reliance Digital 13, Vijay Sales 9, HP Store 7                                   |
+| Rule-extracted field values                     | 1,859 (mean per listing: HP Store 33.1, Reliance Digital 18.5, Vijay Sales 1.0)  |
+| Auto-matched products / listings needing review | 6 (12 listings) / 4                                                              |
+| Products with a lowest current price            | 56 of 107                                                                        |
+| Stale offers / delisted listings                | 0 / 0                                                                            |
+| Products with known power limits                | 0                                                                                |
+| LLM outputs ok / failed / truncated             | 113 / 0 / 0                                                                      |
+| Mean LLM latency per listing                    | 13.92 s                                                                          |
+| Failures                                        | 6 (HP Store HTTP 500 on 6 OmniBook product pages, retried and logged)            |
+| Alerts                                          | none (`outputs/metrics/health.json`: `"alerts": []`)                             |
+| Peak GPU memory                                 | cuda:0 12.31 GiB, cuda:1 12.31 GiB (9.43 GiB each after loading)                 |
+| Total run time                                  | 1,615 s (26 min 55 s)                                                            |
 
-Evaluation on the 22 labelled listings (`outputs/metrics/evaluation.json`, 462 scored cells per stage):
+Stage times (seconds):
 
-| Metric             | Raw LLM | Final (after grounding) |
-| ------------------ | ------- | ----------------------- |
-| Accuracy           | 0.7792  | 0.7792                  |
-| Precision          | 0.9802  | 0.9919                  |
-| Recall             | 0.6889  | 0.6833                  |
-| Hallucination rate | 0.0098  | 0.0098                  |
+| Stage   | Fixtures | Live scrape | Extraction | Model download | Model load | Normalisation | Matching | Prices |
+| ------- | -------- | ----------- | ---------- | -------------- | ---------- | ------------- | -------- | ------ |
+| Seconds | 1.9      | 656.5       | 4.9        | 36.6           | 25.8       | 818.7         | 0.1      | 0.2    |
 
-| Other metric                                | Value                                  |
-| ------------------------------------------- | -------------------------------------- |
-| Schema validity, LLM success rate           | 1.0, 1.0                               |
-| Thinking truncated rate, forced field rate  | 0.0, 0.0                               |
-| Conflict detection (tp / fp / fn)           | 2 / 0 / 0                              |
-| Matching over 231 pairs (tp / fp / fn)      | 6 / 0 / 1: precision 1.0, recall 0.857 |
-| Price, MRP, availability, condition correct | 1.0 each                               |
+LLM normalisation by thinking mode (section 16):
 
-Per-field final accuracy (`outputs/metrics/extraction_per_field.csv`):
+| Reasoning mode                     | Listings | Mean latency (s) | Mean thinking tokens | Mean prompt tokens | Mean prefilled fields | Schema valid |
+| ---------------------------------- | -------- | ---------------- | -------------------- | ------------------ | --------------------- | ------------ |
+| `closed` (thinking block closed)   | 109      | 13.9             | 1.0                  | 2,217              | 17.0                  | 109          |
+| `skipped` (retry without thinking) | 4        | 15.1             | 0.0                  | 1,718              | 1.0                   | 0            |
 
-- 1.00: brand, colour, cpu_brand, display_refresh_hz, display_resolution, model_number, ms_office, os, touchscreen.
-- 0.95: cpu_family, gpu_model, series.
-- 0.91: cpu_model and gpu_type.
-- 0.86: display_panel.
-- 0.82: ram_type.
-- 0.59: storage_type.
-- 0.41: gpu_vram_gb.
-- 0.00: ram_gb, storage_gb and display_size_in.
+The 4 retried listings are live Vijay Sales pages (`vijaysales:218732`, `218313`, `227820`, `231497`). Both attempts
+produced an out-of-range `display_size_in` (6.17 or 6.2); validation set it to `null` and kept the rest, so they still
+count as `ok`.
+
+### Evaluation on the 29 labelled listings
+
+From `outputs/metrics/evaluation.json` (756 scored field cells per stage: rules alone, decoder output, final values
+after grounding):
+
+| Stage   | Accuracy | Precision | Recall | Hallucination rate |
+| ------- | -------- | --------- | ------ | ------------------ |
+| Rules   | 0.7923   | 1.0000    | 0.7162 | 0.0000             |
+| Decoder | 0.9550   | 0.9504    | 0.9802 | 0.1733             |
+| Final   | 0.9881   | 0.9949    | 0.9752 | 0.0200             |
+
+Final values per site:
+
+| Site             | Scored cells | Accuracy | Precision | Recall | Hallucination rate |
+| ---------------- | ------------ | -------- | --------- | ------ | ------------------ |
+| HP Store India   | 294          | 0.9932   | 0.9919    | 0.9959 | 0.0417             |
+| Reliance Digital | 273          | 0.9890   | 1.0000    | 0.9600 | 0.0000             |
+| Vijay Sales      | 189          | 0.9788   | 0.9924    | 0.9630 | 0.0185             |
+
+| Other metric                                | Value                                                         |
+| ------------------------------------------- | ------------------------------------------------------------- |
+| Schema validity, LLM success rate           | 1.0, 1.0                                                      |
+| Thinking truncated rate, forced field rate  | 0.0, 0.00082                                                  |
+| Conflict detection (tp / fp / fn)           | 2 / 0 / 0: precision 1.0, recall 1.0                          |
+| Matching over 406 pairs (tp / fp / fn)      | 6 / 0 / 1: precision 1.0, recall 0.857 (7 same-product pairs) |
+| Price, MRP, availability, condition correct | 1.0 each                                                      |
+
+Per-field metrics (`outputs/metrics/extraction_per_field.csv`; "Labelled" is the number of listings scored, 29 for
+the original 21 fields and 7 HP pages for the 21 new ones; "-" means no listing had a `null` label for that field):
+
+| Field                     | Labelled | Rules acc. | Decoder acc. | Final acc. | Final precision | Final recall | Decoder halluc. | Final halluc. |
+| ------------------------- | -------- | ---------- | ------------ | ---------- | --------------- | ------------ | --------------- | ------------- |
+| `brand`                   | 29       | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `series`                  | 29       | 0.41       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `model_number`            | 29       | 0.69       | 0.97         | 0.97       | 1.00            | 0.93         | -               | -             |
+| `part_number`             | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `cpu_brand`               | 29       | 0.69       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `cpu_family`              | 29       | 0.62       | 0.97         | 0.97       | 1.00            | 0.97         | -               | -             |
+| `cpu_model`               | 29       | 0.83       | 0.93         | 0.93       | 1.00            | 0.89         | 0.00            | 0.00          |
+| `cpu_cores`               | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `cpu_threads`             | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `cpu_base_ghz`            | 7        | 1.00       | 0.43         | 0.71       | 0.00            | -            | 0.57            | 0.29          |
+| `cpu_boost_ghz`           | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `cpu_cache_mb`            | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `cpu_tdp_w`               | 7        | 1.00       | 1.00         | 1.00       | -               | -            | 0.00            | 0.00          |
+| `ram_gb`                  | 29       | 0.69       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `ram_type`                | 29       | 0.86       | 0.93         | 1.00       | 1.00            | 1.00         | 0.17            | 0.00          |
+| `ram_speed_mts`           | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `ram_max_gb`              | 7        | 1.00       | 1.00         | 1.00       | -               | -            | 0.00            | 0.00          |
+| `storage_gb`              | 29       | 0.52       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `storage_type`            | 29       | 0.69       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `gpu_type`                | 29       | 0.28       | 0.93         | 0.93       | 1.00            | 0.90         | -               | -             |
+| `gpu_model`               | 29       | 0.69       | 0.97         | 1.00       | 1.00            | 0.96         | 0.50            | 0.00          |
+| `gpu_vram_gb`             | 29       | 0.83       | 0.97         | 1.00       | 1.00            | 1.00         | 0.08            | 0.00          |
+| `gpu_vram_type`           | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | 0.00            | 0.00          |
+| `gpu_tgp_w`               | 7        | 1.00       | 1.00         | 1.00       | -               | -            | 0.00            | 0.00          |
+| `display_size_in`         | 29       | 0.69       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `display_resolution`      | 29       | 1.00       | 0.90         | 0.97       | 0.95            | 0.91         | 0.17            | 0.17          |
+| `display_refresh_hz`      | 29       | 1.00       | 0.93         | 1.00       | 1.00            | 1.00         | 0.08            | 0.00          |
+| `display_panel`           | 29       | 0.83       | 0.97         | 1.00       | 1.00            | 0.92         | 0.06            | 0.00          |
+| `display_brightness_nits` | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `display_color_gamut`     | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `touchscreen`             | 29       | 1.00       | 0.59         | 1.00       | 1.00            | 1.00         | 0.75            | 0.00          |
+| `battery_wh`              | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `battery_cells`           | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `adapter_w`               | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `weight_kg`               | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `thickness_mm`            | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `cooling`                 | 7        | 1.00       | 1.00         | 1.00       | -               | -            | 0.00            | 0.00          |
+| `wifi_standard`           | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `backlit_keyboard`        | 7        | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | 0.00            | 0.00          |
+| `os`                      | 29       | 0.59       | 1.00         | 1.00       | 1.00            | 1.00         | -               | -             |
+| `ms_office`               | 29       | 0.69       | 0.93         | 1.00       | 1.00            | 0.89         | 1.00            | 0.00          |
+| `colour`                  | 29       | 1.00       | 1.00         | 1.00       | 1.00            | 1.00         | 0.00            | 0.00          |
+
+The 9 wrong final cells (section 19 output):
+
+| Snapshot                   | Site             | Field                | Predicted   | Label                   |
+| -------------------------- | ---------------- | -------------------- | ----------- | ----------------------- |
+| `9fe25ac9e8293463.html.gz` | Reliance Digital | `cpu_model`          | `null`      | `M5` or `Apple M5`      |
+| `bb080920112feb55.html.gz` | Reliance Digital | `cpu_family`         | `null`      | Intel Processor N forms |
+| `bb080920112feb55.html.gz` | Reliance Digital | `cpu_model`          | `null`      | `N50` forms             |
+| `1d6b4ee510c79642.html.gz` | Vijay Sales      | `display_resolution` | `1920x1080` | `null` (not stated)     |
+| `d62d8799d56d2726.html.gz` | Vijay Sales      | `gpu_type`           | `null`      | `integrated`            |
+| `5caecd8609b4d39c.html.gz` | Vijay Sales      | `gpu_type`           | `null`      | `integrated`            |
+| `e8f3c7301d629d85.html.gz` | Vijay Sales      | `model_number`       | `null`      | `UNQN9SI003`            |
+| `243d6dcb633bbdb9.html.gz` | HP Store India   | `cpu_base_ghz`       | `5.8`       | `null` (not stated)     |
+| `a17e4c6b07b01e8b.html.gz` | HP Store India   | `cpu_base_ghz`       | `5.0`       | `null` (not stated)     |
+
+The two HP errors are boost clocks reported as base clocks. The one missed match is the ASUS ROG Strix G16
+G614PH-RV073WS pair (`f1d5829f6b9d1864` on Reliance Digital, `1d6b4ee510c79642` on Vijay Sales): both listings went to
+review with the reason `display_resolution: 1920x1200 != 1920x1080`, because the Vijay Sales value was inferred from
+"FHD" and passed grounding.
 
 ![Field accuracy and hallucination rate per field](outputs/plots/extraction_accuracy.png)
 
-_Field accuracy (left) and hallucination rate (right) for the raw LLM output and the final values. The numeric
-fields `ram_gb`, `storage_gb` and `display_size_in` have no bar because every prediction was `null`._
+_Left: accuracy per field for rules, decoder and final values. Rules are exact where they fire but miss fields on
+Vijay Sales pages and in titles; the decoder fills them, and grounding removes most of its unsupported values. Right:
+hallucination rate (label is `null`, prediction is not). The decoder's highest rates are `ms_office` (1.00),
+`touchscreen` (0.75), `cpu_base_ghz` (0.57) and `gpu_model` (0.50); after grounding only `cpu_base_ghz` (0.29) and
+`display_resolution` (0.17) remain._
 
 ![Matching, deterministic fields and LLM latency](outputs/plots/matching_price_latency.png)
 
-_Matching on 231 pairs (6 TP, 0 FP, 1 FN), deterministic listing fields (all correct), and LLM latency against thinking
-tokens. Every listing used one thinking token: at `low` effort the model closed its thinking block immediately._
+_Left: matching on 406 pairs (6 TP, 0 FP, 1 FN). Middle: price, MRP, availability and condition are correct on every
+labelled listing. Right: LLM latency (about 11 to 19 s) against thinking tokens: 1 token on 109 listings and 0 on the
+4 retries._
+
+### Data quality and prices
+
+From `outputs/reports/data_quality.md`:
+
+| Site             | Listings | Normalised | Needs review | Offers in stock / out of stock / unknown | Spec values from rules / LLM | Missing a price |
+| ---------------- | -------- | ---------- | ------------ | ---------------------------------------- | ---------------------------- | --------------- |
+| HP Store India   | 31       | 31         | 0            | 22 / 4 / 5                               | 1,026 / 35                   | 1               |
+| Reliance Digital | 43       | 43         | 3            | 39 / 4 / 0                               | 794 / 178                    | 1               |
+| Vijay Sales      | 39       | 39         | 1            | 2 / 37 / 0                               | 39 / 444                     | 1               |
+
+- **Match status (listings).** 12 auto-matched, 4 needs review, 90 single listing, 7 unmatched (no model number).
+- **Condition.** 21 Vijay Sales offers are `display_unit` (Store Display Unit); every other offer is `new`.
+- **Freshness.** All 113 current offers are `fresh` (age 0.2 to 6.5 hours at the end of the run).
+- **Price signal flags.** 13 listings: 4 Reliance Digital pages whose page state says out of stock while JSON-LD says
+  in stock, and 9 listings with an MRP discount above 50% (5 on HP Store, 3 on Reliance Digital, 1 on Vijay Sales).
+- **Pending review.** 2 candidate pairs: the G614PH pair above (`same_model_number_incompatible_specs`) and two Vijay
+  Sales listings without a model number, an Acer Nitro V and a Store Display Unit Acer ALG
+  (`same_config_no_model_number`).
+- **Health checks.** `All health checks passed`; no alert rows.
 
 ![Field fill rate after grounding](outputs/plots/field_fill_rate.png)
 
-_Share of listings with a value per field and site after grounding. Every numeric field is empty._
+_Share of listings with a value per field and site after grounding. HP Store pages fill almost every field from their
+spec tables; Reliance Digital fills most; Vijay Sales has no server-rendered spec table, so only title-level fields
+(brand, CPU family, RAM, storage, size, GPU model, OS) are mostly filled. `cpu_tdp_w` and `cooling` are empty
+everywhere, and `gpu_tgp_w` is filled on 5% of Reliance Digital listings only._
 
-Defects these outputs revealed, and their fixes in the current version:
+`outputs/reports/lowest_prices.csv` lists all 107 products; 56 have a lowest current comparable price. The cheapest
+is the Asus ChromeBook 15 CX1505CTA-S70293 at Rs 47,990 (Reliance Digital). Each row gives the price, seller, price
+age in hours, comparable offers, listings, stale offers, `power_limits_known`, verification time and direct URL.
 
-| Defect                                          | Evidence                                                                                                                                                                         | Fix                                                                                  | Verification                                                           |
-| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
-| Every numeric value was `null`                  | `ram_gb` null in 52 of 52 outputs. The tokenizer emits a bare space token before digit groups, and the decoder rejected a whitespace-only prefix, while `null` is a single token | allow a short whitespace prefix in `split_value`                                     | self-checks replay the real token pieces (bare space, `102`, `4`, `,`) |
-| False RAM conflicts on 7 live listings          | titles such as `(i5/8 GB/512 GB/...)` gave RAM values 8 and 512                                                                                                                  | a bare `N GB` segment counts as RAM only at a RAM size                               | replaying the 30 live pages: conflicts drop from 8 to 0                |
-| False model conflicts                           | spec `Lenovo 83K1006SIN` vs title `... 83K1006SIN ...`; a Surface title without a model code                                                                                     | flag only a different code of the same shape in the title                            | unit tests and the replay                                              |
-| Missed match (G614PH pair)                      | LLM `gpu_model` = `GeForce RTX 50 Series`                                                                                                                                        | a GPU "series" is not a GPU model (grounding rejects it)                             | unit test                                                              |
-| Vijay Sales skipped silently from Kaggle        | `sitemap_robots_disallowed`                                                                                                                                                      | robots.txt failures are now logged with the cause; an alert fires on empty discovery | code review                                                            |
-| Duplicated names such as `HP HP 15 15-FD0901TU` | `outputs/reports/lowest_prices.csv`                                                                                                                                              | collapse repeated words in product names                                             | unit test and the replay                                               |
+### Other output files
 
-Other files in the run:
+| File                                   | Contents                                                                                            |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `outputs/metrics/extraction_cells.csv` | 2,268 rows: every scored cell (file, site, field, group, stage, prediction, label, correctness)     |
+| `outputs/metrics/matching_pairs.csv`   | 406 rows: every fixture pair with gold and predicted "same product" and both match statuses         |
+| `outputs/metrics/model_interface.json` | model path, revision, library versions, vocabulary size, EOS and thinking tag ids, prompt tail      |
+| `outputs/reports/review_queue.csv`     | 11 rows: the 4 `needs_review` and 7 `unmatched_no_model_number` listings with reasons and conflicts |
+| `outputs/schema/laptop_schema.json`    | the canonical JSON Schema (version 2.0)                                                             |
+| `outputs/db/laptops.sqlite`            | the run's database; section 2.2 resumes from it when the run's output is attached on Kaggle         |
 
-- `reports/lowest_prices.csv` (26 priced products);
-- `reports/review_queue.csv` (13 rows);
-- `reports/data_quality.md`;
-- `metrics/extraction_cells.csv` (924 rows), `metrics/matching_pairs.csv` and `metrics/model_interface.json`;
-- `logs/pipeline.log`;
-- `raw_html/` (43 Reliance Digital and 9 Vijay Sales pages);
-- `db/laptops.sqlite`, which section 2.2 can resume from: attach the run's output on Kaggle.
+### Changes since the previous Kaggle run
+
+The previous run (`20261009T175113Z`, earlier the same day, 21-field notebook version) exposed defects that the
+current version fixes. This run confirms the fixes:
+
+| Defect in run `20261009T175113Z`                               | Result in run `20261009T192530Z`                                                                           |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Every numeric value was `null` (decoder rejected a bare space) | `ram_gb`, `storage_gb` and `display_size_in` final accuracy 1.00 (was 0.00)                                |
+| False RAM and model conflicts on 8 live listings               | conflict detection 2 / 0 / 0; no live listing flagged                                                      |
+| Vijay Sales discovery returned no URLs from Kaggle             | 426 URLs discovered, 30 new pages fetched                                                                  |
+| Duplicated names such as `HP HP 15 15-FD0901TU`                | now `HP 15 15-FD0901TU`; a non-adjacent repeat remains (`Lenovo IdeaPad Slim 3 15IRH10 Lenovo 83K1006SIN`) |
+| Missed G614PH match (`GeForce RTX 50 Series` as GPU model)     | still missed, now because of the inferred `display_resolution` described above                             |
+
+Final accuracy rose from 0.7792 (462 cells, 21 fields) to 0.9881 (756 cells, 42 fields), and the final
+hallucination rate moved from 0.0098 to 0.020. Mean LLM latency rose from 9.62 s to 13.92 s per listing, with
+longer prompts (2,217 tokens on average).
 
 ## Notebook walkthrough
 
-| Section                  | What it does                                                                                                     | Main outputs                                                                                                    |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| 1 Setup                  | installs Transformers 5.15.0 (and torch 2.6.0 if older than 2.5) if needed, imports, checks GPUs, CPU, RAM, disk | printed versions and hardware                                                                                   |
-| 2 Configuration          | constants, output folders, seeds, logger, timers, run metrics; 2.2 resumes from a previous run                   | `logs/pipeline.log`                                                                                             |
-| 3 Schema                 | 42 canonical fields, validator, JSON Schema export                                                               | `schema/laptop_schema.json`                                                                                     |
-| 4 Database               | tables, views, migration, site notes, run record                                                                 | `db/laptops.sqlite`                                                                                             |
-| 5 Fetching               | `RobotsPolicy`, bot-wall detection, `PoliteFetcher`                                                              |                                                                                                                 |
-| 6-7 Parsing and adapters | price, availability, condition helpers; Reliance Digital, Vijay Sales and HP Store adapters; LLM input builder   |                                                                                                                 |
-| 8 Checks and rules       | normalisers, grounding, conflict detection, compatibility; 8.1 spec rules; 8.2 offline unit tests                | `all deterministic unit tests passed`                                                                           |
-| 9 Fixtures               | finds the dataset, reads `.html.gz` or decompressed snapshots, verifies checksums, stores them as pages          | 29 fixture pages                                                                                                |
-| 10 Live scraping         | sitemap discovery and incremental fetching, one thread per site, delisting                                       | `fetch_log`, outcome table per site                                                                             |
-| 11 Extraction            | payloads, rule values, listings, price history                                                                   | listings, conflicts, delisted, rule fields per site                                                             |
-| 12 Model interface       | downloads the model, verifies template, thinking tags and EOS ids                                                | `metrics/model_interface.json`                                                                                  |
-| 13 Model load            | FP16 replica per GPU with logits check, FP32 fallback                                                            | memory per GPU                                                                                                  |
-| 14 Decoder               | constrained JSON decoder with prefill, grammar self-checks                                                       | `decoder grammar checks passed`                                                                                 |
-| 15 Prompt                | system prompt, field list, worker with retries, post-processing with per-field origin                            |                                                                                                                 |
-| 16 Normalisation         | both GPUs in parallel, results written as they arrive                                                            | status, latency and prefill table                                                                               |
-| 17 Matching              | products, consolidated specs with provenance, review candidates                                                  | match status table                                                                                              |
-| 18 Prices                | lowest current comparable price per product, with age                                                            | `reports/lowest_prices.csv`                                                                                     |
-| 19 Evaluation            | extraction (rules, decoder, final), conflicts, matching, prices vs ground truth                                  | `metrics/evaluation.json`, `metrics/*.csv`, `plots/extraction_accuracy.png`, `plots/matching_price_latency.png` |
-| 20 Data quality          | coverage, freshness, rule vs LLM origin, conflicts, fetch outcomes, failures, fill rates; 20.1 health checks     | `reports/data_quality.md`, `reports/review_queue.csv`, `plots/field_fill_rate.png`, `metrics/health.json`       |
-| 21 Queries               | current offers per product, price timeline, spec provenance                                                      |                                                                                                                 |
-| 22 Summary               | key results of the run; run metrics saved                                                                        | `metrics/run_summary.json`                                                                                      |
-| 23 Limitations           | limitations and next steps                                                                                       |                                                                                                                 |
-| 24 Package               | zips `/kaggle/working` except caches                                                                             | `outputs.zip`                                                                                                   |
+Outputs quoted from run `20261009T192530Z`, as saved in the notebook.
+
+| Section                  | What it does                                                                                                     | Output in the last run                                                                                                                                    |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 Setup                  | installs Transformers 5.15.0 (and torch 2.6.0 if older than 2.5) if needed, imports, checks GPUs, CPU, RAM, disk | `Installing: transformers==5.15.0`; versions listed above; 2 x Tesla T4 14.6 GiB, 4 CPU cores, 31.3 GiB RAM, 19.5 GiB free disk                           |
+| 2 Configuration          | constants, output folders, seeds, logger, timers, run metrics; 2.2 resumes from a previous run                   | `Run 20261009T192530Z`; `Starting with a new database (no previous run attached, or resume disabled).`                                                    |
+| 3 Schema                 | 42 canonical fields, validator, JSON Schema export                                                               | field table (group, field, type, critical, allowed values, range); `schema/laptop_schema.json`                                                            |
+| 4 Database               | tables, views, migration, site notes, run record                                                                 | 17 tables and 3 views listed                                                                                                                              |
+| 5 Fetching               | `RobotsPolicy`, bot-wall detection, `PoliteFetcher`                                                              | no output                                                                                                                                                 |
+| 6-7 Parsing and adapters | price, availability, condition helpers; Reliance Digital, Vijay Sales and HP Store adapters; LLM input builder   | `Adapters: ['reliancedigital', 'vijaysales', 'hpstore']`                                                                                                  |
+| 8 Checks and rules       | normalisers, grounding, conflict detection, compatibility; 8.1 spec rules; 8.2 offline unit tests                | `spec rules: 46`; `all deterministic unit tests passed`                                                                                                   |
+| 9 Fixtures               | finds the dataset, reads `.html.gz` or decompressed snapshots, verifies checksums, stores them as pages          | 29 snapshots, 29 new pages, 29 labelled listings, 7 same-product pairs (1.9 s)                                                                            |
+| 10 Live scraping         | sitemap discovery and incremental fetching, one thread per site, delisting                                       | discovery and fetch counts in [Run facts](#run-facts) (656.5 s)                                                                                           |
+| 11 Extraction            | payloads, rule values, listings, price history                                                                   | `{'rule_fields': 1859, 'ok': 113}`; 21 Vijay Sales listings not in new condition; 2 Reliance Digital listings with conflicts; 0 delisted                  |
+| 12 Model interface       | downloads the model, verifies template, thinking tags and EOS ids                                                | `metrics/model_interface.json` (36.6 s)                                                                                                                   |
+| 13 Model load            | FP16 replica per GPU with logits check, FP32 fallback                                                            | `fp16 logits finite=True max\|logit\|=20.6` on both GPUs; 9.43 GiB allocated each; `Replicas: 2 \| dtype: float16`                                        |
+| 14 Decoder               | constrained JSON decoder with prefill, grammar self-checks                                                       | `decoder grammar checks passed`                                                                                                                           |
+| 15 Prompt                | system prompt, field list, worker with retries, post-processing with per-field origin                            | `Workers on: ['cuda:0', 'cuda:1']`                                                                                                                        |
+| 16 Normalisation         | both GPUs in parallel, results written as they arrive                                                            | 113 listings, 1,859 values prefilled; `{'ok': 113, 'truncated': 0}`; mode table above (818.7 s)                                                           |
+| 17 Matching              | products, consolidated specs with provenance, review candidates                                                  | 90 single, 7 unmatched without model number, 6 auto-matched products (12 listings), 4 needs review                                                        |
+| 18 Prices                | lowest current comparable price per product, with age                                                            | `56 of 107 products have a comparable in-stock offer verified within 7 days; 0 stale and 0 delisted offers are excluded`                                  |
+| 19 Evaluation            | extraction (rules, decoder, final), conflicts, matching, prices vs ground truth                                  | the evaluation tables above; `plots/extraction_accuracy.png`, `plots/matching_price_latency.png`; empty price-error table                                 |
+| 20 Data quality          | coverage, freshness, rule vs LLM origin, conflicts, fetch outcomes, failures, fill rates; 20.1 health checks     | `reports/data_quality.md`, `reports/review_queue.csv`, `plots/field_fill_rate.png`; `All health checks passed`                                            |
+| 21 Queries               | current offers per product, price timeline, spec provenance                                                      | the 6 auto-matched products with offers from both retailers; one price observation; the ROG Strix G16 G615JHR-S5005WS spec sheet with supporting listings |
+| 22 Summary               | key results of the run; run metrics saved                                                                        | `metrics/run_summary.json`                                                                                                                                |
+| 23 Limitations           | limitations and next steps                                                                                       | markdown only                                                                                                                                             |
+| 24 Package               | zips `/kaggle/working` except caches                                                                             | `Zipped 130 files (0.018 GB) into /kaggle/working/outputs.zip`                                                                                            |
 
 ## Local checks
 
 The notebook is never executed locally. These checks were run while building it (Python 3.11, repo-local `.venv` with
 `nbformat`, `black` and `pyflakes`):
+
+The committed notebook carries the Kaggle run's outputs. Rebuilding it from the percent-format source writes a
+notebook without outputs, so rebuild only when the code changes, and replace it with the next run's download.
 
 ```bash
 # Rebuild the notebook from its percent-format source (cell ids are kept in the "# %% id=..." markers)
@@ -456,7 +604,8 @@ The notebook is never executed locally. These checks were run while building it 
 .venv/Scripts/python .agent-local/scripts/test_pure_cells.py .agent-local/scripts/notebook_source.py . --replay outputs
 ```
 
-All three test commands end with `ALL PURE CHECKS PASSED`. Besides the results in [Evaluation](#evaluation), they check:
+All three test commands ended with `ALL PURE CHECKS PASSED` (the `--replay outputs` command was last re-run on
+2026-10-10 against the current outputs). Besides the results in [Evaluation](#evaluation), they check:
 
 - the notebook's unit tests;
 - the current-offer and price-timeline views;
@@ -469,8 +618,9 @@ On 2026-10-10 the live run completed in 142 s with the three sites in parallel:
 - It fetched and extracted 5 new pages without errors. Fixture URLs fetched within 20 hours were skipped.
 - One HP page returned a persistent HTTP 500, which was retried and logged.
 
-The replay of the 30 live Reliance Digital pages from `outputs/` extracts all 30. It finds no source conflicts (the
-previous version flagged 8, all false). Rules fill 18.3 fields per listing on average (minimum 4, maximum 23).
+On 2026-10-10 the replay of the 84 live pages from `outputs/` (run `20261009T192530Z`) extracted all 84 with 1,367
+rule-extracted values. It found no source conflicts on live listings, and rules filled 16.3 fields per listing on
+average (minimum 1, maximum 34). The fixture pass in the same command extracted 492 rule values from the 29 snapshots.
 
 These checks test the deterministic code, not the LLM.
 
@@ -485,6 +635,8 @@ These checks test the deterministic code, not the LLM.
 | `stale_offer_share` alert                             | refresh budget too small, or fetches failing      | `SELECT site, freshness, COUNT(*) FROM v_current_offers GROUP BY 1, 2`                                         | run more often or raise `MAX_FETCHES_PER_SITE` moderately                                   |
 | Many `truncated` thinking results                     | 512-token budget too small                        | `SELECT reasoning_mode, COUNT(*) FROM llm_normalisations GROUP BY 1`                                           | raise `REASONING_BUDGET_TOKENS` and bump `PROMPT_VERSION`                                   |
 | `FP16 produced non-finite logits` warning             | FP16 overflow                                     | printed by section 13                                                                                          | nothing to do: the notebook falls back to FP32 on both GPUs (slower)                        |
+| `[fetch] ... HTTP 500` warnings for some HP pages     | HP Store server errors on those product pages     | `SELECT url, error FROM fetch_log WHERE site='hpstore' AND outcome='error'`                                    | nothing to do: the pages are retried, logged and tried again on the next run                |
+| `[ERROR] cache_position is part of ... signature`     | Transformers docstring check on the model's code  | printed by section 13                                                                                          | harmless; the model loaded and ran normally in the last run                                 |
 | `lowest_prices` mostly `NULL`                         | no fresh in-stock new offers with trusted matches | `SELECT match_status, COUNT(*) FROM seller_listings GROUP BY 1`                                                | refresh scraping; review `match_candidates`                                                 |
 | `Previous database ... failed the integrity check`    | corrupt or partial previous output                | the warning in section 2.2                                                                                     | the run starts fresh; attach a complete previous output                                     |
 
@@ -497,12 +649,19 @@ These checks test the deterministic code, not the LLM.
 - **Power limits and benchmarks.** No current source states CPU TDP or GPU TGP for these listings, so
   `power_limits_known` is usually 0. No permitted benchmark or thermal source was found.
 - **Freshness.** Batch runs, not real time.
-- **Network.** Kaggle's cloud IPs may be blocked by retailers (Vijay Sales discovery returned nothing from Kaggle on
-  2026-10-09). The fixtures keep the pipeline and evaluation meaningful offline.
+- **Network.** Kaggle's cloud IPs may be blocked or throttled by retailers. Vijay Sales discovery returned nothing in
+  the first Kaggle run on 2026-10-09 but worked in the last run; HP Store returned HTTP 500 for 6 pages. The fixtures
+  keep the pipeline and evaluation meaningful offline.
 - **Model.** `reasoning_effort="low"` with a 512-token budget departs from the model card's recommendation (`high`,
-  32k tokens). In the last run the model closed its thinking block after one token on every listing, so no reasoning
-  was used.
-- **Grounding.** It cannot catch a wrong value that also appears in the text.
+  32k tokens). In the last run the model closed its thinking block after one token on 109 of 113 listings, and the
+  other 4 were retried without thinking, so no reasoning was used.
+- **Decoder.** The 4 retried Vijay Sales listings produced an out-of-range `display_size_in` (6.17 or 6.2), which
+  validation nulled. Before grounding, the decoder's hallucination rate was 0.173.
+- **Grounding.** It cannot catch a wrong value that also appears in the text, or one inferred from a stated term
+  ("FHD" became `1920x1080` and blocked the G614PH match). On two HP pages the boost clock was reported as
+  `cpu_base_ghz`.
+- **Product names.** A non-adjacent repeated brand survives in some names
+  (`Lenovo IdeaPad Slim 3 15IRH10 Lenovo 83K1006SIN`).
 - **Matching.** Automatic merges need a model code or part number on both sides; colour variants are separate
   products.
 - **Ground truth.** It is small, AI-labelled, and labels the new fields only on the 7 HP pages; treat metrics from it

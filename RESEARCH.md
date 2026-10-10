@@ -7,20 +7,26 @@ dtype, libraries, chat template, reasoning controls, structured-output support.
 
 **Findings (from the files themselves, opened and read on 2026-10-09).**
 
-| Fact | Value | Source |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- | ------------------ | ------------------------------------------ | --------------------- |
-| Architecture | `K2HorizonForCausalLM`, `model_type: k2_horizon`, dense (num_experts 0), 36 layers, hidden 2560, 32 heads / 8 KV heads, vocab 250,624, untied embeddings | `config.json` |
-| Stored size | 10.1 GB BF16 (about 5.05 B stored parameters; the card calls it "3.7B-core") | HF file listing, model card |
-| Loading | `trust_remote_code=True`; validated with Transformers 5.15.0, PyTorch 2.13.0, Safetensors 0.8.0 | model card |
-| Attention | eager, SDPA, flash and flex supported; flash-attn not required; no custom kernels | `modeling_k2_horizon.py` |
-| Numerics | RMSNorm, softmax and RoPE upcast to float32 internally | `modeling_k2_horizon.py` |
-| Forward API | standard `DynamicCache` KV cache, `logits_to_keep` supported | `modeling_k2_horizon.py` |
-| EOS ids | `[1, 250019]` | `generation_config.json` |
-| Reasoning | always on; `reasoning_effort` in `high` / `medium` / `low` opens `<ifm                                                                                   | think>`/`<ifm               | think_fast>`/`<ifm | think_faster>`; no way to disable thinking | `chat_template.jinja` |
-| Card recommendation | `reasoning_effort="high"`, temperature 1.0, top_p 0.95, at least 32,768 output tokens; "truncated reasoning is a failed response" | model card |
-| Structured output | no JSON mode described; tool calls support `json`, `xml`, `xml_typed` formats via vLLM/SGLang parsers | model card |
-| GGUF | official GGUF exists but needs an unmerged llama.cpp PR or the MBZUAI-IFM fork | GGUF model card |
-| Licence | Apache-2.0 | model card |
+| Fact                | Value                                                                                                                                                     | Source                      |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| Architecture        | `K2HorizonForCausalLM`, `model_type: k2_horizon`, dense (num_experts 0), 36 layers, hidden 2560, 32 heads / 8 KV heads, vocab 250,624, untied embeddings  | `config.json`               |
+| Stored size         | 10.1 GB BF16 (about 5.05 B stored parameters; the card calls it "3.7B-core")                                                                              | HF file listing, model card |
+| Loading             | `trust_remote_code=True`; validated with Transformers 5.15.0, PyTorch 2.13.0, Safetensors 0.8.0                                                           | model card                  |
+| Attention           | eager, SDPA, flash and flex supported; flash-attn not required; no custom kernels                                                                         | `modeling_k2_horizon.py`    |
+| Numerics            | RMSNorm, softmax and RoPE upcast to float32 internally                                                                                                    | `modeling_k2_horizon.py`    |
+| Forward API         | standard `DynamicCache` KV cache, `logits_to_keep` supported                                                                                              | `modeling_k2_horizon.py`    |
+| EOS ids             | `[1, 250019]`                                                                                                                                             | `generation_config.json`    |
+| Reasoning           | always on; `reasoning_effort` in `high` / `medium` / `low` opens `<ifm\|think>` / `<ifm\|think_fast>` / `<ifm\|think_faster>`; no way to disable thinking | `chat_template.jinja`       |
+| Card recommendation | `reasoning_effort="high"`, temperature 1.0, top_p 0.95, at least 32,768 output tokens; "truncated reasoning is a failed response"                         | model card                  |
+| Structured output   | no JSON mode described; tool calls support `json`, `xml`, `xml_typed` formats via vLLM/SGLang parsers                                                     | model card                  |
+| GGUF                | official GGUF exists but needs an unmerged llama.cpp PR or the MBZUAI-IFM fork                                                                            | GGUF model card             |
+| Licence             | Apache-2.0                                                                                                                                                | model card                  |
+
+**Confirmed on Kaggle (run `20261009T192530Z`, `outputs/metrics/model_interface.json`).** Model commit
+`d6e5432c59637093c0e125e791d89ea4a0b53559` loaded with Transformers 5.15.0 and torch 2.11.0+cu128; vocabulary 250,624;
+EOS ids `[1, 250019]` (`<|ifm|endoftext|>`, `<|ifm|im_end|>`); thinking open and close tag ids 250052 and 250053; the
+`low` generation prompt ends with `<ifm|think_faster>`. FP16 logits were finite on both T4s (max |logit| 20.6), with
+9.43 GiB allocated per GPU after loading.
 
 **Decisions.**
 
@@ -28,7 +34,8 @@ dtype, libraries, chat template, reasoning controls, structured-output support.
   handled by a logits sanity check with an FP32 fallback split across both GPUs.
 - Use `reasoning_effort="low"` with a 512-token budget instead of the card's 32k-token `high` setting, because a
   32k-token generation per listing is impractical on a T4. Truncation is counted and reported. This departs from the
-  card's evaluation recommendation, so quality at higher budgets is not claimed.
+  card's evaluation recommendation, so quality at higher budgets is not claimed. In run `20261009T192530Z` no thinking
+  block was truncated: the model closed it after one token on 109 of 113 listings, and 4 retries ran without thinking.
 - Implement constrained decoding in the notebook (top-k filtering against per-field grammars, KV-cache rollback) rather
   than adding a grammar library, because Transformers has no JSON-schema mode and compatibility of external grammar
   libraries with this custom tokenizer could not be verified offline.
@@ -87,8 +94,12 @@ Data-quality observations from the 29 fixture snapshots (all reproduced in `fixt
 - HP Store "Regular price" (MRP) is often more than twice the sale price (for example 4,46,289.99 vs 2,19,990.00).
 - None of the 29 pages states a CPU TDP or a GPU TGP; HP states processor cores, threads and boost clock, battery,
   adapter, weight and dimensions for every laptop.
-- From Kaggle on 2026-10-09, Vijay Sales sitemap discovery returned no URLs, while the same requests from India
-  returned HTTP 200 (a cloud-IP block is the likely cause; not confirmed).
+- From Kaggle on 2026-10-09 (run `20261009T175113Z`), Vijay Sales sitemap discovery returned no URLs, while the same
+  requests from India returned HTTP 200. In the next Kaggle run the same day (`20261009T192530Z`) discovery worked
+  from Kaggle (426 laptop URLs, 30 new pages fetched without errors), so the earlier failure was transient or
+  IP-dependent; the cause is not confirmed.
+- In run `20261009T192530Z`, HP Store returned a persistent HTTP 500 for 6 OmniBook product pages from Kaggle
+  (`outputs/logs/pipeline.log`); 24 other HP pages were fetched.
 
 **Recommendation.** Use Reliance Digital, Vijay Sales and HP Store India, all at 6 s or more per request with per-run
 caps. Keep power-limit and benchmark fields empty unless a source states them; add a source only after its robots.txt
