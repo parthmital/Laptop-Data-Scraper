@@ -2,7 +2,7 @@
 	"model_dir": "/tmp/hf_cache/models--IFM--K2-Horizon-3.7B/snapshots/d6e5432c59637093c0e125e791d89ea4a0b53559",
 	"revision": "d6e5432c59637093c0e125e791d89ea4a0b53559",
 	"transformers": "5.15.0",
-	"torch": "2.6.0+cu124",
+	"torch": "2.11.0+cu128",
 	"vocab_size": 250624,
 	"eos_ids": [1, 250019],
 	"eos_tokens": ["<|ifm|endoftext|>", "<|ifm|im_end|>"],

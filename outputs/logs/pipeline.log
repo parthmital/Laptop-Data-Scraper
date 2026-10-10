@@ -1,23 +1,28 @@
-2026-10-09 17:51:14,362 INFO [fixtures] started
-2026-10-09 17:51:15,607 INFO [fixtures] finished in 1.2s
-2026-10-09 17:51:15,609 INFO Fixtures at /kaggle/input/datasets/parthmital/laptop-data/fixtures: 22 snapshots, 22 new pages, 22 labelled listings, 7 same-product pairs
-2026-10-09 17:51:15,742 INFO [live_scrape] started
-2026-10-09 17:53:18,565 INFO [reliancedigital] discovered 358 laptop URLs; fetching up to 43 (30 new)
-2026-10-09 17:56:48,789 WARNING Sitemap https://www.vijaysales.com/sitemap-index.xml: robots_disallowed (HTTP None, None)
-2026-10-09 17:56:48,793 WARNING [discover] vijaysales: could not fetch sitemap index https://www.vijaysales.com/sitemap-index.xml
-2026-10-09 17:56:48,794 WARNING [vijaysales] discovery failed: could not fetch sitemap index https://www.vijaysales.com/sitemap-index.xml
-2026-10-09 17:56:48,795 INFO [vijaysales] discovered 0 laptop URLs; fetching up to 9 (0 new)
-2026-10-09 17:56:48,810 INFO [live_scrape] finished in 333.1s
-2026-10-09 17:56:48,878 INFO [extraction] started
-2026-10-09 17:56:50,216 INFO [extraction] finished in 1.3s
-2026-10-09 17:56:50,288 INFO [model_download] started
-2026-10-09 17:57:46,619 INFO [model_download] finished in 56.3s
-2026-10-09 17:57:49,180 INFO [model_load] started
-2026-10-09 17:58:04,527 INFO [model_load] finished in 15.3s
-2026-10-09 17:58:08,894 INFO [normalisation] started
-2026-10-09 17:58:08,896 INFO Normalising 52 unique listing texts on 2 worker(s)
-2026-10-09 18:02:22,284 INFO [normalisation] finished in 253.4s
-2026-10-09 18:02:22,378 INFO [matching] started
-2026-10-09 18:02:22,423 INFO [matching] finished in 0.0s
-2026-10-09 18:02:22,495 INFO [price_aggregation] started
-2026-10-09 18:02:22,572 INFO [price_aggregation] finished in 0.1s
+2026-10-09 19:25:30,548 INFO Starting with a new database (no previous run attached, or resume disabled).
+2026-10-09 19:25:31,462 INFO [fixtures] started
+2026-10-09 19:25:33,400 INFO [fixtures] finished in 1.9s
+2026-10-09 19:25:33,401 INFO Fixtures at /kaggle/input/datasets/parthmital/laptop-data/fixtures: 29 snapshots, 29 new pages, 29 labelled listings, 7 same-product pairs
+2026-10-09 19:25:33,457 INFO [live_scrape] started
+2026-10-09 19:25:40,567 INFO [hpstore] discovered 81 laptop URLs; fetching up to 37 (30 new)
+2026-10-09 19:25:48,388 INFO [vijaysales] discovered 426 laptop URLs; fetching up to 39 (30 new)
+2026-10-09 19:27:07,695 WARNING [fetch] https://www.hp.com/in-en/shop/products/laptops/hp-omnibook-5-laptop-16-ba1789tu-bg1p2pa-acj: HTTP 500
+2026-10-09 19:27:40,192 INFO [reliancedigital] discovered 358 laptop URLs; fetching up to 43 (30 new)
+2026-10-09 19:28:35,109 WARNING [fetch] https://www.hp.com/in-en/shop/products/laptops/hp-omnibook-5-laptop-next-gen-ai-16-ag1048au-bh4k2pa-acj: HTTP 500
+2026-10-09 19:30:02,396 WARNING [fetch] https://www.hp.com/in-en/shop/products/laptops/hp-omnibook-5-laptop-16-ba1008tu-bp0j9pa-acj: HTTP 500
+2026-10-09 19:31:22,267 WARNING [fetch] https://www.hp.com/in-en/shop/products/laptops/hp-omnibook-5-flip-2-in-1-laptop-14-fp0690tu-bx9q7pa-acj: HTTP 500
+2026-10-09 19:32:42,049 WARNING [fetch] https://www.hp.com/in-en/shop/products/laptops/hp-omnibook-5-flip-2-in-1-laptop-14-fp0790tu-bx9q8pa-acj: HTTP 500
+2026-10-09 19:34:02,403 WARNING [fetch] https://www.hp.com/in-en/shop/products/laptops/hp-omnibook-5-laptop-next-gen-ai-16-ag1046au-c20w1pa-acj: HTTP 500
+2026-10-09 19:36:29,945 INFO [live_scrape] finished in 656.5s
+2026-10-09 19:36:30,008 INFO [extraction] started
+2026-10-09 19:36:34,937 INFO [extraction] finished in 4.9s
+2026-10-09 19:36:34,995 INFO [model_download] started
+2026-10-09 19:37:11,610 INFO [model_download] finished in 36.6s
+2026-10-09 19:37:14,636 INFO [model_load] started
+2026-10-09 19:37:40,403 INFO [model_load] finished in 25.8s
+2026-10-09 19:37:45,444 INFO [normalisation] started
+2026-10-09 19:37:45,453 INFO Normalising 113 unique listing texts on 2 worker(s); 1859 field values prefilled from rules
+2026-10-09 19:51:24,117 INFO [normalisation] finished in 818.7s
+2026-10-09 19:51:24,203 INFO [matching] started
+2026-10-09 19:51:24,256 INFO [matching] finished in 0.1s
+2026-10-09 19:51:24,314 INFO [price_aggregation] started
+2026-10-09 19:51:24,491 INFO [price_aggregation] finished in 0.2s

@@ -1,22 +1,53 @@
 {
+	"labelled_listings": 29,
 	"schema_validity": 1.0,
 	"llm_success_rate": 1.0,
 	"reasoning_truncated_rate": 0.0,
-	"forced_field_rate": 0.0,
+	"forced_field_rate": 0.0008210180623973727,
 	"extraction": {
-		"final": {
-			"accuracy": 0.7792,
-			"precision": 0.9919,
-			"recall": 0.6833,
-			"hallucination_rate": 0.0098,
-			"n": 462.0
+		"decoder": {
+			"accuracy": 0.955,
+			"precision": 0.9504,
+			"recall": 0.9802,
+			"hallucination_rate": 0.1733,
+			"n": 756.0
 		},
-		"raw_llm": {
-			"accuracy": 0.7792,
-			"precision": 0.9802,
-			"recall": 0.6889,
-			"hallucination_rate": 0.0098,
-			"n": 462.0
+		"final": {
+			"accuracy": 0.9881,
+			"precision": 0.9949,
+			"recall": 0.9752,
+			"hallucination_rate": 0.02,
+			"n": 756.0
+		},
+		"rules": {
+			"accuracy": 0.7923,
+			"precision": 1.0,
+			"recall": 0.7162,
+			"hallucination_rate": 0.0,
+			"n": 756.0
+		}
+	},
+	"extraction_final_by_site": {
+		"hpstore": {
+			"accuracy": 0.9932,
+			"precision": 0.9919,
+			"recall": 0.9959,
+			"hallucination_rate": 0.0417,
+			"n": 294.0
+		},
+		"reliancedigital": {
+			"accuracy": 0.989,
+			"precision": 1.0,
+			"recall": 0.96,
+			"hallucination_rate": 0.0,
+			"n": 273.0
+		},
+		"vijaysales": {
+			"accuracy": 0.9788,
+			"precision": 0.9924,
+			"recall": 0.963,
+			"hallucination_rate": 0.0185,
+			"n": 189.0
 		}
 	},
 	"conflict_detection": {
@@ -27,7 +58,7 @@
 		"recall": 1.0
 	},
 	"matching": {
-		"pairs": 231,
+		"pairs": 406,
 		"gold_same_pairs": 7,
 		"tp": 6,
 		"fp": 0,

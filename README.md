@@ -167,14 +167,13 @@ No retailer or affiliate API credentials are configured; the code has no API ada
 |   `-- snapshots/
 |       |-- index.jsonl           URL, fetch time (UTC), HTTP status, SHA-256 and file name per snapshot
 |       `-- <hash>.html.gz        29 real product pages (13 Reliance Digital, 9 Vijay Sales, 7 HP Store India)
-|-- outputs/                      Download of Kaggle run 20261009T175113Z (previous notebook version)
+|-- outputs/                      Download of Kaggle run outputs
 |   |-- db/laptops.sqlite         The run's database (attach the run's output on Kaggle to resume from it)
 |   |-- metrics/, plots/, reports/, logs/, schema/, raw_html/
 |   `-- __notebook__.ipynb        The executed notebook with its outputs
-|-- outputs.zip                   The same run's zip
 |-- RESEARCH.md                   Dated research: model interface, source access, robots.txt and terms
 |-- README.md                     This file
-`-- .gitignore                    Ignores .venv/, .cache/, .agent-local/, secrets and editor files
+`-- .gitignore                    Ignores .venv/, .cache/, .agent-local/, *.zip, secrets and editor files
 ```
 
 `.agent-local/` (ignored by Git) holds the helper scripts used to build and test the notebook; see

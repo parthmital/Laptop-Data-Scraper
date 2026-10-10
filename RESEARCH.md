@@ -7,20 +7,20 @@ dtype, libraries, chat template, reasoning controls, structured-output support.
 
 **Findings (from the files themselves, opened and read on 2026-10-09).**
 
-| Fact                | Value                                                                                                                                                    | Source                      |
+| Fact | Value | Source |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- | ------------------ | ------------------------------------------ | --------------------- |
-| Architecture        | `K2HorizonForCausalLM`, `model_type: k2_horizon`, dense (num_experts 0), 36 layers, hidden 2560, 32 heads / 8 KV heads, vocab 250,624, untied embeddings | `config.json`               |
-| Stored size         | 10.1 GB BF16 (about 5.05 B stored parameters; the card calls it "3.7B-core")                                                                             | HF file listing, model card |
-| Loading             | `trust_remote_code=True`; validated with Transformers 5.15.0, PyTorch 2.13.0, Safetensors 0.8.0                                                          | model card                  |
-| Attention           | eager, SDPA, flash and flex supported; flash-attn not required; no custom kernels                                                                        | `modeling_k2_horizon.py`    |
-| Numerics            | RMSNorm, softmax and RoPE upcast to float32 internally                                                                                                   | `modeling_k2_horizon.py`    |
-| Forward API         | standard `DynamicCache` KV cache, `logits_to_keep` supported                                                                                             | `modeling_k2_horizon.py`    |
-| EOS ids             | `[1, 250019]`                                                                                                                                            | `generation_config.json`    |
-| Reasoning           | always on; `reasoning_effort` in `high` / `medium` / `low` opens `<ifm                                                                                   | think>`/`<ifm               | think_fast>`/`<ifm | think_faster>`; no way to disable thinking | `chat_template.jinja` |
-| Card recommendation | `reasoning_effort="high"`, temperature 1.0, top_p 0.95, at least 32,768 output tokens; "truncated reasoning is a failed response"                        | model card                  |
-| Structured output   | no JSON mode described; tool calls support `json`, `xml`, `xml_typed` formats via vLLM/SGLang parsers                                                    | model card                  |
-| GGUF                | official GGUF exists but needs an unmerged llama.cpp PR or the MBZUAI-IFM fork                                                                           | GGUF model card             |
-| Licence             | Apache-2.0                                                                                                                                               | model card                  |
+| Architecture | `K2HorizonForCausalLM`, `model_type: k2_horizon`, dense (num_experts 0), 36 layers, hidden 2560, 32 heads / 8 KV heads, vocab 250,624, untied embeddings | `config.json` |
+| Stored size | 10.1 GB BF16 (about 5.05 B stored parameters; the card calls it "3.7B-core") | HF file listing, model card |
+| Loading | `trust_remote_code=True`; validated with Transformers 5.15.0, PyTorch 2.13.0, Safetensors 0.8.0 | model card |
+| Attention | eager, SDPA, flash and flex supported; flash-attn not required; no custom kernels | `modeling_k2_horizon.py` |
+| Numerics | RMSNorm, softmax and RoPE upcast to float32 internally | `modeling_k2_horizon.py` |
+| Forward API | standard `DynamicCache` KV cache, `logits_to_keep` supported | `modeling_k2_horizon.py` |
+| EOS ids | `[1, 250019]` | `generation_config.json` |
+| Reasoning | always on; `reasoning_effort` in `high` / `medium` / `low` opens `<ifm                                                                                   | think>`/`<ifm               | think_fast>`/`<ifm | think_faster>`; no way to disable thinking | `chat_template.jinja` |
+| Card recommendation | `reasoning_effort="high"`, temperature 1.0, top_p 0.95, at least 32,768 output tokens; "truncated reasoning is a failed response" | model card |
+| Structured output | no JSON mode described; tool calls support `json`, `xml`, `xml_typed` formats via vLLM/SGLang parsers | model card |
+| GGUF | official GGUF exists but needs an unmerged llama.cpp PR or the MBZUAI-IFM fork | GGUF model card |
+| Licence | Apache-2.0 | model card |
 
 **Decisions.**
 

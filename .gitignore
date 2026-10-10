@@ -6,7 +6,27 @@
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 .ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+
+# Temporary and backup files
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
 
 # SQLite journals (the committed run database in outputs/ is kept)
 *.sqlite-wal

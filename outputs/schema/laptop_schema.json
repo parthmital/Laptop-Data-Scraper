@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "laptop-canonical-1.0",
+	"$id": "laptop-canonical-2.0",
 	"title": "Canonical laptop specification",
 	"type": "object",
 	"properties": {
@@ -33,7 +33,20 @@
 		"model_number": {
 			"anyOf": [
 				{
-					"description": "Manufacturer model or part number exactly as printed, e.g. 'G615JHR-S5005WS', '83K100CPIN', '15-fa2309TX'. Never the retailer item code or SKU.",
+					"description": "Manufacturer model code exactly as printed, e.g. 'G615JHR-S5005WS', '83K100CPIN', '15-fa2309TX'. Never the retailer item code.",
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 80
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"part_number": {
+			"anyOf": [
+				{
+					"description": "Manufacturer product or part number (SKU) when printed separately from the model code, e.g. 'DL5J5PA#ACJ', 'MDHG4HN/A'.",
 					"type": "string",
 					"minLength": 1,
 					"maxLength": 80
@@ -70,10 +83,88 @@
 		"cpu_model": {
 			"anyOf": [
 				{
-					"description": "Full processor model number only when stated, e.g. 'Core i7-14650HX', 'Ryzen 7 7445HS', 'Core Ultra 9 275HX'; null when only the family or generation is given.",
+					"description": "Full processor model number only when stated, e.g. 'Core i7-14650HX', 'Ryzen 7 7445HS'; null when only the family or generation is given.",
 					"type": "string",
 					"minLength": 1,
 					"maxLength": 80
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"cpu_cores": {
+			"anyOf": [
+				{
+					"description": "Total processor cores.",
+					"type": "integer",
+					"minimum": 1,
+					"maximum": 64
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"cpu_threads": {
+			"anyOf": [
+				{
+					"description": "Total processor threads.",
+					"type": "integer",
+					"minimum": 1,
+					"maximum": 128
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"cpu_base_ghz": {
+			"anyOf": [
+				{
+					"description": "Base clock in GHz.",
+					"type": "number",
+					"minimum": 0.4,
+					"maximum": 6.5
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"cpu_boost_ghz": {
+			"anyOf": [
+				{
+					"description": "Maximum boost or turbo clock in GHz.",
+					"type": "number",
+					"minimum": 0.8,
+					"maximum": 6.5
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"cpu_cache_mb": {
+			"anyOf": [
+				{
+					"description": "Largest stated processor cache in MB (L3, or L2 when only L2 is given).",
+					"type": "integer",
+					"minimum": 1,
+					"maximum": 256
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"cpu_tdp_w": {
+			"anyOf": [
+				{
+					"description": "Processor power limit in watts as configured in this laptop (TDP, base or sustained power), only when stated.",
+					"type": "number",
+					"minimum": 3,
+					"maximum": 250
 				},
 				{
 					"type": "null"
@@ -98,6 +189,32 @@
 				{
 					"description": "Installed RAM type.",
 					"enum": ["DDR4", "DDR5", "LPDDR4X", "LPDDR5", "LPDDR5X"]
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"ram_speed_mts": {
+			"anyOf": [
+				{
+					"description": "RAM transfer rate in MT/s (or MHz as stated).",
+					"type": "integer",
+					"minimum": 1600,
+					"maximum": 12000
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"ram_max_gb": {
+			"anyOf": [
+				{
+					"description": "Maximum supported RAM in GB, when stated.",
+					"type": "integer",
+					"minimum": 2,
+					"maximum": 512
 				},
 				{
 					"type": "null"
@@ -165,6 +282,30 @@
 				}
 			]
 		},
+		"gpu_vram_type": {
+			"anyOf": [
+				{
+					"description": "Dedicated graphics memory type.",
+					"enum": ["GDDR5", "GDDR6", "GDDR6X", "GDDR7"]
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"gpu_tgp_w": {
+			"anyOf": [
+				{
+					"description": "Maximum graphics power (TGP, including Dynamic Boost when stated) in watts for this laptop, only when stated.",
+					"type": "number",
+					"minimum": 5,
+					"maximum": 250
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
 		"display_size_in": {
 			"anyOf": [
 				{
@@ -195,7 +336,7 @@
 		"display_refresh_hz": {
 			"anyOf": [
 				{
-					"description": "Refresh rate in Hz.",
+					"description": "Maximum refresh rate in Hz.",
 					"type": "integer",
 					"minimum": 30,
 					"maximum": 600
@@ -216,10 +357,136 @@
 				}
 			]
 		},
+		"display_brightness_nits": {
+			"anyOf": [
+				{
+					"description": "Typical (SDR) brightness in nits.",
+					"type": "integer",
+					"minimum": 100,
+					"maximum": 3000
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"display_color_gamut": {
+			"anyOf": [
+				{
+					"description": "Colour gamut as stated, e.g. '100% sRGB', '100% DCI-P3'.",
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 80
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
 		"touchscreen": {
 			"anyOf": [
 				{
 					"description": "Whether the display is a touchscreen.",
+					"type": "boolean"
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"battery_wh": {
+			"anyOf": [
+				{
+					"description": "Battery capacity in watt-hours.",
+					"type": "number",
+					"minimum": 10,
+					"maximum": 100
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"battery_cells": {
+			"anyOf": [
+				{
+					"description": "Number of battery cells.",
+					"type": "integer",
+					"minimum": 1,
+					"maximum": 12
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"adapter_w": {
+			"anyOf": [
+				{
+					"description": "Bundled power adapter rating in watts.",
+					"type": "integer",
+					"minimum": 15,
+					"maximum": 400
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"weight_kg": {
+			"anyOf": [
+				{
+					"description": "Laptop weight in kg (never the package or net shipping weight).",
+					"type": "number",
+					"minimum": 0.5,
+					"maximum": 6
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"thickness_mm": {
+			"anyOf": [
+				{
+					"description": "Maximum stated thickness (height) in mm.",
+					"type": "number",
+					"minimum": 5,
+					"maximum": 60
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"cooling": {
+			"anyOf": [
+				{
+					"description": "Cooling system as stated, e.g. 'dual fans, vapour chamber'.",
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 80
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"wifi_standard": {
+			"anyOf": [
+				{
+					"description": "Wi-Fi generation.",
+					"enum": ["Wi-Fi 5", "Wi-Fi 6", "Wi-Fi 6E", "Wi-Fi 7"]
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"backlit_keyboard": {
+			"anyOf": [
+				{
+					"description": "Whether the keyboard is backlit.",
 					"type": "boolean"
 				},
 				{
@@ -251,7 +518,7 @@
 		"ms_office": {
 			"anyOf": [
 				{
-					"description": "Whether Microsoft Office is bundled.",
+					"description": "Whether Microsoft Office is bundled (a trial or 'sold separately' is not bundled).",
 					"type": "boolean"
 				},
 				{
@@ -277,21 +544,42 @@
 		"brand",
 		"series",
 		"model_number",
+		"part_number",
 		"cpu_brand",
 		"cpu_family",
 		"cpu_model",
+		"cpu_cores",
+		"cpu_threads",
+		"cpu_base_ghz",
+		"cpu_boost_ghz",
+		"cpu_cache_mb",
+		"cpu_tdp_w",
 		"ram_gb",
 		"ram_type",
+		"ram_speed_mts",
+		"ram_max_gb",
 		"storage_gb",
 		"storage_type",
 		"gpu_type",
 		"gpu_model",
 		"gpu_vram_gb",
+		"gpu_vram_type",
+		"gpu_tgp_w",
 		"display_size_in",
 		"display_resolution",
 		"display_refresh_hz",
 		"display_panel",
+		"display_brightness_nits",
+		"display_color_gamut",
 		"touchscreen",
+		"battery_wh",
+		"battery_cells",
+		"adapter_w",
+		"weight_kg",
+		"thickness_mm",
+		"cooling",
+		"wifi_standard",
+		"backlit_keyboard",
 		"os",
 		"ms_office",
 		"colour"

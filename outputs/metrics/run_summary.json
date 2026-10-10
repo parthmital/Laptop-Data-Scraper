@@ -1,53 +1,89 @@
 {
-	"run_id": "20261009T175113Z",
+	"run_id": "20261009T192530Z",
+	"resumed_from": null,
 	"model": "IFM/K2-Horizon-3.7B@d6e5432c59637093c0e125e791d89ea4a0b53559",
 	"dtype": "float16",
 	"workers": 2,
 	"reasoning": "low, budget 512",
-	"pages": 52,
-	"live_pages": 30,
-	"listings": 52,
-	"products": 46,
+	"pages": 113,
+	"live_pages": 84,
+	"listings": 113,
+	"products": 107,
 	"auto_matched_products": 6,
-	"listings_needing_review": 12,
-	"products_with_lowest_price": 26,
-	"llm_ok": 52,
+	"listings_needing_review": 4,
+	"products_with_lowest_price": 56,
+	"stale_offers": 0,
+	"delisted_listings": 0,
+	"products_with_known_power_limits": 0,
+	"llm_ok": 113,
 	"llm_failed": 0,
-	"llm_mean_latency_s": 9.62,
-	"failures_this_run": 1,
+	"llm_mean_latency_s": 13.92,
+	"failures_this_run": 6,
+	"alerts": {},
 	"stage_seconds": {
-		"fixtures": 1.2,
-		"live_scrape": 333.1,
-		"extraction": 1.3,
-		"model_download": 56.3,
-		"model_load": 15.3,
-		"normalisation": 253.4,
-		"matching": 0.0,
-		"price_aggregation": 0.1
+		"fixtures": 1.9,
+		"live_scrape": 656.5,
+		"extraction": 4.9,
+		"model_download": 36.6,
+		"model_load": 25.8,
+		"normalisation": 818.7,
+		"matching": 0.1,
+		"price_aggregation": 0.2
 	},
 	"peak_gpu_memory_gib": {
-		"cuda:0": 10.9,
-		"cuda:1": 10.74
+		"cuda:0": 12.31,
+		"cuda:1": 12.31
 	},
 	"evaluation": {
+		"labelled_listings": 29,
 		"schema_validity": 1.0,
 		"llm_success_rate": 1.0,
 		"reasoning_truncated_rate": 0.0,
-		"forced_field_rate": 0.0,
+		"forced_field_rate": 0.0008210180623973727,
 		"extraction": {
-			"final": {
-				"accuracy": 0.7792,
-				"precision": 0.9919,
-				"recall": 0.6833,
-				"hallucination_rate": 0.0098,
-				"n": 462.0
+			"decoder": {
+				"accuracy": 0.955,
+				"precision": 0.9504,
+				"recall": 0.9802,
+				"hallucination_rate": 0.1733,
+				"n": 756.0
 			},
-			"raw_llm": {
-				"accuracy": 0.7792,
-				"precision": 0.9802,
-				"recall": 0.6889,
-				"hallucination_rate": 0.0098,
-				"n": 462.0
+			"final": {
+				"accuracy": 0.9881,
+				"precision": 0.9949,
+				"recall": 0.9752,
+				"hallucination_rate": 0.02,
+				"n": 756.0
+			},
+			"rules": {
+				"accuracy": 0.7923,
+				"precision": 1.0,
+				"recall": 0.7162,
+				"hallucination_rate": 0.0,
+				"n": 756.0
+			}
+		},
+		"extraction_final_by_site": {
+			"hpstore": {
+				"accuracy": 0.9932,
+				"precision": 0.9919,
+				"recall": 0.9959,
+				"hallucination_rate": 0.0417,
+				"n": 294.0
+			},
+			"reliancedigital": {
+				"accuracy": 0.989,
+				"precision": 1.0,
+				"recall": 0.96,
+				"hallucination_rate": 0.0,
+				"n": 273.0
+			},
+			"vijaysales": {
+				"accuracy": 0.9788,
+				"precision": 0.9924,
+				"recall": 0.963,
+				"hallucination_rate": 0.0185,
+				"n": 189.0
 			}
 		},
 		"conflict_detection": {
@@ -58,7 +94,7 @@
 			"recall": 1.0
 		},
 		"matching": {
-			"pairs": 231,
+			"pairs": 406,
 			"gold_same_pairs": 7,
 			"tp": 6,
 			"fp": 0,
