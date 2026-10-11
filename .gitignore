@@ -3,6 +3,21 @@
 .agent-local/
 .cache/
 
+# Node and Next.js
+node_modules/
+.next/
+out/
+.vercel/
+.turbo/
+next-env.d.ts
+*.tsbuildinfo
+.eslintcache
+coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
 # Python
 __pycache__/
 *.pyc
@@ -38,6 +53,10 @@ __pycache__/
 .env.*
 !.env.example
 kaggle.json
+*.pem
+
+# Personal Claude Code settings
+.claude/settings.local.json
 
 # Editor and OS files
 .vscode/

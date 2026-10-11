@@ -1,0 +1,381 @@
+/* Checkbox */
+.choice {
+	display: grid;
+	grid-template-columns: 20px 1fr auto;
+	align-items: center;
+	gap: 12px;
+	min-height: 36px;
+	font-size: var(--text-sm);
+}
+
+.choice[data-disabled] {
+	opacity: 0.42;
+}
+
+.box {
+	all: unset;
+	box-sizing: border-box;
+	width: 20px;
+	height: 20px;
+	border: 1.5px solid var(--line-strong);
+	border-radius: 6px;
+	background: var(--surface);
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	transition:
+		background var(--speed) var(--ease),
+		border-color var(--speed) var(--ease),
+		transform 120ms var(--ease);
+	/* A larger hit area without changing layout. */
+	position: relative;
+}
+
+.box::after {
+	content: "";
+	position: absolute;
+	inset: -12px;
+}
+
+.box:hover {
+	border-color: var(--ink-3);
+}
+
+.box:active {
+	transform: scale(0.9);
+}
+
+.box:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: 2px;
+}
+
+.box[data-state="checked"] {
+	background: var(--accent);
+	border-color: var(--accent);
+}
+
+.box:disabled {
+	cursor: not-allowed;
+}
+
+.tick {
+	color: var(--on-accent);
+	display: grid;
+	animation: tick var(--speed) var(--ease);
+}
+
+@keyframes tick {
+	from {
+		opacity: 0;
+		transform: scale(0.6);
+	}
+}
+
+.choiceLabel {
+	cursor: pointer;
+	color: var(--ink);
+	overflow-wrap: anywhere;
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+}
+
+[data-disabled] .choiceLabel {
+	cursor: not-allowed;
+}
+
+.count {
+	color: var(--ink-3);
+	font-size: var(--text-xs);
+}
+
+.hint {
+	color: var(--ink-3);
+	font-size: var(--text-xs);
+	line-height: 1.42;
+	letter-spacing: -0.01em;
+	margin-top: 2px;
+}
+
+/* Switch: iOS proportions, blue when on. */
+.switchRow {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 14px;
+	min-height: 40px;
+	font-size: var(--text-sm);
+}
+
+.switchRow[data-disabled] {
+	opacity: 0.42;
+}
+
+.switchText {
+	min-width: 0;
+}
+
+.switch {
+	all: unset;
+	box-sizing: border-box;
+	flex: none;
+	width: 44px;
+	height: 26px;
+	border-radius: 999px;
+	background: var(--line-strong);
+	position: relative;
+	cursor: pointer;
+	transition: background var(--speed) var(--ease);
+}
+
+.switch::after {
+	content: "";
+	position: absolute;
+	inset: -9px 0;
+}
+
+.switch[data-state="checked"] {
+	background: var(--accent);
+}
+
+.switch:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: 2px;
+}
+
+.switch:disabled {
+	cursor: not-allowed;
+}
+
+.thumb {
+	display: block;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow:
+		0 3px 8px rgb(0 0 0 / 0.15),
+		0 1px 1px rgb(0 0 0 / 0.16);
+	transform: translateX(2px);
+	transition: transform var(--speed) var(--ease);
+}
+
+.thumb[data-state="checked"] {
+	transform: translateX(20px);
+}
+
+/* Range */
+.range {
+	display: grid;
+	gap: 10px;
+	padding-top: 4px;
+}
+
+.slider {
+	position: relative;
+	display: flex;
+	align-items: center;
+	height: 32px;
+	touch-action: none;
+	user-select: none;
+	margin: 0 11px;
+}
+
+.track {
+	position: relative;
+	flex: 1;
+	height: 4px;
+	border-radius: 999px;
+	background: var(--fill);
+}
+
+.trackFill {
+	position: absolute;
+	height: 100%;
+	border-radius: inherit;
+	background: var(--accent);
+}
+
+.sliderThumb {
+	display: block;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow:
+		0 2px 6px rgb(0 0 0 / 0.18),
+		0 0 0 0.5px rgb(0 0 0 / 0.12);
+	cursor: grab;
+	transition:
+		box-shadow var(--speed) var(--ease),
+		transform 120ms var(--ease);
+}
+
+.sliderThumb:hover {
+	box-shadow:
+		0 2px 6px rgb(0 0 0 / 0.18),
+		0 0 0 6px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.sliderThumb:active {
+	cursor: grabbing;
+	transform: scale(1.08);
+}
+
+.sliderThumb:focus-visible {
+	outline: none;
+	box-shadow:
+		0 2px 6px rgb(0 0 0 / 0.18),
+		0 0 0 3px var(--surface),
+		0 0 0 5px var(--focus);
+}
+
+.rangeInputs {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 8px;
+}
+
+.numberField {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	min-height: 40px;
+	padding: 0 12px;
+	border: 1px solid var(--line-strong);
+	border-radius: 10px;
+	background: var(--surface);
+	transition:
+		border-color var(--speed) var(--ease),
+		box-shadow var(--speed) var(--ease);
+	min-width: 0;
+}
+
+.numberField:hover {
+	border-color: var(--ink-3);
+}
+
+.numberField:focus-within {
+	border-color: var(--accent);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.numberField input {
+	all: unset;
+	min-width: 0;
+	flex: 1;
+	font-size: var(--text-sm);
+	padding: 8px 0;
+}
+
+.affix {
+	color: var(--ink-3);
+	font-size: var(--text-xs);
+	flex: none;
+}
+
+/* Select */
+.selectTrigger {
+	all: unset;
+	box-sizing: border-box;
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: 36px;
+	padding: 0 12px 0 16px;
+	border-radius: var(--radius-pill);
+	background: var(--surface);
+	font-size: var(--text-sm);
+	cursor: pointer;
+	white-space: nowrap;
+	transition:
+		background var(--speed) var(--ease),
+		transform 120ms var(--ease);
+}
+
+.selectTrigger::after {
+	content: "";
+	position: absolute;
+	inset: -4px 0;
+}
+
+.selectTrigger:hover {
+	background: var(--fill);
+}
+
+.selectTrigger:active {
+	transform: scale(0.97);
+}
+
+.selectTrigger:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: 2px;
+}
+
+.selectLabel {
+	color: var(--ink-3);
+}
+
+.selectIcon {
+	color: var(--ink-3);
+	display: grid;
+	transition: transform var(--speed) var(--ease);
+}
+
+.selectTrigger[data-state="open"] .selectIcon {
+	transform: rotate(180deg);
+}
+
+.selectContent {
+	z-index: 60;
+	min-width: var(--radix-select-trigger-width);
+	background: var(--surface);
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-pop);
+	overflow: hidden;
+	transform-origin: var(--radix-select-content-transform-origin);
+	animation: pop var(--speed) var(--ease);
+}
+
+.selectViewport {
+	padding: 6px;
+}
+
+.selectItem {
+	all: unset;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
+	min-height: 44px;
+	padding: 0 12px;
+	border-radius: 10px;
+	font-size: var(--text-sm);
+	cursor: pointer;
+	user-select: none;
+	transition: background 120ms var(--ease);
+}
+
+.selectItem[data-highlighted] {
+	background: var(--surface-2);
+}
+
+.selectItem[data-state="checked"] {
+	font-weight: 600;
+}
+
+.selectCheck {
+	display: grid;
+	color: var(--accent);
+}
+
+@keyframes pop {
+	from {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+}

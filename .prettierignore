@@ -1,0 +1,8 @@
+# Pipeline data and run outputs are generated, not hand-formatted.
+outputs/
+fixtures/
+*.ipynb
+package-lock.json
+.agent-local/
+.cache/
+.next/

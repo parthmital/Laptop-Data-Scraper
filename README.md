@@ -8,6 +8,10 @@ thickness, cooling, Wi-Fi and software. Values come from deterministic spec-tabl
 configurations across sellers and loads everything into SQLite with price history, per-field provenance, freshness
 labels, run metrics, alerts and the lowest current comparable price per exact configuration.
 
+A Next.js web app in [`web/`](web/) (Laptop Ledger) reads that database and presents it as a laptop marketplace:
+every store's price for a laptop side by side, 42 laptop-specific filters, and a spec sheet that shows where
+each value came from. See [Web app](#web-app).
+
 Status:
 
 - The current version (42 fields, three sources, rules, freshness, monitoring) ran end to end on Kaggle GPU T4 x2 on
@@ -19,10 +23,13 @@ Status:
   MRP, availability and condition all correct. No health-check alert fired.
 - The deterministic stages are also tested locally ([Local checks](#local-checks)): against the 29 snapshots, by
   replaying the run's 84 live pages, and with a small polite live crawl of all three sites.
+- The web app runs locally against the committed database (`npm run dev`); its format, lint, type, unit test and
+  build checks pass with `npm run check`.
 
 ## Table of contents
 
 - [Quick start (Kaggle)](#quick-start-kaggle)
+- [Web app](#web-app)
 - [How it works](#how-it-works)
 - [Sources and compliance](#sources-and-compliance)
 - [Repository structure](#repository-structure)
@@ -83,6 +90,112 @@ Common first-run errors:
 | `pip` or `snapshot_download` network errors                 | Turn _Internet_ on in the notebook settings.                                                                                                                                                          |
 | `Fixtures dataset not found ... evaluation will be skipped` | Attach the fixtures dataset; the pipeline still runs without it.                                                                                                                                      |
 | `unexpected generation prompt` assertion                    | The installed Transformers did not pass `reasoning_effort` to the chat template; check the version printed by the install cell (5.15.0 expected).                                                     |
+
+## Web app
+
+Laptop Ledger, in [`web/`](web/), is a Next.js app that reads the pipeline's SQLite database (read-only) and lets
+users find the cheapest place to buy an exact laptop configuration.
+
+### Quick start (web app)
+
+Prerequisite: Node.js 22.13 or newer (the app uses the built-in `node:sqlite` module; `.nvmrc` pins 24). Run from the
+repository root:
+
+```bash
+npm run dev
+```
+
+- The first run installs dependencies with `npm ci` into `node_modules/` (cache in `.cache/npm`) and creates
+  `web/.env.local` from `web/.env.example`. Later runs skip the install unless `package-lock.json` changes.
+- It starts `next dev` on <http://localhost:3000>, prints `[dev] Ready: ...` and opens the browser (not when `CI` is
+  set). Ctrl+C stops the server and its child processes.
+- It reads the committed run database `outputs/db/laptops.sqlite`, so it works without running the notebook.
+
+Common errors:
+
+| Message                                              | Fix                                                                                                 |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `Node.js 22.13 or newer is required`                 | Install Node.js 22.13+ (24 recommended).                                                            |
+| `Port 3000 is in use`                                | Stop the other process, or run `PORT=3001 npm run dev` (PowerShell: `$env:PORT=3001; npm run dev`). |
+| Page says "The laptop catalogue could not be loaded" | The database path is wrong. Set `LAPTOP_DB_PATH` in `web/.env.local` and restart.                   |
+
+### Features
+
+- **Prices from every store side by side.** Each laptop shows its headline price, MRP and discount, and its page lists
+  every store's offer with stock, condition (new or store display unit), when it was last checked and a link to the
+  store. "Best price" is the pipeline's lowest comparable offer from `lowest_prices` (new, in stock, checked within 7
+  days, confirmed match). Otherwise the app shows the cheapest in-stock offer and says the match is unconfirmed, or
+  the last seen price marked out of stock or out of date.
+- **42 laptop-specific filters** in eight groups: price, stock, discount, store, condition, multi-store; brand;
+  processor brand, family, cores, threads, boost clock, cache, power limit; RAM size, type, speed, upgradability,
+  storage size and type; graphics type, model, video memory size and type, TGP; screen size, resolution, refresh
+  rate, panel, brightness, colour gamut, touchscreen; battery capacity and cells, weight, thickness, charger, cooling;
+  Wi-Fi, backlit keyboard, operating system, Microsoft Office. Filters for specs no listing states are hidden
+  (processor power limit and cooling with the current data, leaving 40).
+- **Spec coverage.** Each filter shows how many laptops state that spec. Laptops that do not state a filtered spec are
+  excluded unless "Include laptops that don't state a filtered spec" is on.
+- **Expand all / Collapse all** in the filter panel head, which stays in view while the filters scroll.
+- **Counts per option** that assume the option's own filter is off, so users see what another choice would add.
+- **Search** over names, model and part numbers, processors, GPUs and store titles (hyphens ignored).
+- **Sorting** by lowest or highest price, biggest discount, lightest, largest battery, most stores; laptops that can
+  be bought now come first.
+- **Spec sheet with provenance.** All 42 fields, "Not stated" for gaps, and for each value the spec-table key, page
+  data or extraction model it came from, per store.
+- **Unconfirmed matches.** Laptops the pipeline queued in `match_candidates` link to each other with the reason.
+- Shareable URLs: every filter, search, sort and page is a query parameter.
+- Light and dark themes follow the system setting. The visual design follows Apple's product pages (palette, type
+  scale, pill buttons, 18 to 28 px tiles), with tokens extracted by
+  [designlang](https://github.com/Manavarya09/design-extract).
+- Accessories the pipeline picked up (a webcam and a speaker in the current database) are excluded: a laptop must
+  state a processor, RAM or storage.
+
+Design choices are in [DESIGN.md](DESIGN.md); module layout and rules are in [ARCHITECTURE.md](ARCHITECTURE.md).
+
+### Configuration
+
+| Variable         | Required | Purpose                                                   | Example                        | Default                        |
+| ---------------- | -------- | --------------------------------------------------------- | ------------------------------ | ------------------------------ |
+| `LAPTOP_DB_PATH` | Optional | Pipeline database to read, absolute or relative to `web/` | `../outputs/db/laptops.sqlite` | `../outputs/db/laptops.sqlite` |
+| `PORT`           | Optional | Port for `npm run dev`                                    | `3001`                         | `3000`                         |
+
+To show a newer Kaggle run, replace `outputs/db/laptops.sqlite` (or point `LAPTOP_DB_PATH` at the new file). The app
+reloads it within 5 minutes, or at once when the file changes.
+
+### Scripts
+
+Run from the repository root (npm workspaces; `web/` holds the app):
+
+| Command                | What it does                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------ |
+| `npm run dev`          | Install if needed, start the dev server, open the browser                            |
+| `npm run build`        | Production build of `web/`                                                           |
+| `npm start`            | Serve the production build                                                           |
+| `npm run lint`         | ESLint with the Next.js rules                                                        |
+| `npm run typecheck`    | TypeScript, no emit                                                                  |
+| `npm test`             | Vitest unit tests for `web/src/catalogue` (normalisation, pricing, filters)          |
+| `npm run format:check` | Prettier check (`npm run format` writes)                                             |
+| `npm run check`        | All of the above in order; the same command runs in CI (`.github/workflows/web.yml`) |
+
+### Tech stack
+
+| Tool                  | Version     | Purpose                                                                                        |
+| --------------------- | ----------- | ---------------------------------------------------------------------------------------------- |
+| Next.js (App Router)  | 16.4        | Server-rendered pages; filtering runs in server components                                     |
+| React                 | 19.3        | UI; client components only for interactive controls                                            |
+| TypeScript            | 5.9         | Types across the domain, data and UI layers                                                    |
+| `node:sqlite`         | Node 22.13+ | Read-only access to the pipeline database, no native driver                                    |
+| Radix UI (`radix-ui`) | 1.7         | Accessible primitives behind the custom checkbox, switch, slider, select, accordion and drawer |
+| lucide-react          | 1.55        | Icons                                                                                          |
+| Vitest                | 5.0         | Unit tests                                                                                     |
+| ESLint, Prettier      | 9.39, 3.9   | Linting and formatting                                                                         |
+
+### Troubleshooting (web app)
+
+| Problem                                     | Likely cause                                               | Diagnostic                                          | Resolution                                                     |
+| ------------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------- | -------------------------------------------------------------- |
+| Every price says "Price may be out of date" | the database's last run is more than 7 days old            | `SELECT MAX(last_verified_at) FROM price_history`   | run the notebook again and replace the database                |
+| Few "Best price" labels                     | the pipeline compared only confirmed, in-stock, new offers | `SELECT COUNT(lowest_price_inr) FROM lowest_prices` | expected; other laptops show their in-stock or last seen price |
+| Product photos missing                      | the store blocked or moved the image                       | browser network tab                                 | the gallery drops failed images and shows a placeholder        |
 
 ## How it works
 
@@ -180,10 +293,22 @@ No retailer or affiliate API credentials are configured; the code has no API ada
 |   |-- schema/laptop_schema.json Canonical JSON Schema (version 2.0)
 |   `-- raw_html/<site>/          113 gzipped pages (29 fixture, 84 live): 31 HP Store, 43 Reliance
 |                                 Digital, 39 Vijay Sales
+|-- web/                          Laptop Ledger, the Next.js web app (see Web app and ARCHITECTURE.md)
+|   |-- src/app/                  Routes: browse page, laptop page, layout, not-found, error
+|   |-- src/data/catalogue.ts     Read-only SQLite access and the cached catalogue
+|   |-- src/catalogue/            Pure logic: specs, normalisation, pricing, filters, URL state, tests
+|   |-- src/components/           ui/ controls, browse/ and laptop/ page pieces
+|   `-- .env.example              LAPTOP_DB_PATH
+|-- scripts/dev.mjs               The `npm run dev` launcher
+|-- package.json                  npm workspace root and scripts; package-lock.json is the lockfile
+|-- .github/workflows/web.yml     CI: npm ci and npm run check
+|-- ARCHITECTURE.md               Module map, dependency rules, decisions
+|-- DESIGN.md                     Web app palette, type, layout, components, copy
 |-- RESEARCH.md                   Dated research: model interface, source access, robots.txt and terms
 |-- README.md                     This file
-`-- .gitignore                    Ignores .venv/, .cache/, .agent-local/, *.zip, secrets, editor files and
-                                  the duplicate outputs/__notebook__.ipynb
+`-- .gitignore                    Ignores .venv/, .cache/, .agent-local/, Node and Next.js build output, caches and
+                                  debug logs, SQLite journals, *.zip, secrets, editor files and the duplicate
+                                  outputs/__notebook__.ipynb
 ```
 
 `.agent-local/` (ignored by Git) holds the helper scripts used to build and test the notebook; see
@@ -624,6 +749,11 @@ average (minimum 1, maximum 34). The fixture pass in the same command extracted 
 
 These checks test the deterministic code, not the LLM.
 
+The web app is checked with `npm run check` (Prettier, ESLint, TypeScript, 47 Vitest tests, production build). On
+2026-10-11 it was also run with `npm run dev` on Windows 11 and driven in headless Chrome at 360, 820 and 1440 px:
+no console errors or horizontal scrolling, and filter, range, sort, search, chip, drawer and laptop page flows
+behaved as expected.
+
 ## Troubleshooting
 
 | Problem                                               | Likely cause                                      | Diagnostic                                                                                                     | Resolution                                                                                  |
@@ -667,7 +797,17 @@ These checks test the deterministic code, not the LLM.
 - **Ground truth.** It is small, AI-labelled, and labels the new fields only on the 7 HP pages; treat metrics from it
   as indicative.
 
-The notebook's final section lists these with next steps.
+- **Web app.**
+  - It shows what the pipeline stored. Spec gaps in listings stay gaps, and 51 of the 107 products have no comparable
+    price in `lowest_prices` in the current database, so they show an unconfirmed or last seen price instead of
+    "Best price".
+  - Freshness labels depend on the current date: once the last run is more than 7 days old, every price is marked
+    out of date until the notebook runs again.
+  - Product photos are loaded from the stores' servers and can disappear if a store moves them.
+  - Filter option labels fold seller spellings (for example "Core Ultra 7" and "Intel Core Ultra 7"); the spec sheet
+    shows the stored value.
+
+The notebook's final section lists the pipeline limitations with next steps.
 
 ## Research and sources
 

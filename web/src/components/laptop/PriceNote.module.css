@@ -1,0 +1,15 @@
+.note {
+	color: var(--ink-3);
+	font-size: var(--text-xs);
+	line-height: 1.45;
+}
+
+.good {
+	color: var(--green);
+	font-weight: 500;
+}
+
+.warn {
+	color: var(--amber);
+	font-weight: 500;
+}
