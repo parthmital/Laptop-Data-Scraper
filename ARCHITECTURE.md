@@ -31,7 +31,8 @@ web/src/
 |   |-- normalise.ts     Folding seller spellings into filter labels; accessory exclusion
 |   |-- pricing.ts       Headline price choice, discounts, offer order
 |   |-- filters.ts       Filter definitions, URL parsing, matching, facet counts, sorting, paging
-|   |-- url-state.ts     URLSearchParams edits used by the filter controls
+|   |-- url-state.ts     URLSearchParams edits used by the filter controls; page number list
+|   |-- summary.ts       Key specs (processor, memory, storage, graphics, display, weight) for cards and summaries
 |   `-- format.ts        Currency, dates, ages, spec values, provenance text
 `-- components/
     |-- ui/              Generic accessible controls (checkbox, switch, range, select)

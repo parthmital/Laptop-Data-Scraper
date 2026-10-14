@@ -38,7 +38,7 @@ export function Checkbox({
 			<label htmlFor={id} className={styles.choiceLabel}>
 				{label}
 			</label>
-			{count != null && <span className={`${styles.count} mono`}>{count}</span>}
+			{count != null && <span className={styles.count}>{count}</span>}
 		</div>
 	);
 }

@@ -1,35 +1,11 @@
-import { Laptop as LaptopIcon } from "lucide-react";
+import { ChevronRight, Laptop as LaptopIcon } from "lucide-react";
 import Link from "next/link";
 
-import { formatInr, formatNumber, formatStorage } from "@/catalogue/format";
-import type { Laptop } from "@/catalogue/types";
-import { PriceNote } from "@/components/laptop/PriceNote";
+import { formatInr } from "@/catalogue/format";
+import { keySpecs } from "@/catalogue/summary";
+import type { Laptop, PriceSummary } from "@/catalogue/types";
 
 import styles from "./browse.module.css";
-
-function specLine(l: Laptop): string[] {
-	const s = l.specs;
-	const n = (v: unknown) => (typeof v === "number" ? v : null);
-	const ram = n(s.ram_gb);
-	const storage = n(s.storage_gb);
-	const vram = n(s.gpu_vram_gb);
-	const size = n(s.display_size_in);
-	const weight = n(s.weight_kg);
-	return [
-		(s.cpu_model as string | null) ?? l.derived.cpuFamily,
-		ram != null ? `${ram} GB${s.ram_type ? ` ${s.ram_type}` : ""} RAM` : null,
-		storage != null
-			? `${formatStorage(storage)}${s.storage_type ? ` ${s.storage_type}` : ""}`
-			: null,
-		l.derived.gpu ? `${l.derived.gpu}${vram ? ` ${vram} GB` : ""}` : null,
-		size != null
-			? `${formatNumber(size)}″${s.display_resolution ? ` ${String(s.display_resolution).replace("x", "×")}` : ""}${
-					s.display_refresh_hz ? ` ${s.display_refresh_hz} Hz` : ""
-				}${s.display_panel ? ` ${s.display_panel}` : ""}`
-			: null,
-		weight != null ? `${formatNumber(weight)} kg` : null,
-	].filter((x): x is string => Boolean(x));
-}
 
 function tags(l: Laptop): string[] {
 	const s = l.specs;
@@ -46,6 +22,39 @@ function tags(l: Laptop): string[] {
 	].filter((x): x is string => Boolean(x));
 }
 
+/** One line on where the price comes from; the laptop page carries the full explanation and check dates. */
+function PriceSource({
+	price,
+	stores,
+}: {
+	price: PriceSummary;
+	stores: number;
+}) {
+	if (price.kind === "last_seen")
+		return (
+			<p className={styles.priceSource}>
+				<span className={styles.warn}>
+					{price.freshness === "stale"
+						? "Price may be out of date"
+						: "Out of stock"}
+				</span>
+				<br />
+				last seen at {price.storeName}
+			</p>
+		);
+	return (
+		<p className={styles.priceSource}>
+			{price.kind === "compared" && stores > 1 && (
+				<>
+					<span className={styles.good}>Lowest of {stores} stores</span>
+					<br />
+				</>
+			)}
+			at {price.storeName}
+		</p>
+	);
+}
+
 /** Rows fade in with a short stagger; capped so a full page never waits long. */
 const STAGGER_LIMIT = 8;
 
@@ -58,7 +67,7 @@ export function LaptopRow({
 }) {
 	const { price } = laptop;
 	const stores = new Set(laptop.offers.map((o) => o.site)).size;
-	const href = `/laptops/${laptop.slug}`;
+	const specs = keySpecs(laptop);
 	const rowTags = tags(laptop);
 	return (
 		<article
@@ -78,15 +87,24 @@ export function LaptopRow({
 					<LaptopIcon size={32} strokeWidth={1.25} aria-hidden />
 				)}
 			</div>
+			<h2 className={styles.rowTitle}>
+				<Link href={`/laptops/${laptop.slug}`} className={styles.rowLink}>
+					{laptop.name}
+				</Link>
+			</h2>
 			<div className={styles.rowMain}>
-				<h2 className={styles.rowTitle}>
-					<Link href={href} className={styles.rowLink}>
-						{laptop.name}
-					</Link>
-				</h2>
-				<p className={styles.specLine}>{specLine(laptop).join(" · ")}</p>
+				{specs.length > 0 && (
+					<dl className={styles.keySpecs}>
+						{specs.map((s) => (
+							<div key={s.label}>
+								<dt>{s.label}</dt>
+								<dd>{s.value}</dd>
+							</div>
+						))}
+					</dl>
+				)}
 				{rowTags.length > 0 && (
-					<ul className={styles.tags}>
+					<ul className={styles.tags} aria-label="Highlights">
 						{rowTags.map((t) => (
 							<li key={t}>{t}</li>
 						))}
@@ -104,18 +122,22 @@ export function LaptopRow({
 						</p>
 						{price.discountPct != null && price.mrpInr != null && (
 							<p className={styles.mrp}>
-								<s>{formatInr(price.mrpInr)}</s>{" "}
+								<s>
+									<span className="visually-hidden">MRP </span>
+									{formatInr(price.mrpInr)}
+								</s>{" "}
 								<span className={styles.off}>{price.discountPct}% off</span>
 							</p>
 						)}
-						<PriceNote price={price} />
+						<PriceSource price={price} stores={stores} />
 					</>
 				) : (
 					<p className={styles.noPrice}>No price listed</p>
 				)}
-				<p className={styles.storeCount}>
-					{stores === 1 ? "1 store" : `Compared across ${stores} stores`}
-				</p>
+				<span className={styles.rowMore} aria-hidden>
+					{stores > 1 ? `Compare ${stores} stores` : "View details"}
+					<ChevronRight size={16} />
+				</span>
 			</div>
 		</article>
 	);

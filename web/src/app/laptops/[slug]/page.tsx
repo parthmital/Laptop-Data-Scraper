@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 
 import { formatInr } from "@/catalogue/format";
 import { SPEC_KEYS } from "@/catalogue/specs";
+import { keySpecs } from "@/catalogue/summary";
 import { Gallery } from "@/components/laptop/Gallery";
 import { OffersTable } from "@/components/laptop/OffersTable";
 import { PriceNote } from "@/components/laptop/PriceNote";
@@ -32,9 +33,16 @@ export default async function LaptopPage({ params }: Props) {
 	if (!laptop) notFound();
 	const { price, specs } = laptop;
 	const stated = SPEC_KEYS.filter((k) => specs[k] != null).length;
+	// Model and part numbers often already end the name; repeating them adds nothing.
 	const codes = [specs.model_number, specs.part_number]
-		.filter(Boolean)
+		.filter(
+			(c): c is string =>
+				typeof c === "string" &&
+				c !== "" &&
+				!laptop.name.toLowerCase().includes(c.toLowerCase()),
+		)
 		.join(" · ");
+	const summary = keySpecs(laptop, true);
 
 	const storeLink = price && price.kind !== "last_seen" ? price : null;
 
@@ -48,12 +56,6 @@ export default async function LaptopPage({ params }: Props) {
 				<div className={styles.summary}>
 					<h1 className={styles.title}>{laptop.name}</h1>
 					{codes && <p className={`${styles.codes} mono`}>{codes}</p>}
-					<p className={styles.coverageLine}>
-						<span className="mono">
-							{stated}/{SPEC_KEYS.length}
-						</span>{" "}
-						specs stated by the stores
-					</p>
 
 					<div className={styles.priceBox}>
 						{price ? (
@@ -73,7 +75,10 @@ export default async function LaptopPage({ params }: Props) {
 											</span>
 										</p>
 									)}
-									<PriceNote price={price} />
+									<PriceNote
+										price={price}
+										stores={new Set(laptop.offers.map((o) => o.site)).size}
+									/>
 								</div>
 								{storeLink && (
 									<a
@@ -97,6 +102,17 @@ export default async function LaptopPage({ params }: Props) {
 						)}
 					</div>
 
+					{summary.length > 0 && (
+						<dl className={styles.keySpecs} aria-label="Key specs">
+							{summary.map((spec) => (
+								<div key={spec.label}>
+									<dt>{spec.label}</dt>
+									<dd>{spec.value}</dd>
+								</div>
+							))}
+						</dl>
+					)}
+
 					{!laptop.powerLimitsKnown &&
 						(specs.gpu_type === "dedicated" ||
 							laptop.derived.gpuKind === "dedicated") && (
@@ -113,11 +129,17 @@ export default async function LaptopPage({ params }: Props) {
 			</div>
 
 			<section className={styles.section} aria-labelledby="offers">
-				<h2 id="offers" className={styles.sectionTitle}>
-					{laptop.offers.length === 1
-						? "Price at 1 store"
-						: `Prices at ${laptop.offers.length} stores`}
-				</h2>
+				<div>
+					<h2 id="offers" className={styles.sectionTitle}>
+						Where to buy
+					</h2>
+					<p className={styles.sectionMeta}>
+						{laptop.offers.length === 1
+							? "Listed at 1 store."
+							: `Listed at ${laptop.offers.length} stores.`}{" "}
+						Confirm the price on the store&apos;s page before you buy.
+					</p>
+				</div>
 				<OffersTable
 					offers={laptop.offers}
 					bestListingId={price?.kind === "compared" ? price.listingId : null}
@@ -153,10 +175,7 @@ export default async function LaptopPage({ params }: Props) {
 			</section>
 
 			<section className={styles.section} aria-labelledby="specs">
-				<h2 id="specs" className={styles.sectionTitle}>
-					Specifications
-				</h2>
-				<SpecSheet laptop={laptop} />
+				<SpecSheet laptop={laptop} stated={stated} total={SPEC_KEYS.length} />
 			</section>
 		</main>
 	);

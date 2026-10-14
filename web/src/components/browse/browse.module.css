@@ -1,22 +1,25 @@
-/* Page layout */
+/* Browse page. Spacing, sizes and radii come from the tokens in app/globals.css. */
+
+/* Page layout: a flat filter column, a hairline, then results. */
 .layout {
 	max-width: 1440px;
 	margin: 0 auto;
-	padding: 24px;
+	padding: var(--space-6);
 	display: grid;
-	grid-template-columns: 300px minmax(0, 1fr);
-	gap: 24px;
+	grid-template-columns: 264px minmax(0, 1fr);
+	gap: var(--space-8);
 	align-items: start;
 }
 
 .sidebar {
 	position: sticky;
-	top: 16px;
-	max-height: calc(100vh - 32px);
+	top: var(--space-6);
+	max-height: calc(100vh - 2 * var(--space-6));
 	overflow-y: auto;
 	overscroll-behavior: contain;
-	background: var(--surface);
-	border-radius: var(--radius-lg);
+	/* Room for the scrollbar so it never sits on the controls. */
+	margin-right: calc(-1 * var(--space-3));
+	padding-right: var(--space-3);
 }
 
 .results {
@@ -24,24 +27,35 @@
 	display: grid;
 	/* A fixed track, so the search field's intrinsic width can never push the column past the screen. */
 	grid-template-columns: minmax(0, 1fr);
-	gap: 16px;
+	gap: var(--space-4);
 	transition: opacity var(--speed) var(--ease);
 }
 
 [data-pending] .results {
-	opacity: 0.5;
+	opacity: 0.55;
+}
+
+.intro {
+	display: grid;
+	gap: var(--space-1);
 }
 
 .heading {
 	font-size: var(--text-2xl);
-	letter-spacing: -0.003em;
-	line-height: 1.1;
+	letter-spacing: -0.02em;
+	line-height: 1.2;
+}
+
+.lede {
+	color: var(--ink-3);
+	font-size: var(--text-md);
 }
 
 .searchRow {
 	display: flex;
 	align-items: center;
-	gap: 12px;
+	gap: var(--space-2);
+	margin-top: var(--space-2);
 }
 
 .searchRow > :first-child {
@@ -50,32 +64,34 @@
 
 .toolbar {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
-	justify-content: space-between;
-	gap: 12px;
-	min-height: 44px;
+	gap: var(--space-2) var(--space-3);
+	min-height: var(--control-sm);
 }
 
 .countLine {
 	color: var(--ink-3);
 	font-size: var(--text-sm);
+	font-variant-numeric: tabular-nums;
 }
 
 .mobileOnly {
 	display: none;
 }
 
-/* Search: one large field, the way Apple's search sheet reads. */
+/* Search: same height, border and radius as the sort control. */
 .search {
 	min-width: 0;
 	display: flex;
 	align-items: center;
-	gap: 10px;
-	min-height: 52px;
-	padding: 0 6px 0 18px;
+	gap: var(--space-2);
+	height: var(--control);
+	padding: 0 var(--space-1) 0 var(--space-3);
 	background: var(--surface);
 	border: 1px solid var(--line-strong);
 	border-radius: var(--radius);
+	cursor: text;
 	transition:
 		border-color var(--speed) var(--ease),
 		box-shadow var(--speed) var(--ease);
@@ -87,15 +103,16 @@
 
 .search:focus-within {
 	border-color: var(--accent);
-	box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 .search input {
 	all: unset;
 	flex: 1;
 	min-width: 0;
-	padding: 12px 0;
-	font-size: var(--text-md);
+	height: 100%;
+	font-size: var(--text-base);
+	cursor: text;
 }
 
 .searchIcon {
@@ -108,9 +125,9 @@
 	box-sizing: border-box;
 	display: grid;
 	place-items: center;
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
+	width: var(--control-sm);
+	height: var(--control-sm);
+	border-radius: var(--radius-sm);
 	color: var(--ink-3);
 	cursor: pointer;
 	flex: none;
@@ -135,68 +152,69 @@
 
 /* Filter panel */
 .panel {
-	padding-bottom: 8px;
+	padding-bottom: var(--space-4);
 }
 
-/* Stays in view while the groups scroll, so "Collapse all" is always one click away. */
+/* Stays in view while the groups scroll, so the panel actions are always one click away. */
 .panelHead {
 	position: sticky;
 	top: 0;
-	z-index: 1;
+	z-index: 2;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: 12px;
-	min-height: 60px;
-	padding: 12px 20px 8px;
-	background: var(--surface);
+	gap: var(--space-3);
+	height: 44px;
+	background: var(--paper);
+	border-bottom: 1px solid var(--line-strong);
 }
 
 .panelActions {
 	display: flex;
 	align-items: center;
-	gap: 16px;
+	gap: var(--space-3);
+}
+
+/* Keeps two neighbouring text buttons from reading as one link. */
+.actionDivider {
+	width: 1px;
+	height: 16px;
+	background: var(--line-strong);
 }
 
 .panelTitle {
-	font-size: var(--text-lg);
-	letter-spacing: 0.01em;
+	font-size: var(--text-md);
+	font-weight: 600;
+	letter-spacing: -0.01em;
 }
 
 .textButton {
 	all: unset;
-	cursor: pointer;
-	color: var(--link);
-	font-size: var(--text-sm);
-	padding: 6px 0;
-	min-height: 32px;
 	box-sizing: border-box;
 	display: inline-flex;
 	align-items: center;
-	gap: 2px;
-	border-radius: 4px;
+	gap: var(--space-1);
+	height: 28px;
+	padding: 0 var(--space-1);
+	margin: 0 calc(-1 * var(--space-1));
+	border-radius: var(--radius-sm);
+	color: var(--link);
+	font-size: var(--text-sm);
+	cursor: pointer;
+	transition: background var(--speed) var(--ease);
 }
 
 .textButton:hover {
-	text-decoration: underline;
-	text-underline-offset: 3px;
+	background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .textButton:focus-visible {
 	outline: 2px solid var(--focus);
-	outline-offset: 2px;
-}
-
-.unstated {
-	margin: 4px 20px 12px;
-	padding: 12px 14px;
-	background: var(--surface-2);
-	border-radius: var(--radius);
+	outline-offset: 0;
 }
 
 .group {
-	margin: 0 20px;
-	border-top: 1px solid var(--line);
+	border-bottom: 1px solid var(--line);
 }
 
 .groupTrigger {
@@ -205,32 +223,32 @@
 	width: 100%;
 	display: flex;
 	align-items: center;
-	gap: 8px;
-	min-height: 52px;
-	font-family: var(--font-display);
-	font-size: var(--text-md);
+	gap: var(--space-2);
+	height: 44px;
+	font-size: var(--text-base);
 	font-weight: 600;
 	cursor: pointer;
-	border-radius: 6px;
-	transition: color var(--speed) var(--ease);
+	border-radius: var(--radius-sm);
 }
 
 .groupTrigger > span:first-child {
 	flex: 1;
 }
 
-.groupTrigger:hover {
-	color: var(--link);
+.groupTrigger:hover .chevron {
+	color: var(--ink);
 }
 
 .groupTrigger:focus-visible {
 	outline: 2px solid var(--focus);
-	outline-offset: 0;
+	outline-offset: -2px;
 }
 
 .chevron {
 	color: var(--ink-3);
-	transition: transform var(--speed) var(--ease);
+	transition:
+		transform var(--speed) var(--ease),
+		color var(--speed) var(--ease);
 }
 
 .groupTrigger[data-state="open"] .chevron {
@@ -240,15 +258,15 @@
 .activeDot {
 	display: inline-grid;
 	place-items: center;
-	min-width: 20px;
-	height: 20px;
-	padding: 0 6px;
-	border-radius: 999px;
+	min-width: 18px;
+	height: 18px;
+	padding: 0 5px;
+	border-radius: var(--radius-pill);
 	background: var(--accent);
 	color: var(--on-accent);
-	font-family: var(--font-sans);
-	font-size: 0.75rem;
+	font-size: 0.6875rem;
 	font-weight: 600;
+	font-variant-numeric: tabular-nums;
 	letter-spacing: 0;
 }
 
@@ -266,8 +284,8 @@
 
 .groupInner {
 	display: grid;
-	gap: 4px;
-	padding-bottom: 12px;
+	gap: var(--space-4);
+	padding-bottom: var(--space-4);
 }
 
 @keyframes open {
@@ -291,75 +309,102 @@
 }
 
 .facet {
-	padding: 8px 0 12px;
 	display: grid;
-	gap: 6px;
+	gap: var(--space-2);
 }
 
-.facet + .facet {
-	border-top: 1px solid var(--line);
-	padding-top: 14px;
-}
-
-/* When the label is hidden (it repeats the group name), the coverage count stays on the right. */
+/* When the label is hidden (it repeats the group name), the coverage note stays on the left. */
 .facetHead {
 	display: flex;
-	align-items: center;
+	align-items: baseline;
 	justify-content: space-between;
-	gap: 8px;
+	gap: var(--space-2);
 }
 
 .facetHead:empty {
 	display: none;
 }
 
-.facetHead > :only-child:not(h4) {
-	margin-left: auto;
-}
-
 .facetLabel {
-	font-family: var(--font-sans);
+	color: var(--ink-2);
 	font-size: var(--text-sm);
-	font-weight: 600;
-	color: var(--ink);
+	font-weight: 500;
 }
 
 .facetHint {
 	color: var(--ink-3);
 	font-size: var(--text-xs);
-	letter-spacing: -0.01em;
+	line-height: 1.45;
+	margin-top: calc(-1 * var(--space-1));
 }
 
-/* Signature: how many listings state this spec. */
+/* Signature: shown only where few listings state the spec. */
 .coverage {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-	font-size: 0.75rem;
 	color: var(--ink-3);
-	flex: none;
+	font-size: var(--text-xs);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
 }
 
-.coverageBar {
-	width: 32px;
-	height: 4px;
-	border-radius: 2px;
-	background: var(--fill);
-	overflow: hidden;
+/* Advanced, so it comes after every group rather than before them. */
+.unstated {
+	padding-top: var(--space-3);
 }
 
-.coverageBar span {
-	display: block;
-	height: 100%;
-	border-radius: inherit;
-	background: var(--ink-3);
+/* Budget presets: a 2 by 2 grid of equal buttons. */
+.presets {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-2);
 }
 
-/* Chips */
+.preset {
+	all: unset;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: var(--control-sm);
+	padding: 0 var(--space-3);
+	border: 1px solid var(--line-strong);
+	border-radius: var(--radius);
+	background: var(--surface);
+	color: var(--ink);
+	font-size: var(--text-sm);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+	cursor: pointer;
+	transition:
+		background var(--speed) var(--ease),
+		border-color var(--speed) var(--ease),
+		color var(--speed) var(--ease);
+}
+
+.preset:hover {
+	border-color: var(--ink-3);
+}
+
+.preset:active {
+	background: var(--surface-2);
+}
+
+.preset[aria-pressed="true"] {
+	background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+	border-color: var(--accent);
+	color: var(--link);
+	font-weight: 500;
+}
+
+.preset:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: 2px;
+}
+
+/* Active filter chips */
 .chips {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 8px;
+	gap: var(--space-2);
 	align-items: center;
 }
 
@@ -368,27 +413,21 @@
 	box-sizing: border-box;
 	display: inline-flex;
 	align-items: center;
-	gap: 6px;
-	min-height: 36px;
-	padding: 0 10px 0 14px;
-	border-radius: var(--radius-pill);
+	gap: var(--space-1);
+	height: 28px;
+	padding: 0 var(--space-2) 0 var(--space-3);
+	border-radius: var(--radius-sm);
 	background: var(--fill);
 	color: var(--ink);
 	cursor: pointer;
 	font-size: var(--text-sm);
 	max-width: 100%;
 	overflow-wrap: anywhere;
-	transition:
-		background var(--speed) var(--ease),
-		transform 120ms var(--ease);
+	transition: background var(--speed) var(--ease);
 }
 
 .chip:hover {
 	background: var(--line-strong);
-}
-
-.chip:active {
-	transform: scale(0.97);
 }
 
 .chip:focus-visible {
@@ -401,48 +440,53 @@
 	color: var(--ink-3);
 }
 
-/* Result rows */
+/* Result cards */
 .list {
 	display: grid;
-	gap: 12px;
+	gap: var(--space-3);
 }
 
 .row {
 	position: relative;
 	display: grid;
-	grid-template-columns: 168px minmax(0, 1fr) 220px;
-	gap: 16px 24px;
-	padding: 20px 24px 20px 20px;
+	grid-template-columns: 144px minmax(0, 1fr) 184px;
+	grid-template-rows: auto 1fr;
+	grid-template-areas:
+		"thumb title price"
+		"thumb main price";
+	gap: var(--space-3) var(--space-6);
+	padding: var(--space-4);
 	background: var(--surface);
+	border: 1px solid var(--line);
 	border-radius: var(--radius-lg);
-	/* backwards, not both: a held end state would block the hover transform. */
+	/* backwards, not both: a held end state would block hover styles. */
 	animation: rise var(--speed-slow) var(--ease) backwards;
 	animation-delay: calc(var(--i, 0) * 30ms);
 	transition:
-		box-shadow var(--speed) var(--ease),
-		transform var(--speed) var(--ease);
+		border-color var(--speed) var(--ease),
+		box-shadow var(--speed) var(--ease);
 }
 
 .row:hover {
+	border-color: var(--line-strong);
 	box-shadow: var(--shadow-hover);
-	transform: translateY(-2px);
 }
 
 .row:focus-within {
-	box-shadow:
-		0 0 0 2px var(--focus),
-		var(--shadow-hover);
+	border-color: var(--focus);
+	box-shadow: 0 0 0 1px var(--focus);
 }
 
 @keyframes rise {
 	from {
 		opacity: 0;
-		transform: translateY(16px);
+		transform: translateY(8px);
 	}
 }
 
 .thumb {
-	width: 168px;
+	grid-area: thumb;
+	width: 144px;
 	aspect-ratio: 4 / 3;
 	border-radius: var(--radius);
 	background: var(--image-bg);
@@ -452,7 +496,7 @@
 	place-items: center;
 	color: var(--image-ink);
 	overflow: hidden;
-	padding: 8px;
+	padding: var(--space-2);
 }
 
 .thumb img {
@@ -461,25 +505,14 @@
 	object-fit: contain;
 	object-position: center;
 	mix-blend-mode: multiply;
-	transition: transform var(--speed-slow) var(--ease);
-}
-
-.row:hover .thumb img {
-	transform: scale(1.04);
-}
-
-.rowMain {
-	min-width: 0;
-	display: grid;
-	gap: 6px;
-	align-content: start;
-	padding-top: 2px;
 }
 
 .rowTitle {
+	grid-area: title;
 	font-size: var(--text-lg);
-	letter-spacing: 0.01em;
-	line-height: 1.24;
+	font-weight: 600;
+	letter-spacing: -0.015em;
+	line-height: 1.3;
 	overflow-wrap: anywhere;
 }
 
@@ -488,7 +521,7 @@
 	transition: color var(--speed) var(--ease);
 }
 
-/* The whole row opens the laptop. */
+/* The whole card opens the laptop. */
 .rowLink::after {
 	content: "";
 	position: absolute;
@@ -504,42 +537,70 @@
 	outline: none;
 }
 
-.specLine {
+.rowMain {
+	grid-area: main;
+	min-width: 0;
+	display: grid;
+	gap: var(--space-3);
+	align-content: start;
+}
+
+/* The specs people compare first, as label over value so cards scan down the page. */
+.keySpecs {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+	gap: var(--space-2) var(--space-5);
+}
+
+.keySpecs div {
+	min-width: 0;
+}
+
+.keySpecs dt {
 	color: var(--ink-3);
-	font-size: var(--text-sm);
+	font-size: var(--text-xs);
+}
+
+.keySpecs dd {
+	margin: 0;
+	color: var(--ink);
+	font-size: var(--text-base);
+	line-height: 1.4;
 	overflow-wrap: anywhere;
 }
 
+/* 8 px apart, like the filter chips, so neighbouring tags never read as one bar. */
 .tags {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 6px;
-	margin-top: 4px;
+	gap: var(--space-2);
 }
 
 .tags li {
-	padding: 3px 10px;
-	border-radius: var(--radius-pill);
+	padding: 2px var(--space-2);
+	border-radius: var(--radius-sm);
 	background: var(--surface-2);
-	font-size: 0.75rem;
 	color: var(--ink-2);
+	font-size: var(--text-xs);
 }
 
 .rowPrice {
-	display: grid;
+	grid-area: price;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
 	gap: 2px;
-	align-content: start;
 	text-align: right;
-	justify-items: end;
-	padding-top: 2px;
+	padding-left: var(--space-6);
+	border-left: 1px solid var(--line);
 }
 
 .price {
-	font-family: var(--font-display);
-	font-size: var(--text-lg);
+	font-size: var(--text-xl);
 	font-weight: 600;
 	font-variant-numeric: tabular-nums;
-	letter-spacing: 0.01em;
+	letter-spacing: -0.02em;
+	line-height: 1.2;
 }
 
 .price[data-muted] {
@@ -548,9 +609,8 @@
 
 .mrp {
 	color: var(--ink-3);
-	font-size: var(--text-xs);
+	font-size: var(--text-sm);
 	font-variant-numeric: tabular-nums;
-	margin-bottom: 4px;
 }
 
 .off {
@@ -558,40 +618,72 @@
 	font-weight: 600;
 }
 
-.noPrice {
+.priceSource {
+	margin-top: var(--space-1);
 	color: var(--ink-3);
+	font-size: var(--text-sm);
+	line-height: 1.45;
 }
 
-.storeCount {
-	margin-top: 6px;
+.good {
+	color: var(--green);
+	font-weight: 500;
+}
+
+.warn {
+	color: var(--amber);
+	font-weight: 500;
+}
+
+.noPrice {
 	color: var(--ink-3);
-	font-size: var(--text-xs);
+	font-size: var(--text-base);
+}
+
+/* The visible cue that the card opens; the card's link carries the name for assistive tech. */
+.rowMore {
+	margin-top: auto;
+	padding-top: var(--space-3);
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+	color: var(--link);
+	font-size: var(--text-sm);
+	font-weight: 500;
+}
+
+.rowMore svg {
+	transition: transform var(--speed) var(--ease);
+}
+
+.row:hover .rowMore svg {
+	transform: translateX(2px);
 }
 
 /* Empty state */
 .empty {
-	padding: 56px 24px;
+	padding: var(--space-12) var(--space-6);
 	text-align: center;
 	background: var(--surface);
+	border: 1px solid var(--line);
 	border-radius: var(--radius-lg);
 	display: grid;
-	gap: 10px;
+	gap: var(--space-2);
 	justify-items: center;
 	animation: rise var(--speed-slow) var(--ease) both;
 }
 
 .emptyTitle {
-	font-family: var(--font-display);
-	font-size: var(--text-xl);
+	font-size: var(--text-lg);
 	font-weight: 600;
-	letter-spacing: 0.007em;
-	line-height: 1.14;
+	letter-spacing: -0.015em;
 }
 
 .emptyText {
 	color: var(--ink-3);
+	font-size: var(--text-base);
 	max-width: 46ch;
-	margin-bottom: 8px;
+	margin-bottom: var(--space-3);
 }
 
 .emptyActions {
@@ -599,7 +691,32 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	gap: 12px;
+	gap: var(--space-2);
+}
+
+.secondaryButton {
+	all: unset;
+	box-sizing: border-box;
+	display: inline-flex;
+	align-items: center;
+	height: var(--control);
+	padding: 0 var(--space-4);
+	border: 1px solid var(--line-strong);
+	border-radius: var(--radius);
+	background: var(--surface);
+	font-size: var(--text-base);
+	font-weight: 500;
+	cursor: pointer;
+	transition: border-color var(--speed) var(--ease);
+}
+
+.secondaryButton:hover {
+	border-color: var(--ink-3);
+}
+
+.secondaryButton:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: 2px;
 }
 
 /* Pagination */
@@ -607,74 +724,89 @@
 	display: grid;
 	grid-template-columns: 1fr auto 1fr;
 	align-items: center;
-	gap: 12px;
-	padding-top: 16px;
+	gap: var(--space-3);
+	padding-top: var(--space-4);
 }
 
 .pagination > :last-child {
 	justify-self: end;
 }
 
-.pageInfo {
-	color: var(--ink-3);
-	font-size: var(--text-sm);
+.pageNumbers {
+	display: flex;
+	align-items: center;
+	gap: var(--space-1);
 }
 
+.pageNumber,
 .pageLink {
 	display: inline-flex;
 	align-items: center;
-	gap: 4px;
-	min-height: 44px;
-	padding: 0 18px;
-	border-radius: var(--radius-pill);
-	background: var(--surface);
+	justify-content: center;
+	gap: var(--space-1);
+	height: 36px;
+	border: 1px solid transparent;
+	border-radius: var(--radius);
 	text-decoration: none;
-	font-size: var(--text-sm);
+	font-size: var(--text-base);
+	font-variant-numeric: tabular-nums;
 	transition:
 		background var(--speed) var(--ease),
-		transform 120ms var(--ease);
+		border-color var(--speed) var(--ease);
+}
+
+.pageNumber {
+	min-width: 36px;
+	padding: 0 var(--space-2);
+}
+
+.pageLink {
+	padding: 0 var(--space-3);
+	border-color: var(--line-strong);
+	background: var(--surface);
+}
+
+.pageNumber:hover {
+	background: var(--surface);
+	border-color: var(--line-strong);
 }
 
 .pageLink:hover {
-	background: var(--fill);
+	border-color: var(--ink-3);
 }
 
-.pageLink:active {
-	transform: scale(0.97);
+.pageNumber[aria-current="page"] {
+	background: var(--ink);
+	border-color: var(--ink);
+	color: var(--paper);
+	font-weight: 600;
+}
+
+.pageGap {
+	color: var(--ink-3);
+	padding: 0 var(--space-1);
 }
 
 /* Drawer (narrow screens) */
 .drawerTrigger {
 	all: unset;
 	box-sizing: border-box;
-	position: relative;
 	display: inline-flex;
 	align-items: center;
-	gap: 6px;
-	min-height: 36px;
-	padding: 0 14px;
-	border-radius: var(--radius-pill);
-	background: var(--fill);
+	gap: var(--space-2);
+	height: var(--control);
+	padding: 0 var(--space-3);
+	border: 1px solid var(--line-strong);
+	border-radius: var(--radius);
+	background: var(--surface);
 	cursor: pointer;
-	font-size: var(--text-sm);
+	font-size: var(--text-base);
 	white-space: nowrap;
-	transition:
-		background var(--speed) var(--ease),
-		transform 120ms var(--ease);
-}
-
-.drawerTrigger::after {
-	content: "";
-	position: absolute;
-	inset: -4px 0;
+	transition: border-color var(--speed) var(--ease);
 }
 
 .drawerTrigger:hover {
-	background: var(--line-strong);
-}
-
-.drawerTrigger:active {
-	transform: scale(0.97);
+	border-color: var(--ink-3);
 }
 
 .drawerTrigger:focus-visible {
@@ -687,8 +819,6 @@
 	inset: 0;
 	z-index: 40;
 	background: var(--overlay);
-	-webkit-backdrop-filter: blur(4px);
-	backdrop-filter: blur(4px);
 	animation: fade var(--speed) var(--ease);
 }
 
@@ -702,10 +832,10 @@
 	top: 0;
 	bottom: 0;
 	left: 0;
-	width: min(400px, 100vw);
+	width: min(360px, 100vw);
 	display: grid;
 	grid-template-rows: auto 1fr auto;
-	background: var(--surface);
+	background: var(--paper);
 	box-shadow: var(--shadow-pop);
 	animation: slide var(--speed-slow) var(--ease);
 }
@@ -722,28 +852,25 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	min-height: 52px;
-	padding: 4px 8px 4px 20px;
-	border-bottom: 1px solid var(--line);
+	height: 56px;
+	padding: 0 var(--space-3) 0 var(--space-5);
+	border-bottom: 1px solid var(--line-strong);
 }
 
 .drawerBody {
 	overflow-y: auto;
 	overscroll-behavior: contain;
+	padding: 0 var(--space-5);
 }
 
-.drawerBody .panelHead {
-	min-height: 0;
-	padding-top: 8px;
-}
-
+/* The drawer has its own title, so the panel's title row only carries the actions. */
 .drawerBody .panelHead .panelTitle {
 	visibility: hidden;
 }
 
 .drawerFoot {
-	padding: 12px 20px 16px;
-	border-top: 1px solid var(--line);
+	padding: var(--space-3) var(--space-5) var(--space-4);
+	border-top: 1px solid var(--line-strong);
 }
 
 /* Full width; the look comes from the global .button-primary. */
@@ -778,7 +905,7 @@
 @media (max-width: 1023px) {
 	.layout {
 		grid-template-columns: minmax(0, 1fr);
-		padding: 20px 16px;
+		padding: var(--space-5) var(--space-4);
 	}
 
 	.sidebar {
@@ -791,44 +918,110 @@
 }
 
 @media (max-width: 719px) {
-	.row {
-		grid-template-columns: 96px minmax(0, 1fr);
-		padding: 16px;
-		gap: 12px 14px;
+	/* Search takes the first line; Filters and Sort share the second. */
+	.searchRow {
+		flex-wrap: wrap;
 	}
 
-	.row:hover {
-		transform: none;
+	.searchRow > :first-child {
+		flex: 1 1 100%;
+	}
+
+	.searchRow > :last-child {
+		margin-left: auto;
+	}
+
+	.row {
+		grid-template-columns: 88px minmax(0, 1fr);
+		grid-template-rows: auto;
+		grid-template-areas:
+			"thumb title"
+			"main main"
+			"price price";
+		gap: var(--space-3);
 	}
 
 	.thumb {
-		width: 96px;
-		padding: 4px;
+		width: 88px;
+		padding: var(--space-1);
 	}
 
 	.rowTitle {
+		align-self: center;
 		font-size: var(--text-md);
 	}
 
+	.keySpecs {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-2) var(--space-4);
+	}
+
+	/* Price on the left, the cue on the right, under a hairline. */
 	.rowPrice {
-		grid-column: 1 / -1;
-		text-align: left;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
 		justify-items: start;
-		padding-top: 12px;
+		align-items: end;
+		text-align: left;
+		padding: var(--space-3) 0 0;
+		border-left: 0;
 		border-top: 1px solid var(--line);
 	}
 
-	.search {
-		min-height: 48px;
-		padding-left: 14px;
+	.rowPrice > :not(.rowMore) {
+		grid-column: 1;
 	}
 
-	.emptyTitle {
+	.rowMore {
+		grid-column: 2;
+		grid-row: 1 / span 4;
+		align-self: end;
+		padding-top: 0;
+	}
+
+	.price {
 		font-size: var(--text-lg);
 	}
 
 	.heading {
 		font-size: var(--text-xl);
-		line-height: 1.14;
+	}
+}
+
+/* Prev and Next as icons, so the page numbers fit at 320 px. */
+@media (max-width: 479px) {
+	.pagination {
+		gap: var(--space-1);
+	}
+
+	.pageLink {
+		font-size: 0;
+		width: 36px;
+		padding: 0;
+	}
+
+	.pageNumbers {
+		gap: 0;
+	}
+
+	.pageGap {
+		padding: 0 1px;
+	}
+}
+
+@media (pointer: coarse) {
+	.pageNumber,
+	.pageLink {
+		height: 44px;
+		min-width: 40px;
+	}
+
+	.preset,
+	.chip {
+		height: 40px;
+	}
+
+	.groupTrigger {
+		height: 52px;
 	}
 }

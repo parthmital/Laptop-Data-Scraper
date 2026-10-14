@@ -1,10 +1,10 @@
 "use client";
 
 import { Slider } from "radix-ui";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 import type { Range } from "@/catalogue/filters";
-import { formatRangeValue } from "@/catalogue/format";
+import { formatNumber, formatRangeValue } from "@/catalogue/format";
 
 import styles from "./ui.module.css";
 
@@ -59,7 +59,9 @@ export function RangeField({
 		commit([parse(drafts[0], bounds.min), parse(drafts[1], bounds.max)]);
 	};
 
-	const shown = drafts ?? [String(value[0]), String(value[1])];
+	// Rupee amounts read with Indian digit grouping until the field is focused for editing.
+	const display = (n: number) => (money ? formatNumber(n) : String(n));
+	const shown = drafts ?? [display(value[0]), display(value[1])];
 	const affix = money ? "₹" : unit;
 
 	return (
@@ -90,35 +92,39 @@ export function RangeField({
 			)}
 			<div className={styles.rangeInputs}>
 				{(["Min", "Max"] as const).map((side, i) => (
-					<label key={side} className={styles.numberField}>
-						<span className="visually-hidden">
-							{side === "Min" ? "Minimum" : "Maximum"} {label.toLowerCase()}
-						</span>
-						{money && <span className={styles.affix}>{affix}</span>}
-						<input
-							className="mono"
-							inputMode="decimal"
-							autoComplete="off"
-							value={shown[i]}
-							onFocus={() => setDrafts([String(value[0]), String(value[1])])}
-							onChange={(e) => {
-								const next: [string, string] = [...shown] as [string, string];
-								next[i] = e.target.value;
-								setDrafts(next);
-							}}
-							onBlur={commitDraft}
-							onKeyDown={(e) => {
-								if (e.key === "Enter") commitDraft();
-							}}
-						/>
-						{!money && unit && <span className={styles.affix}>{unit}</span>}
-					</label>
+					<Fragment key={side}>
+						{i === 1 && (
+							<span className={styles.rangeTo} aria-hidden>
+								to
+							</span>
+						)}
+						<label className={styles.numberField}>
+							<span className="visually-hidden">
+								{side === "Min" ? "Minimum" : "Maximum"} {label.toLowerCase()},
+								catalogue range {formatRangeValue(bounds.min, { unit, money })}{" "}
+								to {formatRangeValue(bounds.max, { unit, money })}
+							</span>
+							{money && <span className={styles.affix}>{affix}</span>}
+							<input
+								inputMode="decimal"
+								autoComplete="off"
+								value={shown[i]}
+								onFocus={() => setDrafts([String(value[0]), String(value[1])])}
+								onChange={(e) => {
+									const next: [string, string] = [...shown] as [string, string];
+									next[i] = e.target.value;
+									setDrafts(next);
+								}}
+								onBlur={commitDraft}
+								onKeyDown={(e) => {
+									if (e.key === "Enter") commitDraft();
+								}}
+							/>
+							{!money && unit && <span className={styles.affix}>{unit}</span>}
+						</label>
+					</Fragment>
 				))}
 			</div>
-			<p className={styles.hint}>
-				{formatRangeValue(bounds.min, { unit, money })} to{" "}
-				{formatRangeValue(bounds.max, { unit, money })} in the catalogue
-			</p>
 		</div>
 	);
 }

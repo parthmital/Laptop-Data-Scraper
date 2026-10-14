@@ -96,7 +96,7 @@ export function ActiveFilters({ facets }: { facets: Facet[] }) {
 						className={styles.textButton}
 						onClick={() => navigate(clearFilters(params))}
 					>
-						Clear all
+						Clear filters
 					</button>
 				</li>
 			)}

@@ -16,6 +16,7 @@ export function SearchBox() {
 	const committed = params.get(PARAM.query) ?? "";
 	const [value, setValue] = useState(committed);
 	const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+	const input = useRef<HTMLInputElement>(null);
 	// The debounced commit must use the URL state at the time it fires, not when typing started.
 	const latest = useRef({ params, navigate });
 	useEffect(() => {
@@ -43,6 +44,13 @@ export function SearchBox() {
 			role="search"
 			noValidate
 			className={styles.search}
+			// The whole box looks like the field, so a click on its padding or icon focuses the input.
+			onMouseDown={(e) => {
+				if (e.target === e.currentTarget || e.target instanceof SVGElement) {
+					e.preventDefault();
+					input.current?.focus();
+				}
+			}}
 			onSubmit={(e) => {
 				e.preventDefault();
 				commit(value);
@@ -53,11 +61,12 @@ export function SearchBox() {
 				Search laptops
 			</label>
 			<input
+				ref={input}
 				id="laptop-search"
 				type="search"
 				autoComplete="off"
 				spellCheck={false}
-				placeholder="Model, CPU or GPU"
+				placeholder="Search laptops"
 				value={value}
 				onChange={(e) => {
 					const text = e.target.value;

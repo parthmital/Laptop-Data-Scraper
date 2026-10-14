@@ -1,46 +1,75 @@
 .skip {
 	position: absolute;
-	left: 16px;
+	left: var(--space-4);
 	top: -48px;
 	z-index: 60;
-	padding: 8px 14px;
-	border-radius: var(--radius-pill);
+	padding: var(--space-2) var(--space-3);
+	border-radius: var(--radius);
 	background: var(--accent);
 	color: var(--on-accent);
-	font-size: var(--text-sm);
+	font-size: var(--text-base);
 	text-decoration: none;
 	transition: top var(--speed) var(--ease);
 }
 
 .skip:focus {
-	top: 6px;
+	top: var(--space-2);
+}
+
+/* Site bar: brand and the way home. Not sticky, so results keep the full height once scrolled. */
+.header {
+	border-bottom: 1px solid var(--line-strong);
+}
+
+.headerInner {
+	max-width: 1440px;
+	height: 56px;
+	margin: 0 auto;
+	padding: 0 var(--space-6);
+	display: flex;
+	align-items: center;
+}
+
+.brand {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	height: 40px;
+	font-size: var(--text-md);
+	font-weight: 600;
+	letter-spacing: -0.015em;
+	text-decoration: none;
+	border-radius: var(--radius-sm);
+}
+
+.brand svg {
+	flex: none;
 }
 
 .footer {
 	border-top: 1px solid var(--line-strong);
-	margin-top: 48px;
+	margin-top: var(--space-12);
 }
 
 .footerText {
 	max-width: 1440px;
 	margin: 0 auto;
-	padding: 20px 24px 40px;
+	padding: var(--space-5) var(--space-6) var(--space-8);
 	color: var(--ink-3);
-	font-size: 0.75rem;
+	font-size: var(--text-xs);
 	line-height: 1.5;
-	letter-spacing: -0.01em;
 }
 
 /* Not-found and error pages */
 .message {
-	max-width: 640px;
+	max-width: 560px;
 	margin: 0 auto;
-	padding: 96px 24px 48px;
+	padding: 96px var(--space-6) var(--space-12);
 	display: grid;
-	gap: 16px;
+	gap: var(--space-3);
 	justify-items: center;
 	text-align: center;
-	color: var(--ink-2);
+	color: var(--ink-3);
 	animation: rise var(--speed-slow) var(--ease) both;
 }
 
@@ -48,38 +77,35 @@
 	color: var(--ink);
 	font-size: var(--text-2xl);
 	letter-spacing: -0.02em;
-	line-height: 1.1;
+	line-height: 1.2;
 }
 
 .message p {
-	font-size: var(--text-lg);
-	letter-spacing: 0.01em;
-	line-height: 1.38;
-	margin-bottom: 8px;
+	font-size: var(--text-md);
+	margin-bottom: var(--space-3);
 }
 
 @keyframes rise {
 	from {
 		opacity: 0;
-		transform: translateY(12px);
+		transform: translateY(8px);
+	}
+}
+
+@media (max-width: 1023px) {
+	.headerInner,
+	.footerText {
+		padding-left: var(--space-4);
+		padding-right: var(--space-4);
 	}
 }
 
 @media (max-width: 719px) {
-	.footerText {
-		padding-left: 16px;
-		padding-right: 16px;
-	}
-
 	.message {
 		padding-top: 64px;
 	}
 
 	.message h1 {
 		font-size: var(--text-xl);
-	}
-
-	.message p {
-		font-size: var(--text-md);
 	}
 }

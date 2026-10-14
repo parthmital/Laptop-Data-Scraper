@@ -9,7 +9,9 @@ import {
 	PARAM,
 	parseRange,
 	type Facet,
+	type Range,
 } from "@/catalogue/filters";
+import { formatInr, formatInrShort } from "@/catalogue/format";
 import {
 	clearFilters,
 	setFlag,
@@ -25,6 +27,27 @@ import styles from "./browse.module.css";
 
 const OPEN_BY_DEFAULT = ["deal", "brand", "processor", "graphics"];
 const VISIBLE_OPTIONS = 8;
+
+/** Common budgets in rupees, one click each; the slider and typed fields stay for anything else. */
+const PRICE_PRESETS: Range[] = [
+	{ min: null, max: 50000 },
+	{ min: 50000, max: 80000 },
+	{ min: 80000, max: 120000 },
+	{ min: 120000, max: null },
+];
+
+function presetLabel({ min, max }: Range): string {
+	if (min == null) return `Under ${formatInr(max!)}`;
+	if (max == null) return `Over ${formatInr(min)}`;
+	return `${formatInr(min)} to ${formatInr(max)}`;
+}
+
+/** The same budget in short Indian form, so two buttons sit side by side with room to breathe. */
+function presetShortLabel({ min, max }: Range): string {
+	if (min == null) return `Under ${formatInrShort(max!)}`;
+	if (max == null) return `Over ${formatInrShort(min)}`;
+	return `${formatInrShort(min)} – ${formatInrShort(max)}`;
+}
 
 export function FilterPanel({
 	facets,
@@ -58,32 +81,25 @@ export function FilterPanel({
 						onClick={() => setOpen(allOpen ? [] : shownGroups)}
 					>
 						{allOpen ? (
-							<ChevronsDownUp size={16} aria-hidden />
+							<ChevronsDownUp size={14} aria-hidden />
 						) : (
-							<ChevronsUpDown size={16} aria-hidden />
+							<ChevronsUpDown size={14} aria-hidden />
 						)}
 						{allOpen ? "Collapse all" : "Expand all"}
 					</button>
 					{hasFilters && (
-						<button
-							type="button"
-							className={styles.textButton}
-							onClick={() => navigate(clearFilters(params))}
-						>
-							Clear all
-						</button>
+						<>
+							<span className={styles.actionDivider} aria-hidden />
+							<button
+								type="button"
+								className={styles.textButton}
+								onClick={() => navigate(clearFilters(params))}
+							>
+								Clear filters
+							</button>
+						</>
 					)}
 				</div>
-			</div>
-			<div className={styles.unstated}>
-				<Switch
-					label="Include laptops that don't state a filtered spec"
-					description="Many listings leave specs out. Turn this on to keep them in the results instead of hiding them."
-					checked={params.get(PARAM.unstated) === "1"}
-					onCheckedChange={(on) =>
-						navigate(setFlag(params, PARAM.unstated, on))
-					}
-				/>
 			</div>
 			<Accordion.Root type="multiple" value={open} onValueChange={setOpen}>
 				{FILTER_GROUPS.map((group) => {
@@ -104,7 +120,7 @@ export function FilterPanel({
 											<span className={styles.activeDot}>{active}</span>
 										)}
 										<ChevronDown
-											size={16}
+											size={14}
 											className={styles.chevron}
 											aria-hidden
 										/>
@@ -128,9 +144,22 @@ export function FilterPanel({
 					);
 				})}
 			</Accordion.Root>
+			<div className={styles.unstated}>
+				<Switch
+					label="Include laptops with missing specs"
+					description="Many store listings leave specs out. Turn this on to keep those laptops when you filter on a spec they don't state."
+					checked={params.get(PARAM.unstated) === "1"}
+					onCheckedChange={(on) =>
+						navigate(setFlag(params, PARAM.unstated, on))
+					}
+				/>
+			</div>
 		</div>
 	);
 }
+
+/** Below this share of the catalogue, a filter says how few laptops state its spec. */
+const LOW_COVERAGE = 0.9;
 
 function Coverage({
 	facet,
@@ -139,16 +168,10 @@ function Coverage({
 	facet: Facet;
 	catalogueSize: number;
 }) {
-	if (facet.stated >= catalogueSize) return null;
+	if (facet.stated >= catalogueSize * LOW_COVERAGE) return null;
 	return (
-		<span
-			className={`${styles.coverage} mono`}
-			aria-label={`Stated for ${facet.stated} of ${catalogueSize} laptops`}
-		>
-			<span className={styles.coverageBar} aria-hidden>
-				<span style={{ width: `${(facet.stated / catalogueSize) * 100}%` }} />
-			</span>
-			{facet.stated}/{catalogueSize}
+		<span className={styles.coverage}>
+			Stated for {facet.stated} of {catalogueSize}
 		</span>
 	);
 }
@@ -195,6 +218,13 @@ function FacetControl({
 			<div className={styles.facet}>
 				{header}
 				{facet.hint && <p className={styles.facetHint}>{facet.hint}</p>}
+				{facet.id === "price" && (
+					<PricePresets
+						bounds={facet.bounds}
+						selected={selected}
+						onSelect={(range) => navigate(setRange(params, facet.id, range))}
+					/>
+				)}
 				<RangeField
 					key={raw ?? ""}
 					label={facet.label}
@@ -246,6 +276,42 @@ function FacetControl({
 					{expanded ? "Show fewer" : `Show all ${facet.options.length}`}
 				</button>
 			) : null}
+		</div>
+	);
+}
+
+function PricePresets({
+	bounds,
+	selected,
+	onSelect,
+}: {
+	bounds: { min: number; max: number };
+	selected: Range | null;
+	onSelect: (range: Range | null) => void;
+}) {
+	// Only budgets that overlap the catalogue's prices are worth offering.
+	const presets = PRICE_PRESETS.filter(
+		(p) => (p.min ?? 0) < bounds.max && (p.max ?? Infinity) > bounds.min,
+	);
+	return (
+		<div className={styles.presets} role="group" aria-label="Budget">
+			{presets.map((preset) => {
+				const on =
+					(selected?.min ?? null) === preset.min &&
+					(selected?.max ?? null) === preset.max;
+				return (
+					<button
+						key={presetLabel(preset)}
+						type="button"
+						className={styles.preset}
+						aria-pressed={on}
+						aria-label={presetLabel(preset)}
+						onClick={() => onSelect(on ? null : preset)}
+					>
+						{presetShortLabel(preset)}
+					</button>
+				);
+			})}
 		</div>
 	);
 }

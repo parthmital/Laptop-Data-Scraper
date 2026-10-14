@@ -29,9 +29,7 @@ export function Switch({
 			<div className={styles.switchText}>
 				<label htmlFor={id} className={styles.choiceLabel}>
 					{label}
-					{count != null && (
-						<span className={`${styles.count} mono`}>{count}</span>
-					)}
+					{count != null && <span className={styles.count}>{count}</span>}
 				</label>
 				{description && (
 					<p id={descriptionId} className={styles.hint}>

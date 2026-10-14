@@ -1,63 +1,63 @@
+/* Laptop page. Spacing, sizes and radii come from the tokens in app/globals.css. */
+
 .page {
-	max-width: 1200px;
+	max-width: 1440px;
 	margin: 0 auto;
-	padding: 16px 24px 24px;
+	padding: var(--space-4) var(--space-6) var(--space-6);
 	display: grid;
-	gap: 64px;
+	gap: var(--space-12);
 }
 
 .back {
 	display: inline-flex;
 	align-items: center;
 	gap: 2px;
-	min-height: 44px;
-	margin-left: -6px;
-	padding-right: 4px;
+	height: var(--control-sm);
+	margin-left: calc(-1 * var(--space-1));
+	padding: 0 var(--space-2) 0 var(--space-1);
+	border-radius: var(--radius-sm);
 	color: var(--link);
-	font-family: var(--font-sans);
 	font-size: var(--text-sm);
-	font-weight: 400;
-	letter-spacing: -0.01em;
 	text-decoration: none;
 	white-space: nowrap;
 	justify-self: start;
-	border-radius: 6px;
+	transition: background var(--speed) var(--ease);
+}
+
+.back:hover {
+	background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 /* Sits just above the gallery rather than a full section gap away. */
 .back + .top {
-	margin-top: -44px;
+	margin-top: calc(var(--space-4) - var(--space-12));
 }
 
-.back:hover {
-	text-decoration: underline;
-	text-underline-offset: 3px;
-}
-
+/* The photo column is capped so the gallery never towers over the price and specs. */
 .top {
 	display: grid;
-	grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-	gap: 48px;
+	grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
+	gap: var(--space-8);
 	align-items: start;
 }
 
 /* Gallery */
 .gallery {
 	display: grid;
-	gap: 12px;
+	gap: var(--space-3);
 	animation: rise var(--speed-slow) var(--ease) both;
 }
 
 .stage {
 	aspect-ratio: 4 / 3;
 	background: var(--image-bg);
-	border-radius: var(--radius-xl);
+	border-radius: var(--radius-lg);
 	/* One cell with a definite size, so the photo's 100% height resolves and object-fit centres it. */
 	display: grid;
 	grid-template: minmax(0, 1fr) / minmax(0, 1fr);
 	place-items: center;
 	overflow: hidden;
-	padding: 32px;
+	padding: var(--space-8);
 }
 
 .stage img {
@@ -71,34 +71,32 @@
 
 .noImage {
 	display: grid;
-	gap: 8px;
+	gap: var(--space-2);
 	justify-items: center;
 	color: var(--image-ink);
-	font-size: var(--text-sm);
+	font-size: var(--text-base);
 }
 
 .thumbs {
 	display: flex;
-	gap: 10px;
+	gap: var(--space-2);
 	overflow-x: auto;
-	padding: 4px;
-	margin: -4px;
+	padding: var(--space-1);
+	margin: calc(-1 * var(--space-1));
 }
 
 .thumbButton {
 	all: unset;
 	box-sizing: border-box;
-	width: 72px;
-	height: 54px;
+	width: 64px;
+	height: 48px;
 	flex: none;
-	border: 2px solid transparent;
-	border-radius: 10px;
+	border: 1px solid var(--line);
+	border-radius: var(--radius);
 	background: var(--image-bg);
-	padding: 4px;
+	padding: var(--space-1);
 	cursor: pointer;
-	transition:
-		border-color var(--speed) var(--ease),
-		transform 120ms var(--ease);
+	transition: border-color var(--speed) var(--ease);
 }
 
 .thumbButton img {
@@ -109,15 +107,11 @@
 }
 
 .thumbButton:hover {
-	border-color: var(--line-strong);
-}
-
-.thumbButton:active {
-	transform: scale(0.95);
+	border-color: var(--ink-3);
 }
 
 .thumbButton[aria-pressed="true"] {
-	border-color: var(--accent);
+	border: 2px solid var(--accent);
 }
 
 .thumbButton:focus-visible {
@@ -128,73 +122,93 @@
 /* Summary */
 .summary {
 	display: grid;
-	gap: 12px;
+	gap: var(--space-4);
 	align-content: start;
 	min-width: 0;
-	padding-top: 8px;
 	animation: rise var(--speed-slow) var(--ease) 60ms both;
 }
 
 .title {
 	font-size: var(--text-2xl);
-	letter-spacing: -0.003em;
-	line-height: 1.1;
+	letter-spacing: -0.02em;
+	line-height: 1.2;
 	overflow-wrap: anywhere;
 }
 
 .codes {
+	margin-top: calc(-1 * var(--space-3));
 	color: var(--ink-3);
 	font-size: var(--text-sm);
 	overflow-wrap: anywhere;
 }
 
-.coverageLine {
-	color: var(--ink-3);
-	font-size: var(--text-sm);
-}
-
-/* Apple's price capsule: amount and context on the left, the store button on the right. */
+/* Price panel: amount and context on the left, the store button on the right. */
 .priceBox {
-	margin-top: 12px;
-	padding: 24px 24px 24px 28px;
+	padding: var(--space-5);
 	background: var(--surface);
-	border-radius: var(--radius-xl);
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
-	gap: 16px 24px;
+	gap: var(--space-4);
 }
 
 .priceText {
 	display: grid;
-	gap: 4px;
+	gap: 2px;
 	min-width: 0;
 	flex: 1 1 220px;
 }
 
 .bigPrice {
-	font-family: var(--font-display);
 	font-size: var(--text-2xl);
 	font-weight: 600;
-	letter-spacing: -0.003em;
+	letter-spacing: -0.02em;
 	font-variant-numeric: tabular-nums;
-	line-height: 1.1;
+	line-height: 1.2;
 }
 
 .bigPrice[data-muted] {
 	color: var(--ink-3);
 }
 
+/* Key specs beside the price, so the essentials are read without scrolling. */
+.keySpecs {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-3) var(--space-6);
+	padding: var(--space-5);
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
+}
+
+.keySpecs div {
+	min-width: 0;
+}
+
+.keySpecs dt {
+	color: var(--ink-3);
+	font-size: var(--text-xs);
+}
+
+.keySpecs dd {
+	margin: 0;
+	font-size: var(--text-base);
+	font-weight: 500;
+	overflow-wrap: anywhere;
+}
+
 .notice {
 	display: flex;
-	gap: 12px;
+	gap: var(--space-3);
 	align-items: flex-start;
-	padding: 16px 20px;
+	padding: var(--space-3) var(--space-4);
 	border-radius: var(--radius-lg);
 	background: var(--amber-tint);
 	color: var(--notice-text);
-	font-size: var(--text-sm);
+	font-size: var(--text-base);
 }
 
 .notice svg {
@@ -207,35 +221,54 @@
 }
 
 .reasons {
-	margin-top: 4px;
+	margin-top: var(--space-1);
 	font-size: var(--text-xs);
 }
 
 /* Sections */
 .section {
 	display: grid;
-	gap: 20px;
+	gap: var(--space-4);
 }
 
 .sectionTitle {
-	font-size: var(--text-2xl);
-	letter-spacing: -0.003em;
-	line-height: 1.1;
+	font-size: var(--text-xl);
+	letter-spacing: -0.02em;
+	line-height: 1.25;
 }
 
-/* Offers: one tile, stores divided by hairlines. */
+.sectionHead {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: var(--space-3) var(--space-8);
+}
+
+.sectionMeta {
+	margin-top: 2px;
+	color: var(--ink-3);
+	font-size: var(--text-base);
+}
+
+.specSwitch {
+	min-width: 220px;
+}
+
+/* Offers: one panel, stores divided by hairlines. */
 .offers {
 	background: var(--surface);
-	border-radius: var(--radius-xl);
-	padding: 8px 28px;
+	border: 1px solid var(--line);
+	border-radius: var(--radius-lg);
+	padding: 0 var(--space-5);
 }
 
 .offer {
 	display: grid;
 	grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr) minmax(0, 1fr) auto;
-	gap: 12px 24px;
+	gap: var(--space-3) var(--space-6);
 	align-items: center;
-	padding: 20px 0;
+	padding: var(--space-4) 0;
 }
 
 .offer + .offer {
@@ -243,33 +276,30 @@
 }
 
 .offerName {
-	font-family: var(--font-display);
 	font-size: var(--text-md);
 	font-weight: 600;
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: var(--space-2);
 	flex-wrap: wrap;
 }
 
 .bestTag {
-	font-family: var(--font-sans);
-	font-size: 0.75rem;
+	font-size: var(--text-xs);
 	font-weight: 600;
 	color: var(--green);
 	background: var(--green-tint);
-	padding: 2px 10px;
-	border-radius: var(--radius-pill);
+	padding: 1px var(--space-2);
+	border-radius: var(--radius-sm);
 }
 
 .offerMeta {
 	color: var(--ink-3);
-	font-size: var(--text-xs);
-	letter-spacing: -0.01em;
+	font-size: var(--text-sm);
 }
 
 .offerStatus {
-	font-size: var(--text-sm);
+	font-size: var(--text-base);
 }
 
 .offerStatus[data-tone="good"] {
@@ -289,16 +319,15 @@
 }
 
 .offerAmount {
-	font-family: var(--font-display);
 	font-size: var(--text-lg);
 	font-weight: 600;
 	font-variant-numeric: tabular-nums;
-	letter-spacing: 0.01em;
+	letter-spacing: -0.015em;
 }
 
 .offerMrp {
 	color: var(--ink-3);
-	font-size: var(--text-xs);
+	font-size: var(--text-sm);
 	font-variant-numeric: tabular-nums;
 }
 
@@ -312,32 +341,27 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	gap: 6px;
-	min-height: 44px;
-	padding: 0 20px;
-	border-radius: var(--radius-pill);
+	gap: var(--space-2);
+	height: var(--control);
+	padding: 0 var(--space-4);
+	border-radius: var(--radius);
 	text-decoration: none;
-	font-size: var(--text-sm);
+	font-size: var(--text-base);
+	font-weight: 500;
 	white-space: nowrap;
 	transition:
 		background var(--speed) var(--ease),
-		color var(--speed) var(--ease),
-		transform 120ms var(--ease);
-}
-
-.storeButton:active,
-.storeButtonPrimary:active {
-	transform: scale(0.98);
+		border-color var(--speed) var(--ease);
 }
 
 .storeButton {
-	border: 1px solid var(--accent);
-	color: var(--link);
+	border: 1px solid var(--line-strong);
+	background: var(--surface);
+	color: var(--ink);
 }
 
 .storeButton:hover {
-	background: var(--accent);
-	color: var(--on-accent);
+	border-color: var(--ink-3);
 }
 
 .storeButtonPrimary {
@@ -349,53 +373,59 @@
 	background: var(--accent-hover);
 }
 
-/* Specs: Apple's tech-specs layout, group name on the left, fields on the right. */
+.storeButton:focus-visible,
+.storeButtonPrimary:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: 2px;
+}
+
+/* Specs: group name on the left, fields on the right, groups divided by hairlines. */
 .specGroups {
 	display: grid;
+	border-top: 1px solid var(--line-strong);
 }
 
 .specGroup {
 	display: grid;
-	grid-template-columns: 240px minmax(0, 1fr);
-	gap: 16px 40px;
-	padding: 28px 0 20px;
-	border-top: 1px solid var(--line-strong);
+	grid-template-columns: 220px minmax(0, 1fr);
+	gap: var(--space-4) var(--space-8);
+	padding: var(--space-6) 0 var(--space-2);
+	border-bottom: 1px solid var(--line);
 }
 
 .specGroupHead {
 	display: grid;
-	gap: 4px;
+	gap: 2px;
 	align-content: start;
 }
 
 .specGroupHead h3 {
-	font-size: var(--text-lg);
-	letter-spacing: 0.01em;
-	line-height: 1.2;
+	font-size: var(--text-md);
+	font-weight: 600;
+	letter-spacing: -0.01em;
 }
 
 .specGroupHead span {
 	color: var(--ink-3);
-	font-size: var(--text-xs);
+	font-size: var(--text-sm);
 }
 
 .specGroup dl {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 0 40px;
+	gap: 0 var(--space-8);
 }
 
 .specRow {
 	display: grid;
 	gap: 2px;
 	align-content: start;
-	padding: 0 0 20px;
+	padding-bottom: var(--space-4);
 }
 
 .specRow dt {
 	color: var(--ink-3);
-	font-size: var(--text-xs);
-	letter-spacing: -0.01em;
+	font-size: var(--text-sm);
 }
 
 .specRow dd {
@@ -405,8 +435,15 @@
 }
 
 .specValue {
-	font-weight: 600;
+	font-size: var(--text-base);
+	font-weight: 500;
 	overflow-wrap: anywhere;
+}
+
+/* Fields and whole groups no store states stay hidden until "Show missing specs" is on. */
+.specGroups:not([data-all]) .specRow[data-unstated],
+.specGroups:not([data-all]) .specGroup[data-empty] {
+	display: none;
 }
 
 .specRow[data-unstated] .specValue {
@@ -416,7 +453,7 @@
 
 .source {
 	color: var(--ink-3);
-	font-size: 0.75rem;
+	font-size: var(--text-xs);
 	line-height: 1.4;
 	overflow-wrap: anywhere;
 }
@@ -424,7 +461,7 @@
 @keyframes rise {
 	from {
 		opacity: 0;
-		transform: translateY(16px);
+		transform: translateY(8px);
 	}
 }
 
@@ -434,25 +471,34 @@
 	}
 }
 
+@media (max-width: 1023px) {
+	.page {
+		padding-left: var(--space-4);
+		padding-right: var(--space-4);
+	}
+}
+
 @media (max-width: 899px) {
 	.page {
-		gap: 48px;
+		gap: var(--space-8);
 	}
 
 	.top {
 		grid-template-columns: minmax(0, 1fr);
-		gap: 24px;
+		gap: var(--space-6);
 	}
 
 	.back + .top {
-		margin-top: -32px;
+		margin-top: calc(var(--space-2) - var(--space-8));
 	}
 
 	.title,
-	.bigPrice,
-	.sectionTitle {
+	.bigPrice {
 		font-size: var(--text-xl);
-		line-height: 1.14;
+	}
+
+	.sectionTitle {
+		font-size: var(--text-lg);
 	}
 
 	.offer {
@@ -479,18 +525,13 @@
 }
 
 @media (max-width: 639px) {
-	.page {
-		padding: 8px 16px 16px;
-	}
-
 	.stage {
-		padding: 16px;
-		border-radius: var(--radius-lg);
+		padding: var(--space-4);
 	}
 
-	.priceBox {
-		padding: 20px;
-		border-radius: var(--radius-lg);
+	.priceBox,
+	.keySpecs {
+		padding: var(--space-4);
 	}
 
 	.priceBox :global(.button-primary) {
@@ -498,11 +539,30 @@
 	}
 
 	.offers {
-		padding: 4px 20px;
-		border-radius: var(--radius-lg);
+		padding: 0 var(--space-4);
 	}
 
 	.specGroup dl {
 		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.keySpecs {
+		gap: var(--space-3) var(--space-4);
+	}
+
+	.specSwitch {
+		min-width: 0;
+		width: 100%;
+	}
+}
+
+@media (pointer: coarse) {
+	.back {
+		height: 44px;
+	}
+
+	.storeButton,
+	.storeButtonPrimary {
+		height: 44px;
 	}
 }

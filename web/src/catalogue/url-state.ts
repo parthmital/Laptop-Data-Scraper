@@ -76,3 +76,13 @@ export function toHref(params: URLSearchParams, pathname = "/"): string {
 	const qs = params.toString();
 	return qs ? `${pathname}?${qs}` : pathname;
 }
+
+/** First, last and the pages either side of the current one; null marks a gap. */
+export function pageList(page: number, pageCount: number): (number | null)[] {
+	const pages: (number | null)[] = [];
+	for (let p = 1; p <= pageCount; p++) {
+		if (p === 1 || p === pageCount || Math.abs(p - page) <= 1) pages.push(p);
+		else if (pages.at(-1) !== null) pages.push(null);
+	}
+	return pages;
+}

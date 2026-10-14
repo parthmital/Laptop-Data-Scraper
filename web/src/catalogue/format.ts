@@ -15,6 +15,13 @@ const number = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 2 });
 export const formatInr = (amount: number) => inr.format(amount);
 export const formatNumber = (n: number) => number.format(n);
 
+/** Rupees in the short Indian form for tight labels: ₹50K, ₹1.2L. */
+export function formatInrShort(amount: number): string {
+	if (amount >= 100_000) return `₹${formatNumber(amount / 100_000)}L`;
+	if (amount >= 1000) return `₹${formatNumber(amount / 1000)}K`;
+	return formatInr(amount);
+}
+
 export function formatAge(iso: string, now = Date.now()): string {
 	const hours = Math.max(0, (now - Date.parse(iso)) / 3_600_000);
 	if (hours < 1) return "less than an hour ago";

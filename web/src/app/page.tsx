@@ -25,20 +25,32 @@ export default async function BrowsePage({
 	const result = browse(laptops, parseState(params));
 	const filtered = result.total !== result.catalogueSize;
 
-	const stores = new Set(laptops.flatMap((l) => l.offers.map((o) => o.site)))
-		.size;
+	const stores = [
+		...new Set(laptops.flatMap((l) => l.offers.map((o) => o.storeName))),
+	];
+	const storeList = new Intl.ListFormat("en-IN", {
+		type: "conjunction",
+	}).format(stores);
 
 	return (
 		<FilterNavigation>
 			<div className={styles.layout}>
-				<aside className={styles.sidebar} aria-label="Filters">
+				<aside
+					className={`${styles.sidebar} quiet-scroll`}
+					aria-label="Filters"
+				>
 					<FilterPanel
 						facets={result.facets}
 						catalogueSize={result.catalogueSize}
 					/>
 				</aside>
 				<main className={styles.results}>
-					<h1 className={styles.heading}>Laptops</h1>
+					<div className={styles.intro}>
+						<h1 className={styles.heading}>Compare laptop prices</h1>
+						<p className={styles.lede}>
+							Prices from {storeList}, side by side.
+						</p>
+					</div>
 					<div className={styles.searchRow}>
 						<SearchBox />
 						<span className={styles.mobileOnly}>
@@ -48,16 +60,16 @@ export default async function BrowsePage({
 								total={result.total}
 							/>
 						</span>
+						<SortMenu />
 					</div>
 					<div className={styles.toolbar}>
 						<p className={styles.countLine} role="status">
 							{filtered
 								? `${result.total} of ${result.catalogueSize} laptops match`
-								: `${result.catalogueSize} laptops from ${stores} stores`}
+								: `${result.catalogueSize} laptops`}
 						</p>
-						<SortMenu />
+						<ActiveFilters facets={result.facets} />
 					</div>
-					<ActiveFilters facets={result.facets} />
 					{result.laptops.length ? (
 						<div className={styles.list}>
 							{result.laptops.map((laptop, i) => (

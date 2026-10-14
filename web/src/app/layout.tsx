@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Inter } from "next/font/google";
+import Link from "next/link";
 
 import "./globals.css";
 import styles from "./layout.module.css";
@@ -45,6 +46,28 @@ export default function RootLayout({
 				<a className={styles.skip} href="#main">
 					Skip to content
 				</a>
+				<header className={styles.header}>
+					<div className={styles.headerInner}>
+						<Link href="/" className={styles.brand}>
+							<svg viewBox="0 0 32 32" width="24" height="24" aria-hidden>
+								<rect width="32" height="32" rx="7" fill="#15171c" />
+								<path
+									d="M8 10h16v10H8z"
+									fill="none"
+									stroke="#fff"
+									strokeWidth="2"
+								/>
+								<path
+									d="M5 23h22"
+									stroke="#7fd3a5"
+									strokeWidth="2.5"
+									strokeLinecap="round"
+								/>
+							</svg>
+							Laptop Ledger
+						</Link>
+					</div>
+				</header>
 				<div id="main">{children}</div>
 				<footer className={styles.footer}>
 					<p className={styles.footerText}>

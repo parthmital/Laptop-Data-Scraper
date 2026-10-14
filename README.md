@@ -132,20 +132,27 @@ Common errors:
   rate, panel, brightness, colour gamut, touchscreen; battery capacity and cells, weight, thickness, charger, cooling;
   Wi-Fi, backlit keyboard, operating system, Microsoft Office. Filters for specs no listing states are hidden
   (processor power limit and cooling with the current data, leaving 40).
-- **Spec coverage.** Each filter shows how many laptops state that spec. Laptops that do not state a filtered spec are
-  excluded unless "Include laptops that don't state a filtered spec" is on.
-- **Expand all / Collapse all** in the filter panel head, which stays in view while the filters scroll.
+- **Budget presets.** One-click price ranges labelled in short Indian form (Under ₹50K, ₹50K – ₹80K, ₹80K – ₹1.2L,
+  Over ₹1.2L) above the price slider and typed fields.
+- **Spec coverage.** Filters whose spec fewer than 90% of laptops state say how many do. Laptops that do not state a filtered spec are
+  excluded unless "Include laptops with missing specs" (at the end of the filter panel) is on.
+- **Expand all / Collapse all** and **Clear filters** in the filter panel head, which stays in view while the filters
+  scroll.
 - **Counts per option** that assume the option's own filter is off, so users see what another choice would add.
+- **Scannable results.** Each card lists the key specs (processor, memory, storage, graphics, display, weight) as
+  labelled values, the price with MRP and discount, and the store with the lowest price. Numbered pages below.
 - **Search** over names, model and part numbers, processors, GPUs and store titles (hyphens ignored).
 - **Sorting** by lowest or highest price, biggest discount, lightest, largest battery, most stores; laptops that can
   be bought now come first.
-- **Spec sheet with provenance.** All 42 fields, "Not stated" for gaps, and for each value the spec-table key, page
-  data or extraction model it came from, per store.
+- **Laptop page.** Price and store button with the key specs beside the photos, then "Where to buy" with every
+  store's offer.
+- **Spec sheet with provenance.** The stated fields, with the spec-table key, page data or extraction model each
+  value came from, per store. A "Show N missing specs" switch reveals the remaining fields of the 42 as "Not stated".
 - **Unconfirmed matches.** Laptops the pipeline queued in `match_candidates` link to each other with the reason.
 - Shareable URLs: every filter, search, sort and page is a query parameter.
-- Light and dark themes follow the system setting. The visual design follows Apple's product pages (palette, type
-  scale, pill buttons, 18 to 28 px tiles), with tokens extracted by
-  [designlang](https://github.com/Manavarya09/design-extract).
+- Light and dark themes follow the system setting. Colours and fonts come from Apple's product pages (extracted by
+  [designlang](https://github.com/Manavarya09/design-extract)); sizes, radii and spacing follow one compact token
+  system for a dense tool. See [DESIGN.md](DESIGN.md).
 - Accessories the pipeline picked up (a webcam and a speaker in the current database) are excluded: a laptop must
   state a processor, RAM or storage.
 
@@ -749,10 +756,10 @@ average (minimum 1, maximum 34). The fixture pass in the same command extracted 
 
 These checks test the deterministic code, not the LLM.
 
-The web app is checked with `npm run check` (Prettier, ESLint, TypeScript, 47 Vitest tests, production build). On
-2026-10-11 it was also run with `npm run dev` on Windows 11 and driven in headless Chrome at 360, 820 and 1440 px:
-no console errors or horizontal scrolling, and filter, range, sort, search, chip, drawer and laptop page flows
-behaved as expected.
+The web app is checked with `npm run check` (Prettier, ESLint, TypeScript, 56 Vitest tests, production build). On
+2026-10-14 it was also run with `npm run dev` on Windows 11 and driven in headless Chrome at 320, 390, 820, 1440 and
+1920 px in light and dark themes: no console errors or horizontal scrolling, and budget preset, drawer, chip,
+search, empty state, pagination and laptop page flows behaved as expected.
 
 ## Troubleshooting
 

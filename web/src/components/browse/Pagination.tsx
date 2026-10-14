@@ -2,7 +2,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 import type { SearchParamsRecord } from "@/catalogue/filters";
-import { toHref, withPage } from "@/catalogue/url-state";
+import { pageList, toHref, withPage } from "@/catalogue/url-state";
 
 import styles from "./browse.module.css";
 
@@ -26,28 +26,38 @@ export function Pagination({
 }) {
 	if (pageCount <= 1) return null;
 	const params = toParams(searchParams);
+	const href = (p: number) => toHref(withPage(params, p));
 	return (
 		<nav className={styles.pagination} aria-label="Pages">
 			{page > 1 ? (
-				<Link
-					className={styles.pageLink}
-					href={toHref(withPage(params, page - 1))}
-					rel="prev"
-				>
+				<Link className={styles.pageLink} href={href(page - 1)} rel="prev">
 					<ChevronLeft size={16} aria-hidden /> Previous
 				</Link>
 			) : (
 				<span />
 			)}
-			<span className={styles.pageInfo}>
-				Page {page} of {pageCount}
-			</span>
+			<ol className={styles.pageNumbers}>
+				{pageList(page, pageCount).map((p, i) =>
+					p == null ? (
+						<li key={`gap${i}`} className={styles.pageGap} aria-hidden>
+							…
+						</li>
+					) : (
+						<li key={p}>
+							<Link
+								className={styles.pageNumber}
+								href={href(p)}
+								aria-label={`Page ${p}`}
+								aria-current={p === page ? "page" : undefined}
+							>
+								{p}
+							</Link>
+						</li>
+					),
+				)}
+			</ol>
 			{page < pageCount ? (
-				<Link
-					className={styles.pageLink}
-					href={toHref(withPage(params, page + 1))}
-					rel="next"
-				>
+				<Link className={styles.pageLink} href={href(page + 1)} rel="next">
 					Next <ChevronRight size={16} aria-hidden />
 				</Link>
 			) : (
