@@ -77,6 +77,9 @@ Dependency rules:
   to build. It needs Node.js 22.13 or newer (pinned in `.nvmrc` and `engines`).
 - **Whole catalogue in memory.** The pipeline adds at most 30 new product URLs per site per run, so the catalogue
   grows slowly (105 laptops after the last run). Filtering in memory avoids an index per filter and keeps facet counts exact.
+  Measured on 2026-10-15 (production build, one process, Intel Core i7-9750H): about 53 requests a second at 105
+  laptops and 13 to 15 at a synthetic 3,150 laptops (p50 76 ms with one request at a time), using
+  `scripts/bench-web.mjs` and `scripts/scale-catalogue-db.mjs`.
 - **npm workspaces.** One root lockfile; the root scripts delegate to `web/`.
 - **One launcher.** `npm run dev` runs `scripts/dev.mjs`, which installs on the first run or when the lockfile
   changes, checks the port, starts `next dev` and opens the browser.
@@ -96,3 +99,8 @@ Dependency rules:
 - Several pipeline runs a day: replace the time-based cache with a signal from the pipeline (for example the latest
   `scrape_runs.finished_at`).
 - A second consumer of the database: move the reading code into its own package with the schema types.
+- Public deployment behind a CDN: pages are sent with `Cache-Control: private, no-cache, no-store`; cache them at the
+  CDN with a rule that bypasses Next.js navigation (`RSC`) requests.
+
+The proposed production architecture around this app (scheduled pipeline, publishing, backups, monitoring) is in
+[PROPOSAL.md](PROPOSAL.md) and [docs/OPERATIONS.md](docs/OPERATIONS.md).

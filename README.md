@@ -12,6 +12,10 @@ A Next.js web app in [`web/`](web/) (Laptop Ledger) reads that database and pres
 every store's price for a laptop side by side, 42 laptop-specific filters, and a spec sheet that shows where
 each value came from. See [Web app](#web-app).
 
+The repository is a prototype and proof of concept for the laptop section of [PickPCParts](https://pickpcparts.in), a
+community-run Indian PC parts comparison site. [PROPOSAL.md](PROPOSAL.md) describes how it could become a largely
+self-operating, low-cost service for them; see [Proposal for PickPCParts](#proposal-for-pickpcparts).
+
 Status:
 
 - The current version (42 fields, three sources, rules, freshness, monitoring) ran end to end on Kaggle GPU T4 x2 on
@@ -26,8 +30,29 @@ Status:
 - The web app runs locally against the committed database (`npm run dev`); its format, lint, type, unit test and
   build checks pass with `npm run check`.
 
+## Screenshots
+
+The Laptop Ledger web app running locally against the committed database (dark theme).
+
+![Browse page with filters, search, sort and price cards](docs/screenshots/browse.png)
+
+_Browse page: 105 laptops with filters and counts per option, budget presets, search and sort. Each card shows the
+key specs, the lowest price with MRP and discount, and the store._
+
+![Laptop page with price, store button and key specs](docs/screenshots/laptop-page.png)
+
+_Laptop page: headline price, MRP, discount, store and how long ago the price was checked, a button to the store, key
+specs and the product gallery. "Where to buy" below lists every store's offer._
+
+![Spec sheet with the source of every value](docs/screenshots/spec-sheet.png)
+
+_Spec sheet: every stated value names its source (a spec-table key, or "Read from the listing text by the extraction
+model") and the store; each group says how many of its fields the stores state._
+
 ## Table of contents
 
+- [Screenshots](#screenshots)
+- [Proposal for PickPCParts](#proposal-for-pickpcparts)
 - [Quick start (Kaggle)](#quick-start-kaggle)
 - [Web app](#web-app)
 - [How it works](#how-it-works)
@@ -45,6 +70,26 @@ Status:
 - [Troubleshooting](#troubleshooting)
 - [Known limitations](#known-limitations)
 - [Research and sources](#research-and-sources)
+
+## Proposal for PickPCParts
+
+The proposal documents separate what this prototype does (verified) from what is proposed, with cost estimates in
+INR and their assumptions:
+
+| Document                                     | Contents                                                                                                                           |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| [PROPOSAL.md](PROPOSAL.md)                   | Constraints, verified prototype capabilities, end-to-end architecture, automation, measured scalability, decisions, roadmap, risks |
+| [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md) | Amazon Creators API, Flipkart Affiliate API, partner feeds, page collection: access, limits, cost, matching                        |
+| [docs/COSTS.md](docs/COSTS.md)               | Monthly cost per deployment option, alternatives compared, affiliate revenue scenarios and break-even                              |
+| [docs/OPERATIONS.md](docs/OPERATIONS.md)     | Server setup templates, Cloudflare caching, scheduled jobs, environment variables, backups, monitoring, security, troubleshooting  |
+
+In short: run on one small server (ideally PickPCParts' existing one) with scheduled jobs, keep SQLite with
+continuous backups to free object storage, cache pages at Cloudflare, prefer partner feeds and marketplace affiliate
+APIs over page collection, and use a hosted small language model only for new listings. Estimated extra cost: about
+Rs 25 to Rs 100 a month on an existing server, or about Rs 700 to Rs 800 with a dedicated one. A check of
+PickPCParts' 65 partner stores (2026-10-15) found 52 on Shopify or WooCommerce with a public product endpoint, so two
+generic collectors could cover them with each store's consent; the per-store table is in
+[docs/DATA_SOURCES.md](docs/DATA_SOURCES.md#partner-stores).
 
 ## Quick start (Kaggle)
 
@@ -167,6 +212,12 @@ Design choices are in [DESIGN.md](DESIGN.md); module layout and rules are in [AR
 
 To show a newer Kaggle run, replace `outputs/db/laptops.sqlite` (or point `LAPTOP_DB_PATH` at the new file). The app
 reloads it within 5 minutes, or at once when the file changes.
+
+Capacity, measured on 2026-10-15 with `scripts/bench-web.mjs` (production build, one Node.js process, Intel Core
+i7-9750H): about 53 requests a second at 105 laptops (p50 19 ms) and about 13 to 15 requests a second with a
+synthetic 3,150-laptop database from `scripts/scale-catalogue-db.mjs`. Full results and the commands are in
+[PROPOSAL.md](PROPOSAL.md#scalability) and [docs/OPERATIONS.md](docs/OPERATIONS.md#capacity-check-on-a-new-server).
+Pages are currently sent with `Cache-Control: private, no-cache, no-store`, so a CDN does not cache them by default.
 
 ### Scripts
 
@@ -306,20 +357,29 @@ No retailer or affiliate API credentials are configured; the code has no API ada
 |   |-- src/catalogue/            Pure logic: specs, normalisation, pricing, filters, URL state, tests
 |   |-- src/components/           ui/ controls, browse/ and laptop/ page pieces
 |   `-- .env.example              LAPTOP_DB_PATH
-|-- scripts/dev.mjs               The `npm run dev` launcher
+|-- scripts/
+|   |-- dev.mjs                   The `npm run dev` launcher
+|   |-- bench-web.mjs             Throughput and latency of a running web app (no dependencies)
+|   `-- scale-catalogue-db.mjs    Builds a synthetic, N-times larger copy of a database for load tests
+|-- docs/
+|   |-- DATA_SOURCES.md           Proposal: retailer, marketplace and partner integrations
+|   |-- COSTS.md                  Proposal: cost model, alternatives, affiliate revenue
+|   |-- OPERATIONS.md             Proposal: deployment, jobs, backups, monitoring, security, runbooks
+|   `-- screenshots/              Web app screenshots used in this README and PROPOSAL.md
 |-- package.json                  npm workspace root and scripts; package-lock.json is the lockfile
 |-- .github/workflows/web.yml     CI: npm ci and npm run check
+|-- PROPOSAL.md                   Proposal for PickPCParts: architecture, automation, scalability, roadmap
 |-- ARCHITECTURE.md               Module map, dependency rules, decisions
 |-- DESIGN.md                     Web app palette, type, layout, components, copy
-|-- RESEARCH.md                   Dated research: model interface, source access, robots.txt and terms
+|-- RESEARCH.md                   Dated research: model interface, source access, hosting, APIs and costs
 |-- README.md                     This file
 `-- .gitignore                    Ignores .venv/, .cache/, .agent-local/, Node and Next.js build output, caches and
                                   debug logs, SQLite journals, *.zip, secrets, editor files and the duplicate
                                   outputs/__notebook__.ipynb
 ```
 
-`.agent-local/` (ignored by Git) holds the helper scripts used to build and test the notebook; see
-[Local checks](#local-checks).
+`.agent-local/` (ignored by Git) held the helper scripts used to build and test the notebook. They are not in the
+repository; see [Local checks](#local-checks).
 
 ## Canonical laptop schema
 
@@ -426,6 +486,9 @@ The deployment target is Kaggle. Each run is a batch, not a real-time feed:
    stale.
 
 Runs can also be started with the official Kaggle CLI (`kaggle kernels push`); that path was not tested here.
+
+A scheduled, server-based deployment for production use is proposed (not implemented) in
+[docs/OPERATIONS.md](docs/OPERATIONS.md).
 
 ## Evaluation
 
@@ -718,7 +781,10 @@ Outputs quoted from run `20261009T192530Z`, as saved in the notebook.
 ## Local checks
 
 The notebook is never executed locally. These checks were run while building it (Python 3.11, repo-local `.venv` with
-`nbformat`, `black` and `pyflakes`):
+`nbformat`, `black` and `pyflakes`). The helper scripts they call (`build_notebook.py`, `notebook_source.py`,
+`test_pure_cells.py`) lived in the Git-ignored `.agent-local/scripts/` folder and are **not committed**, so a fresh
+clone cannot run the commands below; their recorded results are kept here as evidence. Committing a pipeline test
+harness is Roadmap item 1.1 in [PROPOSAL.md](PROPOSAL.md#roadmap).
 
 The committed notebook carries the Kaggle run's outputs. Rebuilding it from the percent-format source writes a
 notebook without outputs, so rebuild only when the code changes, and replace it with the next run's download.
@@ -783,6 +849,8 @@ search, empty state, pagination and laptop page flows behaved as expected.
   - Two retailers and one manufacturer store. Most large Indian sellers and manufacturers forbid automated access or
     sit behind bot walls, and no API credentials are configured.
   - Vijay Sales pages carry no server-rendered spec table, so several fields are `null` there.
+  - The sources were chosen for personal, non-commercial use. A site that earns affiliate revenue needs feeds, APIs or
+    the stores' permission instead; see [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 - **Power limits and benchmarks.** No current source states CPU TDP or GPU TGP for these listings, so
   `power_limits_known` is usually 0. No permitted benchmark or thermal source was found.
 - **Freshness.** Batch runs, not real time.
@@ -821,4 +889,5 @@ The notebook's final section lists the pipeline limitations with next steps.
 [RESEARCH.md](RESEARCH.md) records, with dates and sources:
 
 - the verified model interface (files from the Hugging Face repository);
-- the access review of every candidate source: robots.txt, terms quotes, where page data lives, and the decision.
+- the access review of every candidate source: robots.txt, terms quotes, where page data lives, and the decision;
+- hosting, API and pricing research for a PickPCParts deployment (2026-10-15), used by the proposal documents.
